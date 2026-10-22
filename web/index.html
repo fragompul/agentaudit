@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentAudit playground</title>
+<meta name="description" content="Upload agent trajectories and see confidence intervals, variance decomposition, ranking uncertainty and a power planner. Runs the real Python library in your browser.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>AgentAudit <span>playground</span></h1>
+  <p>Statistically rigorous agent evaluation, running the <b>real Python library</b> in your browser (Pyodide). Nothing is uploaded anywhere.</p>
+  <nav><a href="docs/">Docs</a> · <a href="https://github.com/fragompul/agentaudit">GitHub</a></nav>
+</header>
+<main>
+  <section id="input">
+    <h2>1. Load trajectories</h2>
+    <p class="mut">JSONL, one attempt per line: <code>{"model","task_id","run","seed","success"}</code> (extra fields allowed).</p>
+    <div class="row">
+      <label>Example
+        <select id="example">
+          <option value="taubench_retail">tau-bench retail: gpt-4o vs claude-3.5-sonnet (public, 4 trials)</option>
+          <option value="taubench_airline">tau-bench airline: gpt-4o vs claude-3.5-sonnet (public, 4 trials)</option>
+          <option value="synthetic">Synthetic: four agents of known skill</option>
+        </select>
+      </label>
+      <button id="load-example" type="button">Load example</button>
+      <label class="file">…or upload <input id="file" type="file" accept=".jsonl,.json,.txt"></label>
+    </div>
+    <textarea id="data" rows="6" spellcheck="false" placeholder="paste JSONL here"></textarea>
+    <div class="row">
+      <label>Level <select id="level"><option>0.95</option><option>0.90</option><option>0.99</option></select></label>
+      <label>Bootstrap <select id="nboot"><option>1000</option><option selected>1500</option><option>4000</option></select></label>
+      <button id="analyze" type="button" disabled>Analyze</button>
+      <span id="status" class="mut">Loading Python…</span>
+    </div>
+  </section>
+  <section id="output" hidden>
+    <h2>2. Report</h2>
+    <iframe id="report" title="AgentAudit report"></iframe>
+  </section>
+  <section id="power">
+    <h2>3. Power planner</h2>
+    <p class="mut">How many tasks and runs per task do you need to detect a difference? Variances are filled in from your data after analysis.</p>
+    <div class="grid">
+      <label>Target difference<input id="p-delta" type="number" step="0.01" value="0.05"></label>
+      <label>Task-level variance s<sub>t</sub><input id="p-tv" type="number" step="0.01" value="0.10"></label>
+      <label>Run variance s<sub>e</sub><input id="p-rv" type="number" step="0.01" value="0.15"></label>
+      <label>Cost of a new task<input id="p-ct" type="number" step="1" value="0"></label>
+      <label>Cost of one run<input id="p-cr" type="number" step="1" value="1"></label>
+      <label>Power<input id="p-pw" type="number" step="0.05" value="0.8"></label>
+    </div>
+    <div id="power-out"></div>
+  </section>
+</main>
+<footer>MIT licensed · <a href="https://github.com/fragompul/agentaudit">fragompul/agentaudit</a></footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
