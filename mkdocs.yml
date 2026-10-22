@@ -1,0 +1,38 @@
+site_name: AgentAudit
+site_description: Statistically rigorous evaluation of LLM agents.
+site_url: https://fragompul.github.io/agentaudit/docs/
+repo_url: https://github.com/fragompul/agentaudit
+repo_name: fragompul/agentaudit
+docs_dir: docs
+strict: true
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle: {icon: material/weather-night, name: Dark mode}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle: {icon: material/weather-sunny, name: Light mode}
+  features: [navigation.sections, content.code.copy, search.highlight]
+markdown_extensions:
+  - admonition
+  - tables
+  - toc: {permalink: true}
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex: {generic: true}
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Mathematics: math.md
+  - Benchmark: benchmark.md
+  - Extending: extending.md
+  - Architecture: architecture.md
+  - Reproducing: reproducing.md
+  - Results: results.md
+  - Limitations: limitations.md
