@@ -1,0 +1,38 @@
+\section{Mathematical details}\label{app:ems}
+For balanced data with $M$ agents, $T$ tasks and $R$ runs, the expected mean squares of the crossed model are
+\begin{align*}
+E[MS_m]&=\sigma^2_e+R\sigma^2_{mt}+TR\sigma^2_m, & E[MS_t]&=\sigma^2_e+R\sigma^2_{mt}+MR\sigma^2_t,\\
+E[MS_{mt}]&=\sigma^2_e+R\sigma^2_{mt}, & E[MS_e]&=\sigma^2_e,
+\end{align*}
+and the estimators solve these for the components, truncating negative values at zero (the raw values are retained). With $R=1$ the interaction and error are confounded; the library flags this. For one agent, the one-way model gives $\hat\sigma^2_t=(MS_b-MS_w)/R$ and $\hat\sigma^2_e=MS_w$, which equals the REML estimate for balanced data (verified against statsmodels in the test suite).
+
+\paragraph{Unbiasedness of pass$^k$.} If $C\sim\mathrm{Bin}(n,p)$ then $E\binom{C}{k}=\binom{n}{k}p^k$, so $\binom{C}{k}/\binom{n}{k}$ is unbiased for $p^k$; similarly $E\binom{n-C}{k}=\binom{n}{k}(1-p)^k$.
+
+\paragraph{Pooled design effect.} Writing $\bar Y=\frac1T\sum_t \hat p_t$ with $\hat p_t\mid p_t\sim\mathrm{Bin}(R,p_t)/R$, the law of total variance gives $\mathrm{Var}(\bar Y)=\tau^2/T+E[p_t(1-p_t)]/(TR)$ and $E[p_t(1-p_t)]=p(1-p)-\tau^2$.
+
+\paragraph{Optimal runs.} Minimising $(s_t+s_e/R)(c_\text{task}+Rc_\text{run})$ over $R>0$ gives $R^\star=\sqrt{s_ec_\text{task}/(s_tc_\text{run})}$; the planner evaluates the two neighbouring integers.
+
+\section{Tool-protocol defect observed in Ollama}\label{app:ollama}
+With Ollama 0.40.8 (macOS, Apple silicon), the native \texttt{/api/chat} tool-calling interface returned an empty message (no content, no tool calls) for \texttt{qwen2.5:3b} on a file-creation task when eight tools were declared, although the raw generation obtained from the \texttt{/api/generate} endpoint with the model's own template contained a well-formed \texttt{<tool\_call>} block. The failure was deterministic across seeds and temperatures; it disappeared with a single declared tool or without a system message. Because of this, all experiments use the uniform text protocol of Section~\ref{sec:bench}. The observation is about one server version, not about the model.
+
+\section{Prompts}\label{app:prompts}
+\paragraph{System prompt.}
+{\small\verbatiminput{generated/system_prompt.txt}}
+\paragraph{Tool section appended to the system prompt.}
+{\small\verbatiminput{generated/tools_prompt.txt}}
+
+\section{Full coverage table}\label{app:tables}
+\begin{table}[h]
+\centering\small
+\caption{Coverage (\%) of nominal 95\% intervals for the benchmark score; wilson, CP: pooled binomial intervals; the rest respect the task structure. $T$: tasks, $R$: runs per task.}
+\input{generated/tab_coverage.tex}
+\end{table}
+\IfFileExists{generated/tab_appendix_real.tex}{\input{generated/tab_appendix_real.tex}}{}
+
+\section{Reproducibility checklist}
+\begin{itemize}
+\item Code, benchmark generator, configs and all scripts: \url{https://github.com/fragompul/agentaudit}; \texttt{make reproduce} regenerates simulation results, re-analyses and figures; every number in this paper is produced by \texttt{scripts/make\_paper\_assets.py} from \texttt{results/}.
+\item Seeds are fixed in every script; model tags and quantisations are in \texttt{configs/models.json}; the test suite runs without network access (coverage above 90\%, \texttt{mypy --strict}).
+\item Raw trajectories and the record/replay caches are released as release assets (they are not stored in git).
+\item Compute: a single Apple M5 laptop with 16\,GB unified memory; no cloud, no paid API.
+\end{itemize}

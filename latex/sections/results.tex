@@ -1,0 +1,46 @@
+\section{Results}\label{sec:results}
+\subsection{Simulation: validating the statistics}\label{sec:sim}
+\paragraph{Interval coverage.} Figure~\ref{fig:coverage} shows coverage of nominal 95\% intervals for the benchmark score. With one run per task the pooled binomial intervals are fine (they are exact in that case). With three runs they cover \covWilsonThreeRuns{} of the time and with ten runs only \covWilsonTenRuns{} (100 tasks), as predicted by the design effect. A runs-only bootstrap is worse (\covRunsTenRuns). The task bootstrap, its BCa variant and the hierarchical beta-binomial interval stay close to nominal (task bootstrap: \covBootTenRuns{} at ten runs; BCa \covBCaTenRuns; beta-binomial \covBBTenRuns), and the two-stage bootstrap is slightly conservative (\covTwoTenRuns). Coverage of the task bootstrap for pass$^k$ ranges between \covPassKMin{} and \covPassKMax{}, lower at 20 tasks, where the percentile bootstrap is known to be optimistic. Full numbers are in Appendix~\ref{app:tables}.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/coverage.pdf}
+\caption{Coverage of nominal 95\% intervals for the benchmark score as runs per task grow ($\sigma_b=1.5$, interaction sd $0.5$, true score $\approx 0.43$). Pooling all attempts breaks down already at three runs.}\label{fig:coverage}
+\end{figure}
+
+\paragraph{Error rates of paired tests.} With agent-by-task interaction sd $=1$ and ten runs per task, pooled tests that treat each run as an independent pair reject a true null in \typeIPoolZ{} (two-proportion $z$-test) and \typeIPoolMc{} (run-level McNemar) of simulations, whereas the task-level sign-flip and bootstrap tests reject in \typeIPerm{} and \typeIBoot{} (Figure~\ref{fig:typeI}). With smaller interaction (sd $0.5$) the run-level McNemar test is still liberal (\typeIPoolMcLow). The pooled $z$-test is not always anti-conservative (it ignores pairing and is conservative at small $R$), which is why the harm of pooling is not a simple inflation but a loss of validity.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/typeI.pdf}
+\caption{Type-I error at $\alpha=0.05$ for $T=100$ tasks and two agents of equal skill.}\label{fig:typeI}
+\end{figure}
+
+\paragraph{Tasks or repeats?} At a fixed budget of \designBudget{} attempts the standard error of the score difference grows by a factor of \designSEratio{} between one and twenty runs per task, and power drops from \designPowerOne{} to \designPowerTen{} (ten runs) and \designPowerTwenty{} (twenty runs) (Figure~\ref{fig:design}). The analytic variance model of Section~\ref{sec:power} predicts the simulated standard errors to within \designMaxSEgap{} across all budgets. Repeats are not useless: they identify run noise and enable reliability metrics, but for \emph{ranking} agents on a fixed attempt budget, tasks are worth more.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/design.pdf}
+\caption{Fixed budget $B=1200$ attempts, $T=B/R$ tasks. Left: standard error of the difference between two agents; right: power of the paired $t$-test.}\label{fig:design}
+\end{figure}
+
+\paragraph{Sequential evaluation.} Applying a fixed-sample test after every task (``peeking'') and stopping at the first $p<0.05$ gives \seqNullPeek{} false positives under the null, against \seqNullSeq{} for the confidence sequence and \seqNullFixed{} for the fixed-$n$ test (Figure~\ref{fig:seq}). The price is power: with a true difference of \seqMidDiff{} points the confidence sequence decides in \seqPowerSeqMid{} of runs against \seqPowerFixedMid{} for the fixed-$n$ test at the full budget of \seqBudget{} tasks. When the effect is large it stops early (median \seqLargeMedianTasks{} tasks for the largest difference). Confidence sequences thus buy the right to stop at any time; they do not make evaluation cheaper at a given power.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/sequential.pdf}
+\caption{Sequential comparison, $R=3$ runs per task. Left: fraction declared significant (the line marks 5\%). Right: median number of tasks used when the sequence stops.}\label{fig:seq}
+\end{figure}
+
+\paragraph{Ranking uncertainty.} Bootstrap rank intervals are conservative for the population ranking (coverage \rankCovMin--\rankCovMax{} for nominal 95\%), and $P(\mathrm{best})$ is reasonably calibrated, noisily at $T=50$ (Figure~\ref{fig:rankcal}).
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/ranking_calibration.pdf}
+\caption{Six agents of known skill. Left: calibration of bootstrap $P(\mathrm{best})$. Right: coverage of the 95\% rank interval.}\label{fig:rankcal}
+\end{figure}
+
+\subsection{Re-analysis of public results}\label{sec:public}
+\paragraph{SWE-bench Verified.} The \sweNAgents{} submissions yield \sweNPairs{} agent pairs. After Holm adjustment \sweFracHolm{} are distinguishable at $\alpha=0.05$ (\sweFracBH{} with Benjamini--Hochberg; \sweFracRaw{} without any correction), so \sweIndistHolm{} cannot be separated. The result is driven by the score gap (Figure~\ref{fig:swe}): pairs less than five points apart are essentially never separable after correction (\sweGapSmallHolm{} for gaps of 2--5 points), pairs 5--10 points apart are separable in \sweGapMidHolm{} of cases, and gaps above 10 points are separable almost always. The smallest distinguishable gap is \sweMinGap{} points and the median is \sweMedGap. Among the \sweAdjN{} \emph{adjacent} leaderboard positions, \sweAdjHolm{} are distinguishable after Holm over those comparisons (\sweAdjRaw{} unadjusted). The top submission (\sweTopScore) has a 95\% rank interval of 1--\sweTopRankHi{} and probability \sweTopPBest{} of being best.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/swebench.pdf}
+\caption{SWE-bench Verified, \sweNAgents{} public submissions. Left: fraction of pairs distinguishable by score gap. Right: top-10 scores with 95\% bootstrap rank intervals.}\label{fig:swe}
+\end{figure}
+
+\paragraph{Tau-bench.} For gpt-4o versus claude-3.5-sonnet with four trials per task, the retail gap is \tauRetailDiff{} points (95\% interval \tauRetailCI), task-level sign-flip $p=\tauRetailPPerm$; the pooled-runs $z$-test gives $p=\tauRetailPPool$. In airline, the gap is \tauAirlineDiff{} points \tauAirlineCI{} with $p=\tauAirlinePPerm$ (pooled $p=\tauAirlinePPool$): not distinguishable with \tauAirlineTasks{} tasks; at the observed effect about \tauAirlineNeed{} tasks would be needed for 80\% power (retail: \tauRetailNeed{}). Variance is dominated by run noise (\tauAirlineRunShare{} airline, \tauRetailRunShare{} retail) and task difficulty (\tauAirlineTaskShare, \tauRetailTaskShare), with agent-by-task interaction of \tauAirlineInterShare{} and \tauRetailInterShare. Figure~\ref{fig:tau} contrasts pass@$k$ with pass$^k$: both models look strong when one success in $k$ suffices and much weaker when all $k$ must succeed.
+\begin{figure}[t]
+\centering\includegraphics[width=\linewidth]{figures/taubench.pdf}
+\caption{tau-bench, four trials per task: pass$^k$ (solid) falls and pass@$k$ (dashed) rises with $k$.}\label{fig:tau}
+\end{figure}
+
+\IfFileExists{sections/real.tex}{\input{sections/real}}{}

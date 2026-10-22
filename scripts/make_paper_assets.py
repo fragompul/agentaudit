@@ -118,7 +118,13 @@ def sim_coverage() -> None:
                 f"{100 * c['bootstrap_tasks']:.1f} & {100 * c['bootstrap_tasks_bca']:.1f} & "
                 f"{100 * c['bootstrap_two_stage']:.1f} & {100 * c['beta_binomial_profile']:.1f} \\\\"
             )
-    (GEN / "tab_coverage.tex").write_text("\n".join(rows) + "\n")
+    head = (
+        "\\begin{tabular}{rrrrrrrr}\n\\toprule\n"
+        "$T$ & $R$ & Wilson & CP & Task boot. & BCa & Two-stage & Beta-bin. \\\\\n\\midrule\n"
+    )
+    (GEN / "tab_coverage.tex").write_text(
+        head + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"
+    )
 
 
 def sim_tests() -> None:
@@ -348,9 +354,30 @@ def taubench() -> None:
         macro(f"tau{dom.capitalize()}InterShare", pct(v["model_task"], 0))
 
 
+def static_assets() -> None:
+    from agentaudit.agents.base import SYSTEM_PROMPT
+    from agentaudit.agents.text_protocol import tools_prompt
+    from agentaudit.bench.suite import core_suite, generate_suite
+    from agentaudit.bench.base import Param, ToolSpec
+
+    tasks = generate_suite(60, 0)
+    macro("Ntasks", str(len(tasks)))
+    macro("Ncore", str(len(core_suite(tasks))))
+    import textwrap
+
+    (GEN / "system_prompt.txt").write_text(textwrap.fill(SYSTEM_PROMPT, 88) + "\n")
+    example = [ToolSpec("TOOL_NAME", "DESCRIPTION", {"ARG": Param("string", "DESCRIPTION")})]
+    wrapped = "\n".join(
+        textwrap.fill(line, 88, subsequent_indent="    ") if line else ""
+        for line in tools_prompt(example).strip().splitlines()
+    )
+    (GEN / "tools_prompt.txt").write_text(wrapped + "\n")
+
+
 def main() -> None:
     FIG.mkdir(parents=True, exist_ok=True)
     GEN.mkdir(parents=True, exist_ok=True)
+    static_assets()
     sim_coverage()
     sim_tests()
     sim_design()

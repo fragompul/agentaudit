@@ -1,0 +1,15 @@
+# Tools
+
+You can call these tools (JSON signatures):
+<tools>
+{"name": "TOOL_NAME", "description": "DESCRIPTION", "parameters": {"type": "object",
+    "properties": {"ARG": {"type": "string", "description": "DESCRIPTION"}}, "required":
+    ["ARG"]}}
+</tools>
+
+To call a tool, reply with exactly one block of this form and nothing else:
+<tool_call>
+{"name": "<tool name>", "arguments": {<arguments as JSON>}}
+</tool_call>
+You will receive the result inside <tool_response></tool_response>. Call one tool at a
+    time.

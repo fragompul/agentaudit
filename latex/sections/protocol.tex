@@ -1,0 +1,6 @@
+\section{Experimental Protocol}\label{sec:protocol}
+\paragraph{Simulation studies.} Synthetic agents follow a logit-normal item-response model, $p_{mt}=\sigma(\theta_m-b_t+g_{mt})$ with $b_t\sim N(0,\sigma_b^2)$ and agent-by-task interaction $g_{mt}\sim N(0,\sigma_g^2)$, and $Y_{mtr}\sim\mathrm{Bernoulli}(p_{mt})$ independently across runs. Population means, pass$^k$ and differences are computed by Gauss--Hermite quadrature, so coverage, error rates and power are measured against exact truth. Coverage cells use \simReps{} replications (Monte Carlo error at most about 1 point); all random streams are seeded and the scripts are in \texttt{scripts/sim\_*.py}.
+
+\paragraph{Public re-analysis.} SWE-bench Verified: per-instance resolved lists of every submission in the public \texttt{swe-bench/experiments} repository that declares at least 50 resolved instances (one run per task, \sweNTasks{} instances), analysed with exact McNemar tests and Holm/Benjamini--Hochberg adjustment. The files do not state evaluation coverage; we assume each submission was evaluated on all 500 instances (Section~\ref{sec:limits}). Tau-bench: the historical trajectories of gpt-4o and claude-3.5-sonnet (4 trials per task) released by the authors under the MIT license. Only derived aggregates are stored in this repository.
+
+\paragraph{Local models.} \REALPROTOCOL
