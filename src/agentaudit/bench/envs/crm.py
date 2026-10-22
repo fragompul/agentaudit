@@ -34,7 +34,8 @@ class CrmEnv(Environment):
         self.register(
             ToolSpec(
                 "search_customers",
-                "Find customers whose name contains the text (case-insensitive).",
+                "Find customers whose name contains the text (case-insensitive, max 25 results). "
+                "An empty text lists all customers.",
                 {"name": Param("string", "Name or part of a name")},
             )
         )
@@ -87,7 +88,7 @@ class CrmEnv(Environment):
         if name == "search_customers":
             q = str(args["name"]).lower()
             hits = [c for c in self.customers.values() if q in str(c["name"]).lower()]
-            return "\n".join(self._fmt(c) for c in hits[:10]) or "(no matches)"
+            return "\n".join(self._fmt(c) for c in hits[:25]) or "(no matches)"
         if name == "get_customer":
             return self._fmt(self._cust(args))
         if name == "update_customer":

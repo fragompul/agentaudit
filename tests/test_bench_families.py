@@ -50,6 +50,7 @@ def test_crm_semantics() -> None:
     )
     assert env.call("search_customers", {"name": "silva"}).count("\n") == 1
     assert env.call("search_customers", {"name": "zzz"}) == "(no matches)"
+    assert env.call("search_customers", {"name": ""}).count("\n") == 1  # empty text lists all
     assert env.call("get_customer", {"customer_id": 9}).startswith("ERROR")
     assert env.call("update_customer", {"customer_id": 1, "field": "x", "value": "y"}).startswith(
         "ERROR"
