@@ -10,6 +10,8 @@ Both estimators below are unbiased for their population counterparts
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
 
@@ -84,3 +86,33 @@ def mean_pass_hat_k(outcomes: ArrayLike, k: int) -> float:
     """Benchmark-level pass^k: mean over tasks of the unbiased per-task estimate."""
     c, n = task_counts(outcomes)
     return float(np.mean(pass_hat_k(c, n, k)))
+
+
+def batch_success(arr: FloatArray) -> FloatArray:
+    """Success rate over the last two axes (``(..., tasks, runs)`` -> ``(...)``)."""
+    out: FloatArray = np.nanmean(arr, axis=(-2, -1))
+    return out
+
+
+def batch_pass_hat_k(k: int) -> Callable[[FloatArray], FloatArray]:
+    """Vectorised benchmark-level pass^k statistic for the bootstrap."""
+
+    def stat(arr: FloatArray) -> FloatArray:
+        n = np.sum(~np.isnan(arr), axis=-1)
+        c = np.nansum(arr, axis=-1)
+        out: FloatArray = np.mean(pass_hat_k(c, n, k), axis=-1)
+        return out
+
+    return stat
+
+
+def batch_pass_at_k(k: int) -> Callable[[FloatArray], FloatArray]:
+    """Vectorised benchmark-level pass@k statistic for the bootstrap."""
+
+    def stat(arr: FloatArray) -> FloatArray:
+        n = np.sum(~np.isnan(arr), axis=-1)
+        c = np.nansum(arr, axis=-1)
+        out: FloatArray = np.mean(pass_at_k(c, n, k), axis=-1)
+        return out
+
+    return stat
