@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+\usepackage[preprint]{tmlr}
+\input{math_commands.tex}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{microtype}
+\usepackage{xcolor}
+\input{generated/macros.tex}
+\newcommand{\REALABSTRACT}{}
+\newcommand{\REALINTRO}{an evaluation of local models}
+\newcommand{\REALFINDINGS}{}
+\newcommand{\REALPROTOCOL}{(to be completed)}
+\newcommand{\REALREFUTED}{(to be completed)}
+\IfFileExists{generated/real_macros.tex}{\input{generated/real_macros.tex}}{}
+
+\title{AgentAudit: How Much of an Agent Leaderboard Is Signal?}
+
+\author{\name Francisco Javier G\'omez Pulido \email fran@aapex.io \\
+      \addr Aapex, Seville, Spain}
+
+\def\month{10}
+\def\year{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Agent leaderboards report one number per system from a single run. We ask how much of that number is signal. We introduce \textsc{AgentAudit}, a framework for statistically rigorous evaluation of LLM agents (unbiased pass@$k$ and pass$^k$, intervals that respect the tasks-by-runs structure, variance decomposition, paired tests with multiplicity control, ranking uncertainty, a power planner and anytime-valid sequential stopping) together with \textsc{AgentAudit-Bench}, an offline, deterministic, state-verified benchmark of 360 procedurally generated tool-use tasks with seeded fault injection. A simulation study with agents of known skill shows that the common shortcut of pooling all runs gives 95\% intervals that cover only \covWilsonTenRuns{} of the time with ten runs per task, and tests that pool runs reject a true null in \typeIPoolMc{} of simulations (nominal 5\%); task-level procedures stay near nominal. At a fixed attempt budget, more tasks beat more repeats. Re-analysing \sweNAgents{} public SWE-bench Verified submissions, \sweIndistHolm{} of agent pairs are statistically indistinguishable after multiplicity correction, and \emph{none} of the \sweAdjN{} adjacent leaderboard positions is distinguishable. On tau-bench, the gap between two frontier models is significant in retail but not in airline. \REALABSTRACT
+\end{abstract}
+
+\input{sections/intro}
+\input{sections/related}
+\input{sections/method}
+\input{sections/bench}
+\input{sections/protocol}
+\input{sections/results}
+\input{sections/discussion}
+
+\bibliography{references}
+\bibliographystyle{tmlr}
+
+\appendix
+\input{sections/appendix}
+\end{document}
