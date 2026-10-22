@@ -45,7 +45,8 @@ def run_attempt(agent: Agent, task: Task, run: int, cfg: RunConfig | None = None
     steps: list[Step] = []
     termination = "step_limit"
     final = ""
-    for i in range(cfg.max_steps):
+    step_budget = max(cfg.max_steps, 2 * task.horizon)  # long-horizon tasks get proportional room
+    for i in range(step_budget):
         t0 = time.perf_counter()
         try:
             action = agent.act(messages, host.tools, seed=seed + i)
@@ -103,7 +104,7 @@ def run_attempt(agent: Agent, task: Task, run: int, cfg: RunConfig | None = None
             "distractors": task.distractors,
             "fault_rate": cfg.fault_rate,
             "faults_injected": len(host.log),
-            "max_steps": cfg.max_steps,
+            "max_steps": step_budget,
         },
     )
 
