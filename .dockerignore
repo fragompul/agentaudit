@@ -1,0 +1,6 @@
+runs/
+data/raw/
+site/
+.venv/
+*.egg-info/
+.git/
