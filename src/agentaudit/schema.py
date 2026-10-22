@@ -178,3 +178,13 @@ def to_resultset(
         if task in ti:
             arr[mi[model], ti[task], run] = value
     return ResultSet(tuple(model_list), tuple(task_list), arr)
+
+
+def from_resultset(results: ResultSet, *, version: str = "") -> Iterator[Trajectory]:
+    """Minimal trajectories (outcome only) for every non-missing cell of a ``ResultSet``."""
+    for mi, model in enumerate(results.models):
+        for ti, task in enumerate(results.tasks):
+            for run in range(results.n_runs):
+                val = results.scores[mi, ti, run]
+                if not np.isnan(val):
+                    yield Trajectory(model, task, run, 0, float(val), version=version)

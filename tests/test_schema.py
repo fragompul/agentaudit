@@ -116,3 +116,14 @@ def test_to_resultset_pivot_and_missing() -> None:
             [Trajectory("a", "x", 0, 0, 1.0), Trajectory("b", "y", 0, 0, 1.0)],
             drop_incomplete_tasks=True,
         )
+
+
+def test_from_resultset_roundtrip() -> None:
+    from agentaudit.schema import from_resultset
+
+    arr = np.array([[[1, 0], [np.nan, 1]], [[0, 0], [1, 1]]])
+    from agentaudit.results import ResultSet
+
+    rs = ResultSet.from_array(arr, ["a", "b"], ["t1", "t2"])
+    back = to_resultset(from_resultset(rs))
+    np.testing.assert_array_equal(back.scores, rs.scores)
