@@ -5,11 +5,19 @@ import pytest
 
 from agentaudit.bench.audit import audit
 from agentaudit.bench.base import Family
+from agentaudit.bench.envs.booking import BookingFamily
 from agentaudit.bench.envs.crm import CrmEnv, CrmFamily
+from agentaudit.bench.envs.forms import FormsEnv, FormsFamily
 from agentaudit.bench.envs.fs import FileSystemFamily
 from agentaudit.bench.envs.sql import SqlFamily
 
-FAMILIES: list[Family] = [FileSystemFamily(), SqlFamily(), CrmFamily()]
+FAMILIES: list[Family] = [
+    FileSystemFamily(),
+    SqlFamily(),
+    CrmFamily(),
+    BookingFamily(),
+    FormsFamily(),
+]
 
 
 @pytest.mark.parametrize("fam", FAMILIES, ids=lambda f: f.name)
@@ -55,3 +63,28 @@ def test_crm_semantics() -> None:
     assert env.call("list_tickets", {"customer_id": 2}) == "(none)"
     assert env.call("close_ticket", {"ticket_id": 101}).startswith("Closed")
     assert env.call("close_ticket", {"ticket_id": 7}).startswith("ERROR")
+
+
+def test_forms_validation() -> None:
+    env = FormsEnv(["visitor-pass", "it-request"])
+    assert env.call("list_forms", {}) == "visitor-pass\nit-request"
+    assert "options=V1/V2/V3" in env.call("get_form", {"form_id": "visitor-pass"})
+    assert env.call("get_form", {"form_id": "nope"}).startswith("ERROR")
+    assert env.call(
+        "set_field", {"form_id": "visitor-pass", "field": "badge_type", "value": "vip"}
+    ).startswith("ERROR")
+    assert env.call(
+        "set_field", {"form_id": "visitor-pass", "field": "zzz", "value": "x"}
+    ).startswith("ERROR")
+    assert env.call("submit_form", {"form_id": "visitor-pass"}).startswith("ERROR: missing")
+    for f, v in {
+        "full_name": "A",
+        "host": "B",
+        "visit_date": "2026-01-02",
+        "badge_type": "V2",
+    }.items():
+        assert (
+            env.call("set_field", {"form_id": "visitor-pass", "field": f, "value": v}) == f"Set {f}"
+        )
+    assert env.call("submit_form", {"form_id": "visitor-pass"}).startswith("Submitted")
+    assert len(env.submissions) == 1
