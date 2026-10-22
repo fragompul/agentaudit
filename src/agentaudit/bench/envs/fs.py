@@ -192,7 +192,10 @@ class FileSystemFamily(Family):
                 initial[f"/{topics[2]}/{nouns[i]}.tmp"] = f"payload {i}-{int(rng.integers(10, 99))}"
                 expect[f"/{topics[2]}/{nouns[i]}.final"] = initial[f"/{topics[2]}/{nouns[i]}.tmp"]
                 absent.append(f"/{topics[2]}/{nouns[i]}.tmp")
-            instruction = f"Rename every .tmp file in /{topics[2]} to the same name with the .final extension."
+            instruction = (
+                f"Rename every .tmp file in /{topics[2]} to the same name "
+                "with the .final extension."
+            )
         spec: JSONDict = {
             "template": template,
             "initial": initial,
