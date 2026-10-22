@@ -35,6 +35,16 @@ FORM_DEFS: dict[str, dict[str, dict[str, object]]] = {
         "device": {"required": True, "options": ["LAPTOP", "PHONE", "MONITOR"]},
         "urgency": {"required": True, "options": ["LOW", "HIGH"]},
     },
+    "leave-request": {
+        "employee": {"required": True},
+        "start_date": {"required": True, "format": "YYYY-MM-DD"},
+        "kind": {"required": True, "options": ["ANNUAL", "SICK"]},
+    },
+    "room-request": {
+        "requester": {"required": True},
+        "room": {"required": True, "options": ["R1", "R2", "R3"]},
+        "date": {"required": True, "format": "YYYY-MM-DD"},
+    },
 }
 OPTION_WORDS = {
     "V1": "day visitor",
@@ -48,6 +58,11 @@ OPTION_WORDS = {
     "MONITOR": "monitor",
     "LOW": "low",
     "HIGH": "high",
+    "ANNUAL": "annual leave",
+    "SICK": "sick leave",
+    "R1": "small room",
+    "R2": "medium room",
+    "R3": "large room",
 }
 
 
@@ -124,65 +139,82 @@ class FormsEnv(Environment):
 
 
 class FormsFamily(Family):
-    name = "forms"
+    """Fill and submit ``min(3, horizon)`` forms; ``distractors`` extra forms are also listed."""
 
-    def generate(
-        self, rng: np.random.Generator, index: int, horizon: int, distractors: int
-    ) -> Task:
-        names = list(FORM_DEFS)
-        fid = names[index % len(names)]
-        form_ids = [fid, *[n for n in names if n != fid][: max(0, distractors)]]
-        who, host = unique_people(rng, 2)
+    name = "forms"
+    NAME_FIELDS = ("full_name", "employee", "requester")
+    DATE_FIELDS = ("visit_date", "start_date", "date")
+
+    def _values(
+        self, rng: np.random.Generator, fid: str, who: str, host: str
+    ) -> tuple[dict[str, str], list[str]]:
         values: dict[str, str] = {}
         parts: list[str] = []
         for f, rule in FORM_DEFS[fid].items():
             if not rule["required"] and rng.random() < 0.5:
                 continue
+            label = f.replace("_", " ")
             if "options" in rule:
                 code = str(rng.choice(rule["options"]))
                 values[f] = code
-                parts.append(f"{f.replace('_', ' ')}: {OPTION_WORDS[code]}")
-            elif rule.get("format") == "YYYY-MM-DD":
+                parts.append(f"{label}: {OPTION_WORDS[code]}")
+                continue
+            if f in self.DATE_FIELDS:
                 values[f] = f"2026-{int(rng.integers(1, 13)):02d}-{int(rng.integers(1, 28)):02d}"
-                parts.append(f'{f.replace("_", " ")}: "{values[f]}"')
             elif rule.get("format") == "number":
                 values[f] = str(int(rng.integers(10, 900)))
-                parts.append(f'{f}: "{values[f]}"')
-            elif f in ("host",):
+            elif f == "host":
                 values[f] = host
-                parts.append(f'{f}: "{host}"')
             elif f == "city":
                 values[f] = str(rng.choice(CITIES))
-                parts.append(f'{f}: "{values[f]}"')
             else:
                 values[f] = who
-                parts.append(f'{f.replace("_", " ")}: "{who}"')
+            parts.append(f'{label}: "{values[f]}"')
+        return values, parts
+
+    def generate(
+        self, rng: np.random.Generator, index: int, horizon: int, distractors: int
+    ) -> Task:
+        names = list(FORM_DEFS)
+        n_jobs = min(3, max(1, horizon))
+        start = index % len(names)
+        job_ids = [names[(start + k) % len(names)] for k in range(n_jobs)]
+        extras = [n for n in names if n not in job_ids][: max(0, distractors)]
+        form_ids = [*job_ids, *extras]
+        who, host = unique_people(rng, 2)
+        jobs: list[JSONDict] = []
+        sentences: list[str] = []
+        for fid in job_ids:
+            values, parts = self._values(rng, fid, who, host)
+            jobs.append({"form": fid, "values": values})
+            sentences.append(f"the '{fid}' form with: " + "; ".join(parts))
         instruction = (
-            f"Fill in and submit the '{fid}' form with: " + "; ".join(parts) + ". "
-            "Option fields take a code; check the form for the allowed codes."
+            "Fill in and submit " + " and also ".join(sentences) + ". "
+            "Option fields take a code; check each form for the allowed codes."
         )
-        spec: JSONDict = {"form_ids": form_ids, "form": fid, "values": values}
-        return Task(
-            f"forms-{index:04d}", self.name, instruction, spec, len(values) + 2, distractors, False
-        )
+        spec: JSONDict = {"form_ids": form_ids, "jobs": jobs}
+        h = sum(len(j["values"]) + 2 for j in jobs)
+        return Task(f"forms-{index:04d}", self.name, instruction, spec, h, distractors, False)
 
     def build(self, task: Task) -> FormsEnv:
         return FormsEnv(task.spec["form_ids"])
 
     def check(self, task: Task, env: Environment) -> bool:
         assert isinstance(env, FormsEnv)
-        want = {"form": task.spec["form"], "values": task.spec["values"]}
-        return env.submissions == [want]
+
+        def key(x: JSONDict) -> str:
+            return str(x["form"])
+
+        return sorted(env.submissions, key=key) == sorted(task.spec["jobs"], key=key)
 
     def oracle(self, task: Task) -> list[ToolInvocation]:
-        fid = task.spec["form"]
-        calls = [ToolInvocation("get_form", {"form_id": fid})]
-        calls += [
-            ToolInvocation("set_field", {"form_id": fid, "field": f, "value": v})
-            for f, v in task.spec["values"].items()
-        ]
-        return [
-            *calls,
-            ToolInvocation("submit_form", {"form_id": fid}),
-            ToolInvocation("finish", {}),
-        ]
+        calls: list[ToolInvocation] = []
+        for job in task.spec["jobs"]:
+            fid = job["form"]
+            calls.append(ToolInvocation("get_form", {"form_id": fid}))
+            calls += [
+                ToolInvocation("set_field", {"form_id": fid, "field": f, "value": v})
+                for f, v in job["values"].items()
+            ]
+            calls.append(ToolInvocation("submit_form", {"form_id": fid}))
+        return [*calls, ToolInvocation("finish", {})]
