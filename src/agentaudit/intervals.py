@@ -165,7 +165,7 @@ def bootstrap_ci(
 
 
 def _bb_loglik(mu: float, kappa: float, c: FloatArray, n: FloatArray) -> float:
-    """Beta-binomial log-likelihood (no binomial coefficient) at mean ``mu``, precision ``kappa``."""
+    """Beta-binomial log-likelihood (no binomial coef.) at mean ``mu``, precision ``kappa``."""
     a, b = mu * kappa, (1 - mu) * kappa
     ll = (
         special.gammaln(a + c)
