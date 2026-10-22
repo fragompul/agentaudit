@@ -138,7 +138,7 @@ class BookingFamily(Family):
                 expect = dict(booked)
                 free = [slot_id(day, room, h) for h in HOURS if slot_id(day, room, h) not in booked]
             expect[free[0]] = who
-            instruction = f"Book the earliest free slot in room {room} on day {day} for {who}."
+            instruction = f'Book the earliest free slot in room {room} on day {day} for "{who}".'
         elif template == "book_room_hour":
             items = []
             for _ in range(max(1, horizon)):
@@ -146,7 +146,7 @@ class BookingFamily(Family):
                 expect[str(sid)] = who
                 d = int(str(sid)[1])
                 items.append(f"{sid} (day {d})")
-            instruction = f"Book these slots for {who}: {', '.join(items)}."
+            instruction = f'Book these slots for "{who}": {", ".join(items)}.'
         elif template == "cancel_all":
             mine = [
                 str(s)
@@ -158,14 +158,14 @@ class BookingFamily(Family):
                 booked[s] = who
                 del_expect = expect.pop(s, None)
                 assert del_expect is None
-            instruction = f"Cancel all bookings of {who}. Do not touch anyone else's bookings."
+            instruction = f'Cancel all bookings of "{who}". Do not touch anyone else\'s bookings.'
         elif template == "move":
             old = str(rng.choice([s for s in all_ids if s not in booked]))
             booked[old] = who
             new = str(next(s for s in rng.permutation(all_ids) if s not in booked and s != old))
             expect = {k: v for k, v in booked.items() if k != old} | {new: who}
             instruction = (
-                f"{who} has one booking. Move it to slot {new}: "
+                f'"{who}" has one booking. Move it to slot {new}: '
                 f"cancel the old booking and book {new}."
             )
         else:

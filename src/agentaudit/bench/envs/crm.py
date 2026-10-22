@@ -178,7 +178,7 @@ class CrmFamily(Family):
             new = f"{target_first.lower()}.new{int(rng.integers(10, 99))}@corp.test"
             expect_c[tgt["id"]]["email"] = new
             instruction = (
-                f"Update the email of customer {tgt['name']} who lives in {tgt['city']} to {new}."
+                f'Update the email of customer {tgt["name"]} who lives in {tgt["city"]} to "{new}".'
             )
         elif template == "open_ticket":
             subject = f"Refund request {int(rng.integers(100, 999))}"

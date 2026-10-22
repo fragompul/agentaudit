@@ -144,19 +144,19 @@ class FormsFamily(Family):
                 parts.append(f"{f.replace('_', ' ')}: {OPTION_WORDS[code]}")
             elif rule.get("format") == "YYYY-MM-DD":
                 values[f] = f"2026-{int(rng.integers(1, 13)):02d}-{int(rng.integers(1, 28)):02d}"
-                parts.append(f"{f.replace('_', ' ')}: {values[f]}")
+                parts.append(f'{f.replace("_", " ")}: "{values[f]}"')
             elif rule.get("format") == "number":
                 values[f] = str(int(rng.integers(10, 900)))
-                parts.append(f"{f}: {values[f]}")
+                parts.append(f'{f}: "{values[f]}"')
             elif f in ("host",):
                 values[f] = host
-                parts.append(f"{f}: {host}")
+                parts.append(f'{f}: "{host}"')
             elif f == "city":
                 values[f] = str(rng.choice(CITIES))
-                parts.append(f"{f}: {values[f]}")
+                parts.append(f'{f}: "{values[f]}"')
             else:
                 values[f] = who
-                parts.append(f"{f.replace('_', ' ')}: {who}")
+                parts.append(f'{f.replace("_", " ")}: "{who}"')
         instruction = (
             f"Fill in and submit the '{fid}' form with: " + "; ".join(parts) + ". "
             "Option fields take a code; check the form for the allowed codes."

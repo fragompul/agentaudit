@@ -147,7 +147,7 @@ class FileSystemFamily(Family):
                 path = f"/{topics[0]}/{nouns[i]}.txt"
                 content = f"{nouns[i]} for {topics[1]} number {int(rng.integers(10, 99))}"
                 expect[path] = content
-                items.append(f"'{path}' containing exactly the text: {content}")
+                items.append(f"'{path}' containing exactly the text \"{content}\"")
             instruction = "Create the following text file(s): " + "; ".join(items) + "."
         elif template == "move":
             ext = str(rng.choice(["txt", "csv", "md"]))
@@ -169,7 +169,7 @@ class FileSystemFamily(Family):
                 initial[path] = f"{nouns[i]} header"
                 line = f"checked-{int(rng.integers(100, 999))}"
                 expect[path] = f"{initial[path]}\n{line}"
-            lines = [f"'{p}': {e.splitlines()[-1]}" for p, e in expect.items()]
+            lines = [f"'{p}': \"{e.splitlines()[-1]}\"" for p, e in expect.items()]
             instruction = (
                 "Append one new line to each of these files with exactly this text: "
                 + "; ".join(lines)
