@@ -1,0 +1,179 @@
+{
+ "population": {
+  "thetas": [
+   0.0,
+   0.25
+  ],
+  "sigma_task": 1.5,
+  "sigma_interaction": 0.6
+ },
+ "true_diff": 0.042519305880907354,
+ "diff_variance": {
+  "task": 0.02392791061750112,
+  "run": 0.3375011494252874
+ },
+ "rows": [
+  {
+   "budget": 240,
+   "runs": 1,
+   "tasks": 240,
+   "empirical_se": 0.04020469720653466,
+   "power": 0.201,
+   "analytic_se": 0.038806628516852015,
+   "analytic_power": 0.19364730313612885
+  },
+  {
+   "budget": 240,
+   "runs": 2,
+   "tasks": 120,
+   "empirical_se": 0.039903199904948984,
+   "power": 0.16533333333333333,
+   "analytic_se": 0.040070613227374915,
+   "analytic_power": 0.1833920900428245
+  },
+  {
+   "budget": 240,
+   "runs": 3,
+   "tasks": 80,
+   "empirical_se": 0.04131942072828451,
+   "power": 0.17333333333333334,
+   "analytic_se": 0.04129592803159647,
+   "analytic_power": 0.17434072617337706
+  },
+  {
+   "budget": 240,
+   "runs": 5,
+   "tasks": 48,
+   "empirical_se": 0.044980340269972045,
+   "power": 0.17033333333333334,
+   "analytic_se": 0.043643475195458914,
+   "analytic_power": 0.15910248990760043
+  },
+  {
+   "budget": 240,
+   "runs": 10,
+   "tasks": 24,
+   "empirical_se": 0.05003274758999671,
+   "power": 0.13933333333333334,
+   "analytic_se": 0.04902296466964482,
+   "analytic_power": 0.13219539804829122
+  },
+  {
+   "budget": 240,
+   "runs": 20,
+   "tasks": 12,
+   "empirical_se": 0.06008760192817146,
+   "power": 0.106,
+   "analytic_se": 0.058311639839147535,
+   "analytic_power": 0.10238741711677864
+  },
+  {
+   "budget": 600,
+   "runs": 1,
+   "tasks": 600,
+   "empirical_se": 0.024498481680088453,
+   "power": 0.4023333333333333,
+   "analytic_se": 0.02454346688505886,
+   "analytic_power": 0.4090287045896305
+  },
+  {
+   "budget": 600,
+   "runs": 2,
+   "tasks": 300,
+   "empirical_se": 0.025082589111636976,
+   "power": 0.376,
+   "analytic_se": 0.025342881007635053,
+   "analytic_power": 0.38697018921471615
+  },
+  {
+   "budget": 600,
+   "runs": 3,
+   "tasks": 200,
+   "empirical_se": 0.02588052663588238,
+   "power": 0.359,
+   "analytic_se": 0.026117838134047732,
+   "analytic_power": 0.36716018484112906
+  },
+  {
+   "budget": 600,
+   "runs": 5,
+   "tasks": 120,
+   "empirical_se": 0.027462239928920225,
+   "power": 0.3416666666666667,
+   "analytic_se": 0.027602557324542504,
+   "analytic_power": 0.33312195429746916
+  },
+  {
+   "budget": 600,
+   "runs": 10,
+   "tasks": 60,
+   "empirical_se": 0.030666274348335947,
+   "power": 0.27066666666666667,
+   "analytic_se": 0.03100484520200831,
+   "analytic_power": 0.2711115075064267
+  },
+  {
+   "budget": 600,
+   "runs": 20,
+   "tasks": 30,
+   "empirical_se": 0.0362873488778148,
+   "power": 0.18633333333333332,
+   "analytic_se": 0.03687951919822414,
+   "analytic_power": 0.20011638349185176
+  },
+  {
+   "budget": 1200,
+   "runs": 1,
+   "tasks": 1200,
+   "empirical_se": 0.016893994211911484,
+   "power": 0.687,
+   "analytic_se": 0.01735485186825259,
+   "analytic_power": 0.6872545741990843
+  },
+  {
+   "budget": 1200,
+   "runs": 2,
+   "tasks": 600,
+   "empirical_se": 0.018138163538330164,
+   "power": 0.6446666666666667,
+   "analytic_se": 0.01792012301530251,
+   "analytic_power": 0.6587168618251323
+  },
+  {
+   "budget": 1200,
+   "runs": 3,
+   "tasks": 400,
+   "empirical_se": 0.018292415617840153,
+   "power": 0.6356666666666667,
+   "analytic_se": 0.018468100454517758,
+   "analytic_power": 0.6318774708447086
+  },
+  {
+   "budget": 1200,
+   "runs": 5,
+   "tasks": 240,
+   "empirical_se": 0.01969899865068035,
+   "power": 0.5953333333333334,
+   "analytic_se": 0.01951795546227441,
+   "analytic_power": 0.5830859409207111
+  },
+  {
+   "budget": 1200,
+   "runs": 10,
+   "tasks": 120,
+   "empirical_se": 0.02214848083718298,
+   "power": 0.4786666666666667,
+   "analytic_se": 0.021923736291979266,
+   "analytic_power": 0.48561014955071746
+  },
+  {
+   "budget": 1200,
+   "runs": 20,
+   "tasks": 60,
+   "empirical_se": 0.027056653797867435,
+   "power": 0.36666666666666664,
+   "analytic_se": 0.026077758111963757,
+   "analytic_power": 0.36109976461534543
+  }
+ ]
+}
