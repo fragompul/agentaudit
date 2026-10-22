@@ -28,7 +28,7 @@ class ModelSummary:
 
 
 def _ks(n_runs: int) -> list[int]:
-    return [k for k in (1, 2, 3, 5, 10) if k <= n_runs]
+    return sorted({k for k in (1, 2, 3, 5, 10) if k <= n_runs} | {n_runs})
 
 
 def analyze(
