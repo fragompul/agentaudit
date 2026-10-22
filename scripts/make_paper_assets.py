@@ -28,6 +28,7 @@ plt.rcParams.update(
         "axes.grid": True,
         "grid.alpha": 0.25,
         "pdf.fonttype": 42,
+        "svg.fonttype": "none",
         "figure.dpi": 150,
     }
 )
@@ -48,6 +49,7 @@ def macro(name: str, value: str) -> None:
 
 def save(fig: plt.Figure, name: str) -> None:
     fig.savefig(FIG / name, bbox_inches="tight")
+    fig.savefig(Path("docs/assets") / name.replace(".pdf", ".svg"), bbox_inches="tight")
     plt.close(fig)
 
 
@@ -357,8 +359,8 @@ def taubench() -> None:
 def static_assets() -> None:
     from agentaudit.agents.base import SYSTEM_PROMPT
     from agentaudit.agents.text_protocol import tools_prompt
-    from agentaudit.bench.suite import core_suite, generate_suite
     from agentaudit.bench.base import Param, ToolSpec
+    from agentaudit.bench.suite import core_suite, generate_suite
 
     tasks = generate_suite(60, 0)
     macro("Ntasks", str(len(tasks)))
