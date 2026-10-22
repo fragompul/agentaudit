@@ -1,0 +1,131 @@
+{
+ "n_agents": 129,
+ "n_tasks": 500,
+ "alpha": 0.05,
+ "n_pairs": 8256,
+ "frac_distinguishable_raw": 0.8670058139534884,
+ "frac_distinguishable_holm": 0.716812015503876,
+ "frac_distinguishable_bh": 0.8636143410852714,
+ "by_score_gap": [
+  {
+   "gap_lo": 0.0,
+   "gap_hi": 0.02,
+   "pairs": 570,
+   "frac_distinguishable_holm": 0.0,
+   "frac_distinguishable_raw": 0.0
+  },
+  {
+   "gap_lo": 0.02,
+   "gap_hi": 0.05,
+   "pairs": 837,
+   "frac_distinguishable_holm": 0.0,
+   "frac_distinguishable_raw": 0.36917562724014336
+  },
+  {
+   "gap_lo": 0.05,
+   "gap_hi": 0.1,
+   "pairs": 1252,
+   "frac_distinguishable_holm": 0.2595846645367412,
+   "frac_distinguishable_raw": 1.0
+  },
+  {
+   "gap_lo": 0.1,
+   "gap_hi": 0.2,
+   "pairs": 2062,
+   "frac_distinguishable_holm": 0.9980601357904947,
+   "frac_distinguishable_raw": 1.0
+  },
+  {
+   "gap_lo": 0.2,
+   "gap_hi": 1.0,
+   "pairs": 3535,
+   "frac_distinguishable_holm": 1.0,
+   "frac_distinguishable_raw": 1.0
+  }
+ ],
+ "adjacent_pairs": {
+  "n": 128,
+  "frac_distinguishable_holm_within_adjacent": 0.0,
+  "frac_distinguishable_raw": 0.015625
+ },
+ "score_range": [
+  0.102,
+  0.792
+ ],
+ "top10": [
+  {
+   "name": "20251205_sonar-foundation-agent_claude-opus-4-5",
+   "score": 0.792,
+   "rank_lo": 1.0,
+   "rank_hi": 5.0,
+   "p_best": 0.335
+  },
+  {
+   "name": "20251215_livesweagent_claude-opus-4-5",
+   "score": 0.792,
+   "rank_lo": 1.0,
+   "rank_hi": 6.0,
+   "p_best": 0.331
+  },
+  {
+   "name": "20250928_trae_doubao_seed_code",
+   "score": 0.788,
+   "rank_lo": 1.0,
+   "rank_hi": 7.0,
+   "p_best": 0.2725
+  },
+  {
+   "name": "20251127_openhands_claude-opus-4-5",
+   "score": 0.776,
+   "rank_lo": 2.0,
+   "rank_hi": 10.0,
+   "p_best": 0.014
+  },
+  {
+   "name": "20251120_livesweagent_gemini-3-pro-preview",
+   "score": 0.774,
+   "rank_lo": 2.0,
+   "rank_hi": 12.0,
+   "p_best": 0.0215
+  },
+  {
+   "name": "20250804_epam-ai-run-claude-4-sonnet",
+   "score": 0.768,
+   "rank_lo": 2.0,
+   "rank_hi": 13.0,
+   "p_best": 0.0075
+  },
+  {
+   "name": "20250902_atlassian-rovo-dev",
+   "score": 0.768,
+   "rank_lo": 3.0,
+   "rank_hi": 13.0,
+   "p_best": 0.005
+  },
+  {
+   "name": "20250819_ACoder",
+   "score": 0.764,
+   "rank_lo": 2.9750000000000014,
+   "rank_hi": 15.0,
+   "p_best": 0.0125
+  },
+  {
+   "name": "20250901_warp",
+   "score": 0.756,
+   "rank_lo": 4.0,
+   "rank_hi": 18.0,
+   "p_best": 0.0005
+  },
+  {
+   "name": "20250612_trae",
+   "score": 0.752,
+   "rank_lo": 5.0,
+   "rank_hi": 19.0,
+   "p_best": 0.0
+  }
+ ],
+ "median_gap_needed": 0.23199999999999998,
+ "min_gap_distinguishable": 0.06800000000000006,
+ "source": "github.com/swe-bench/experiments evaluation/verified (accessed via script)",
+ "inclusion": "submissions with >= 50 resolved instances"
+}
