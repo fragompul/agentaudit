@@ -52,7 +52,14 @@ def main() -> None:
         spec = specs[alias]
         chat = ollama_chat(spec["ollama"], temperature=ns.temperature)
         inner = TextProtocolAgent(
-            alias, chat, {"model": spec["ollama"], "temperature": ns.temperature}
+            alias,
+            chat,
+            {
+                "model": spec["ollama"],
+                "temperature": ns.temperature,
+                "num_predict": 256,
+                "stop": "tool_call",
+            },
         )
         agent = CachedAgent(inner, Store(out_dir / "cache" / f"{alias}.jsonl"))
         t0 = time.time()

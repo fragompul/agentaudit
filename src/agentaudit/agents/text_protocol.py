@@ -144,7 +144,7 @@ def ollama_chat(
     host: str = "http://127.0.0.1:11434",
     temperature: float = 0.7,
     num_ctx: int = 8192,
-    num_predict: int = 400,
+    num_predict: int = 256,
     timeout: float = 300.0,
     keep_alive: str = "30m",
 ) -> ChatFn:
@@ -161,6 +161,8 @@ def ollama_chat(
                 "seed": seed % (2**31),
                 "num_ctx": num_ctx,
                 "num_predict": num_predict,
+                # one call per turn: stop right after it (and before any invented tool result)
+                "stop": ["</tool_call>", "<tool_response>"],
             },
         }
         t0 = time.perf_counter()
