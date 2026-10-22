@@ -1,4 +1,4 @@
-"""Ablations on real data: how do the number of tasks, runs and the stopping rule change conclusions?
+"""Ablations on real data: how tasks, runs and the stopping rule change conclusions.
 
 For a directory of trajectories (see run_real.py) the full data is the best available reference and
 we ask, for sub-designs with T' tasks and R' runs per task:
