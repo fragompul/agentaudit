@@ -82,7 +82,7 @@ class Environment(ABC):
             return f"ERROR: unexpected argument(s): {', '.join(extra)}"
         try:
             return str(self._dispatch(name, arguments))
-        except (KeyError, ValueError, TypeError) as exc:
+        except (KeyError, ValueError, TypeError, SyntaxError, ArithmeticError) as exc:
             return f"ERROR: {type(exc).__name__}: {exc}"
 
     @abstractmethod
