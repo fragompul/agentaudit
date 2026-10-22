@@ -15,7 +15,7 @@ from typing import Literal
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
-from scipy import stats
+from scipy import optimize, special, stats
 
 FloatArray = NDArray[np.float64]
 Statistic = Callable[[FloatArray], FloatArray]
@@ -162,3 +162,64 @@ def bootstrap_ci(
     adj = stats.norm.cdf(z0 + (z0 + zq) / (1 - acc * (z0 + zq)))
     lo, hi = (float(x) for x in np.quantile(reps, adj))
     return Interval(theta, lo, hi, level, "bootstrap-tasks-bca")
+
+
+def _bb_loglik(mu: float, kappa: float, c: FloatArray, n: FloatArray) -> float:
+    """Beta-binomial log-likelihood (no binomial coefficient) at mean ``mu``, precision ``kappa``."""
+    a, b = mu * kappa, (1 - mu) * kappa
+    ll = (
+        special.gammaln(a + c)
+        + special.gammaln(b + n - c)
+        - special.gammaln(a + b + n)
+        - special.gammaln(a)
+        - special.gammaln(b)
+        + special.gammaln(a + b)
+    )
+    return float(np.sum(ll))
+
+
+def beta_binomial_hierarchical(
+    successes: ArrayLike, attempts: ArrayLike, level: float = 0.95
+) -> Interval:
+    """Overdispersed beta-binomial interval for the mean task success probability.
+
+    Task-level success probabilities are modelled as ``p_i ~ Beta(mu k, (1 - mu) k)`` and
+    counts as ``c_i | p_i ~ Binomial(n_i, p_i)``. The interval for ``mu`` is the profile-likelihood
+    interval (the precision ``k`` is maximised out), so it accounts for between-task
+    heterogeneity. With one run per task ``k`` is unidentifiable and the interval reduces to
+    the pooled binomial profile interval, as it should.
+    """
+    c = np.asarray(successes, dtype=np.float64)
+    n = np.asarray(attempts, dtype=np.float64)
+    if c.shape != n.shape or c.ndim != 1 or c.size < 2:
+        raise ValueError("need matching 1-D count arrays with at least two tasks")
+    if np.any(n < 1) or np.any(c < 0) or np.any(c > n):
+        raise ValueError("need 0 <= successes <= attempts and attempts >= 1")
+    if not 0 < level < 1:
+        raise ValueError("level must be in (0, 1)")
+    eps = 1e-6
+
+    def prof(mu: float) -> float:
+        res = optimize.minimize_scalar(
+            lambda lk: -_bb_loglik(mu, float(np.exp(lk)), c, n),
+            bounds=(np.log(1e-2), np.log(1e6)),
+            method="bounded",
+        )
+        return -float(res.fun)
+
+    start = float(np.clip(c.sum() / n.sum(), 1e-3, 1 - 1e-3))
+    opt = optimize.minimize_scalar(
+        lambda mu: -prof(mu), bounds=(eps, 1 - eps), method="bounded", options={"xatol": 1e-8}
+    )
+    mu_hat = float(opt.x) if -float(opt.fun) >= prof(start) else start
+    ll_max = max(prof(mu_hat), prof(start))
+    crit = float(stats.chi2.ppf(level, 1)) / 2
+
+    def gap(mu: float) -> float:
+        return prof(mu) - (ll_max - crit)
+
+    lo = eps if gap(eps) > 0 else float(optimize.brentq(gap, eps, mu_hat, xtol=1e-7))
+    hi = 1 - eps if gap(1 - eps) > 0 else float(optimize.brentq(gap, mu_hat, 1 - eps, xtol=1e-7))
+    return Interval(
+        float(c.sum() / n.sum()), min(lo, mu_hat), max(hi, mu_hat), level, "beta-binomial-profile"
+    )

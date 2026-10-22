@@ -129,3 +129,33 @@ def test_task_bootstrap_coverage_simulation() -> None:
         m = (rng.random((80, 5)) < p[:, None]).astype(float)
         hits += bootstrap_ci(m, batch_success, n_boot=300, seed=i).contains(true_mean)
     assert 0.88 <= hits / reps <= 0.995
+
+
+def test_hierarchical_interval_wider_with_heterogeneity_and_covers() -> None:
+    from agentaudit.intervals import beta_binomial_hierarchical
+
+    rng = np.random.default_rng(5)
+    homog = rng.binomial(8, 0.5, size=60)
+    hetero = rng.binomial(8, rng.beta(0.6, 0.6, size=60))
+    n = np.full(60, 8)
+    h0 = beta_binomial_hierarchical(homog, n)
+    h1 = beta_binomial_hierarchical(hetero, n)
+    assert h1.width > h0.width
+    assert h0.lo < h0.estimate < h0.hi
+    naive = wilson(int(hetero.sum()), int(n.sum()))
+    assert h1.width > naive.width  # pooled binomial is anti-conservative under heterogeneity
+    with pytest.raises(ValueError):
+        beta_binomial_hierarchical([1], [2])
+    with pytest.raises(ValueError):
+        beta_binomial_hierarchical([3, 1], [2, 2])
+    with pytest.raises(ValueError):
+        beta_binomial_hierarchical([1, 1], [2, 2], level=0)
+
+
+def test_hierarchical_single_run_reduces_to_binomial() -> None:
+    from agentaudit.intervals import beta_binomial_hierarchical
+
+    c = (np.random.default_rng(0).random(100) < 0.3).astype(float)
+    h = beta_binomial_hierarchical(c, np.ones(100))
+    w = wilson(int(c.sum()), 100)
+    assert h.lo == pytest.approx(w.lo, abs=0.02) and h.hi == pytest.approx(w.hi, abs=0.02)
