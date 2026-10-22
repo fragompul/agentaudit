@@ -10,6 +10,7 @@ from agentaudit.bench.envs.crm import CrmEnv, CrmFamily
 from agentaudit.bench.envs.forms import FormsEnv, FormsFamily
 from agentaudit.bench.envs.fs import FileSystemFamily
 from agentaudit.bench.envs.sql import SqlFamily
+from agentaudit.bench.envs.tabular import TabularEnv, TabularFamily, safe_eval
 
 FAMILIES: list[Family] = [
     FileSystemFamily(),
@@ -17,6 +18,7 @@ FAMILIES: list[Family] = [
     CrmFamily(),
     BookingFamily(),
     FormsFamily(),
+    TabularFamily(),
 ]
 
 
@@ -88,3 +90,19 @@ def test_forms_validation() -> None:
         )
     assert env.call("submit_form", {"form_id": "visitor-pass"}).startswith("Submitted")
     assert len(env.submissions) == 1
+
+
+def test_safe_eval_and_calc_tool() -> None:
+    assert safe_eval("2+3*4") == 14
+    assert safe_eval("round(avg(1,2,4), 2)") == 2.33
+    assert safe_eval("-(2**3)") == -8
+    for bad in ("__import__('os')", "open('x')", "1 if 1 else 2", "x+1", "sum(a=1)", "9" * 500):
+        with pytest.raises((ValueError, SyntaxError)):
+            safe_eval(bad)
+    env = TabularEnv([["north", "Gizmo", 3, 4]] * 25)
+    assert env.call("calc", {"expression": "10/4"}) == "2.5"
+    assert env.call("calc", {"expression": "import os"}).startswith("ERROR")
+    assert env.call("calc", {"expression": "1/0"}).startswith("ERROR: ZeroDivisionError")
+    assert env.call("show_rows", {"offset": 99}).startswith("ERROR")
+    assert env.call("show_rows", {"offset": 20, "limit": 50}).count("\n") == 4
+    assert "25 rows" in env.call("list_tables", {})
