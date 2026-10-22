@@ -92,7 +92,8 @@ def main() -> None:
     print(f"wrote {dest}: {len(rs.models)} models, {rs.n_tasks} tasks, {rs.n_runs} runs")
     for m in a["models"]:
         print(
-            f"  {m['model']:18s} {100 * m['score']:5.1f}% [{100 * m['lo']:.1f}, {100 * m['hi']:.1f}]"
+            f"  {m['model']:18s} {100 * m['score']:5.1f}% "
+            f"[{100 * m['lo']:.1f}, {100 * m['hi']:.1f}]"
         )
 
 
