@@ -75,3 +75,12 @@ def save_suite(tasks: list[Task], path: str | Path) -> None:
 def load_suite(path: str | Path) -> list[Task]:
     with Path(path).open() as fh:
         return [Task(**json.loads(line)) for line in fh if line.strip()]
+
+
+def core_suite(tasks: list[Task]) -> list[Task]:
+    """The balanced 1/3 subset used for expensive local-model evaluations (20 tasks/family).
+
+    Keeps every third task of each family, which preserves the template cycle and the
+    horizon x distractor grid, so the subset is a miniature of the full suite.
+    """
+    return [t for t in tasks if int(t.task_id.rsplit("-", 1)[1]) % 3 == 0]

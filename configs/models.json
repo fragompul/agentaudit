@@ -1,0 +1,9 @@
+{
+  "qwen2.5-1.5b": {"ollama": "qwen2.5:1.5b", "family": "qwen2.5", "params_b": 1.5, "quant": "q4_K_M"},
+  "qwen2.5-3b": {"ollama": "qwen2.5:3b", "family": "qwen2.5", "params_b": 3.0, "quant": "q4_K_M"},
+  "qwen2.5-3b-q8": {"ollama": "qwen2.5:3b-instruct-q8_0", "family": "qwen2.5", "params_b": 3.0, "quant": "q8_0"},
+  "qwen2.5-3b-q2": {"ollama": "qwen2.5:3b-instruct-q2_K", "family": "qwen2.5", "params_b": 3.0, "quant": "q2_K"},
+  "qwen2.5-7b": {"ollama": "qwen2.5:7b", "family": "qwen2.5", "params_b": 7.6, "quant": "q4_K_M"},
+  "llama3.2-1b": {"ollama": "llama3.2:1b", "family": "llama3.2", "params_b": 1.2, "quant": "q8_0"},
+  "llama3.2-3b": {"ollama": "llama3.2:3b", "family": "llama3.2", "params_b": 3.2, "quant": "q4_K_M"}
+}

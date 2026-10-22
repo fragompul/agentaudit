@@ -5,6 +5,7 @@ import pytest
 from agentaudit.bench.suite import (
     FAMILIES,
     audit_suite,
+    core_suite,
     difficulty_for,
     generate_suite,
     get_family,
@@ -45,3 +46,13 @@ def test_roundtrip_and_lookup(tmp_path: Path) -> None:
     assert get_family("sql").name == "sql"
     with pytest.raises(KeyError, match="unknown family"):
         get_family("nope")
+
+
+def test_core_subset_is_balanced_miniature() -> None:
+    core = core_suite(generate_suite(60, seed=0))
+    assert len(core) == 120
+    for fam in FAMILIES:
+        sub = [t for t in core if t.family == fam]
+        assert len(sub) == 20
+        assert {t.distractors for t in sub} == {0, 1, 2}
+        assert len({t.horizon for t in sub}) >= 3
