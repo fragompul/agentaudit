@@ -41,6 +41,22 @@ The core depends only on NumPy and SciPy. Everything model-related uses the stan
 
 ![tau-bench](docs/assets/taubench.svg)
 
+### Local models on AgentAudit-Bench
+
+7 local models, 120 core tasks, 10 runs per task, temperature 0.7.
+
+| model | score | 95% CI | pass^k (k=max) | pass@k (k=max) | P(best) |
+|---|---|---|---|---|---|
+| qwen2.5-7b | 63.7% | [55.9%, 71.0%] | 40.8% (k=10) | 76.7% | 100% |
+| qwen2.5-3b-q8 | 45.1% | [38.1%, 51.8%] | 15.8% (k=10) | 74.2% | 0% |
+| llama3.2-3b | 33.6% | [27.3%, 40.3%] | 10.8% (k=10) | 62.5% | 0% |
+| qwen2.5-3b | 31.8% | [26.2%, 37.8%] | 10.0% (k=10) | 68.3% | 0% |
+| qwen2.5-1.5b | 13.6% | [9.3%, 18.3%] | 1.7% (k=10) | 34.2% | 0% |
+| llama3.2-1b | 4.6% | [2.8%, 6.8%] | 0.0% (k=10) | 21.7% | 0% |
+| qwen2.5-3b-q2 | 0.0% | [0.0%, 0.0%] | 0.0% (k=10) | 0.0% | 0% |
+
+Variance shares: agent skill 25.1%, task difficulty 14.4%, agent x task 26.1%, run noise 34.4%. Pairs indistinguishable (Holm): 4.8%.
+
 <!-- RESULTS:END -->
 
 Simulation studies with agents of known skill (2000 replications per cell) are in [docs/results.md](docs/results.md); in short, pooling all runs of a task into one binomial sample gives 95% intervals that cover only ~68% of the time at ten runs per task, tests that pool runs reject true nulls up to ~18-20% of the time, and, at a fixed attempt budget, more tasks beat more repeats.
