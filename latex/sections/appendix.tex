@@ -27,7 +27,12 @@ With Ollama 0.40.8 (macOS, Apple silicon), the native \texttt{/api/chat} tool-ca
 \caption{Coverage (\%) of nominal 95\% intervals for the benchmark score; wilson, CP: pooled binomial intervals; the rest respect the task structure. $T$: tasks, $R$: runs per task.}
 \input{generated/tab_coverage.tex}
 \end{table}
-\IfFileExists{generated/tab_appendix_real.tex}{\input{generated/tab_appendix_real.tex}}{}
+\section{Local-model results}\label{app:real}
+\begin{table}[h]
+\centering\scriptsize
+\caption{Local models, \realNTasks{} tasks $\times$ \realNRuns{} runs. Score, pass$^3$, pass$^{10}$ in \%; steps: mean agent turns; step-limit: share of attempts ending at the step budget; right columns: success rate (\%) per task family.}
+\input{generated/tab_appendix_real.tex}
+\end{table}
 
 \section{Reproducibility checklist}
 \begin{itemize}

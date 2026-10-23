@@ -187,6 +187,28 @@ def real_assets(macros: dict[str, str], fig_dir: Path, gen_dir: Path) -> None:
     macros["realBestPassThree"] = _pct(best["pass_hat_k"]["3"][0])
     macros["realBestPassOne"] = _pct(best["pass_hat_k"]["1"][0])
 
+    pairs = a["pairwise"]
+    close = min(pairs, key=lambda q: abs(q["diff"]))
+    ns = [q for q in pairs if q["p_adjusted"] >= 0.05]
+    macros.update(
+        {
+            "realNPairs": str(len(pairs)),
+            "realNIndist": str(len(ns)),
+            "realClosestA": _tex(close["a"]),
+            "realClosestB": _tex(close["b"]),
+            "realClosestDiff": f"{100 * abs(close['diff']):.1f}",
+            "realClosestP": f"{close['p_adjusted']:.2f}",
+        }
+    )
+    fails = d["failures"]
+    macros["realFloorNoAction"] = _pct(
+        max(v.get("no_action", 0) / (d["n_tasks"] * d["n_runs"]) for v in fails.values()), 0
+    )
+    macros["realMaxStepLimit"] = _pct(max(p["frac_step_limit"] for p in d["profile"].values()), 0)
+    macros["realMaxStepLimitModel"] = _tex(
+        max(d["profile"].items(), key=lambda kv: kv[1]["frac_step_limit"])[0]
+    )
+
     ab_path = R / "ablation_main.json"
     ab = json.loads(ab_path.read_text()) if ab_path.exists() else None
     if ab is not None:
@@ -245,6 +267,13 @@ def real_assets(macros: dict[str, str], fig_dir: Path, gen_dir: Path) -> None:
         + f"{len(models)} local models ({d['n_runs']} runs on {d['n_tasks']} tasks) run-to-run noise "
         + f"accounts for {_pct(sh['run'], 0)} of score variance and a {pw['target_delta'] * 100:.0f}-point "
         + f"difference would need about {pw['tasks_needed_at_current_runs']} tasks."
+        + "}\n"
+        "\\renewcommand{\\REALREFUTED}{On local models the ranking is not fragile: with gaps of tens of points all but "
+        + f"{macros['realNIndist']} of {macros['realNPairs']} pairs are separable and run noise does not reorder them, "
+        + "so the claim that leaderboard rankings are generally unreliable is supported only for close systems (SWE-bench) and not for "
+        + "widely spaced ones. We did not test the fixed-budget tasks-versus-runs result on real data, the real-data sequential "
+        + "analysis re-orders existing results rather than stopping a live run, and one model (q2) is a floor-effect control. "
+        + "Single hardware, single prompt protocol, small models: conclusions do not transfer to frontier agents."
         + "}\n"
         "\\renewcommand{\\REALFINDINGS}{(6) On local models, run noise is "
         + f"{_pct(sh['run'], 0)} of variance, the best model's pass$^{{10}}$ is "
