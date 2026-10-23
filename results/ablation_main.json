@@ -1,0 +1,514 @@
+{
+ "models": [
+  "llama3.2-1b",
+  "llama3.2-3b",
+  "qwen2.5-1.5b",
+  "qwen2.5-3b-q2",
+  "qwen2.5-3b-q8",
+  "qwen2.5-3b",
+  "qwen2.5-7b"
+ ],
+ "full": {
+  "n_tasks": 120,
+  "n_runs": 10,
+  "frac_pairs_distinguishable": 0.9523809523809523
+ },
+ "subdesign": [
+  {
+   "tasks": 12,
+   "runs": 1,
+   "tau_mean": 0.8614991488603664,
+   "tau_p05": 0.6831300510639733,
+   "frac_pairs_distinguishable": 0.11714285714285713,
+   "sign_agreement_on_full_significant": 0.888
+  },
+  {
+   "tasks": 12,
+   "runs": 2,
+   "tau_mean": 0.8863468930683827,
+   "tau_p05": 0.7493964133996612,
+   "frac_pairs_distinguishable": 0.14571428571428569,
+   "sign_agreement_on_full_significant": 0.934
+  },
+  {
+   "tasks": 12,
+   "runs": 3,
+   "tau_mean": 0.9075288609528985,
+   "tau_p05": 0.8095238095238096,
+   "frac_pairs_distinguishable": 0.18523809523809526,
+   "sign_agreement_on_full_significant": 0.958
+  },
+  {
+   "tasks": 12,
+   "runs": 5,
+   "tau_mean": 0.9120567344346017,
+   "tau_p05": 0.8080836219655605,
+   "frac_pairs_distinguishable": 0.2019047619047619,
+   "sign_agreement_on_full_significant": 0.9669999999999999
+  },
+  {
+   "tasks": 12,
+   "runs": 10,
+   "tau_mean": 0.9321342792553989,
+   "tau_p05": 0.8095238095238096,
+   "frac_pairs_distinguishable": 0.24785714285714286,
+   "sign_agreement_on_full_significant": 0.9804999999999999
+  },
+  {
+   "tasks": 24,
+   "runs": 1,
+   "tau_mean": 0.9175764876956205,
+   "tau_p05": 0.7807200583588265,
+   "frac_pairs_distinguishable": 0.3723809523809524,
+   "sign_agreement_on_full_significant": 0.9507499999999999
+  },
+  {
+   "tasks": 24,
+   "runs": 2,
+   "tau_mean": 0.938866886474812,
+   "tau_p05": 0.8095238095238096,
+   "frac_pairs_distinguishable": 0.4954761904761905,
+   "sign_agreement_on_full_significant": 0.9757499999999999
+  },
+  {
+   "tasks": 24,
+   "runs": 3,
+   "tau_mean": 0.9452805351118866,
+   "tau_p05": 0.8748707528471864,
+   "frac_pairs_distinguishable": 0.5469047619047619,
+   "sign_agreement_on_full_significant": 0.9874999999999998
+  },
+  {
+   "tasks": 24,
+   "runs": 5,
+   "tau_mean": 0.9432746789625207,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.5959523809523809,
+   "sign_agreement_on_full_significant": 0.9932499999999999
+  },
+  {
+   "tasks": 24,
+   "runs": 10,
+   "tau_mean": 0.9546414051266475,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.6419047619047621,
+   "sign_agreement_on_full_significant": 0.9945
+  },
+  {
+   "tasks": 48,
+   "runs": 1,
+   "tau_mean": 0.951493116690499,
+   "tau_p05": 0.8783100656536799,
+   "frac_pairs_distinguishable": 0.6257142857142857,
+   "sign_agreement_on_full_significant": 0.98675
+  },
+  {
+   "tasks": 48,
+   "runs": 2,
+   "tau_mean": 0.964203675004134,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.7278571428571428,
+   "sign_agreement_on_full_significant": 0.995
+  },
+  {
+   "tasks": 48,
+   "runs": 3,
+   "tau_mean": 0.9634422168389131,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.7730952380952381,
+   "sign_agreement_on_full_significant": 0.99875
+  },
+  {
+   "tasks": 48,
+   "runs": 5,
+   "tau_mean": 0.9648765963323234,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.8147619047619048,
+   "sign_agreement_on_full_significant": 0.9992500000000001
+  },
+  {
+   "tasks": 48,
+   "runs": 10,
+   "tau_mean": 0.9654732864437712,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.865952380952381,
+   "sign_agreement_on_full_significant": 0.9997499999999999
+  },
+  {
+   "tasks": 84,
+   "runs": 1,
+   "tau_mean": 0.9668728175481484,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.773095238095238,
+   "sign_agreement_on_full_significant": 0.99875
+  },
+  {
+   "tasks": 84,
+   "runs": 2,
+   "tau_mean": 0.9712906475987976,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.8683333333333334,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 84,
+   "runs": 3,
+   "tau_mean": 0.9696385010942281,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.9073809523809525,
+   "sign_agreement_on_full_significant": 0.9997499999999999
+  },
+  {
+   "tasks": 84,
+   "runs": 5,
+   "tau_mean": 0.9722604527456952,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.9302380952380953,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 84,
+   "runs": 10,
+   "tau_mean": 0.974165214650457,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.9347619047619048,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 120,
+   "runs": 1,
+   "tau_mean": 0.9761382036069267,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.8502380952380953,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 120,
+   "runs": 2,
+   "tau_mean": 0.9829660263627226,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.9216666666666667,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 120,
+   "runs": 3,
+   "tau_mean": 0.9811875721580569,
+   "tau_p05": 0.9047619047619049,
+   "frac_pairs_distinguishable": 0.9421428571428572,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 120,
+   "runs": 5,
+   "tau_mean": 0.9959494769199615,
+   "tau_p05": 0.9987950036474267,
+   "frac_pairs_distinguishable": 0.9497619047619048,
+   "sign_agreement_on_full_significant": 1.0
+  },
+  {
+   "tasks": 120,
+   "runs": 10,
+   "tau_mean": 1.0,
+   "tau_p05": 1.0,
+   "frac_pairs_distinguishable": 0.9523809523809524,
+   "sign_agreement_on_full_significant": 1.0
+  }
+ ],
+ "sequential": [
+  {
+   "a": "llama3.2-1b",
+   "b": "llama3.2-3b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.29000000000000004,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 30.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-1b",
+   "b": "qwen2.5-1.5b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.09000000000000001,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 94.5,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-1b",
+   "b": "qwen2.5-3b-q2",
+   "full_data_significant_holm": true,
+   "mean_diff": 0.04583333333333333,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 1.0
+   },
+   "median_tasks_when_decided": null,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-1b",
+   "b": "qwen2.5-3b-q8",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.405,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 22.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-1b",
+   "b": "qwen2.5-3b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.2725,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 31.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-1b",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.5908333333333334,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 16.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-3b",
+   "b": "qwen2.5-1.5b",
+   "full_data_significant_holm": true,
+   "mean_diff": 0.2,
+   "decisions": {
+    "a_better": 1.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 44.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-3b",
+   "b": "qwen2.5-3b-q2",
+   "full_data_significant_holm": true,
+   "mean_diff": 0.3358333333333333,
+   "decisions": {
+    "a_better": 1.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 26.5,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-3b",
+   "b": "qwen2.5-3b-q8",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.115,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 0.555,
+    "equivalent": 0.0,
+    "undecided": 0.445
+   },
+   "median_tasks_when_decided": 86.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-3b",
+   "b": "qwen2.5-3b",
+   "full_data_significant_holm": false,
+   "mean_diff": 0.017499999999999998,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 1.0
+   },
+   "median_tasks_when_decided": null,
+   "n_tasks": 120
+  },
+  {
+   "a": "llama3.2-3b",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.3008333333333333,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 29.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-1.5b",
+   "b": "qwen2.5-3b-q2",
+   "full_data_significant_holm": true,
+   "mean_diff": 0.1358333333333333,
+   "decisions": {
+    "a_better": 1.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 62.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-1.5b",
+   "b": "qwen2.5-3b-q8",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.315,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 27.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-1.5b",
+   "b": "qwen2.5-3b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.1825,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 46.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-1.5b",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.5008333333333334,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 18.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b-q2",
+   "b": "qwen2.5-3b-q8",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.45083333333333336,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 20.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b-q2",
+   "b": "qwen2.5-3b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.31833333333333336,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 27.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b-q2",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.6366666666666667,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 14.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b-q8",
+   "b": "qwen2.5-3b",
+   "full_data_significant_holm": true,
+   "mean_diff": 0.1325,
+   "decisions": {
+    "a_better": 1.0,
+    "b_better": 0.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 68.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b-q8",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.18583333333333335,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 49.0,
+   "n_tasks": 120
+  },
+  {
+   "a": "qwen2.5-3b",
+   "b": "qwen2.5-7b",
+   "full_data_significant_holm": true,
+   "mean_diff": -0.31833333333333336,
+   "decisions": {
+    "a_better": 0.0,
+    "b_better": 1.0,
+    "equivalent": 0.0,
+    "undecided": 0.0
+   },
+   "median_tasks_when_decided": 28.0,
+   "n_tasks": 120
+  }
+ ]
+}
