@@ -88,4 +88,5 @@ ignore_missing_imports = true
 "src/agentaudit/bench/words.py" = ["E501"]
 "src/agentaudit/report.py" = ["E501"]
 "scripts/make_paper_assets.py" = ["E501"]
+"scripts/make_real_assets.py" = ["E501"]
 "scripts/make_results_docs.py" = ["E501"]
