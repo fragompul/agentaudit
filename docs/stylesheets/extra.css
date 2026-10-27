@@ -68,3 +68,8 @@
 /* figures are white-background SVGs: give them a tidy card in both themes */
 .md-typeset img[src$=".svg"]{background:#fff;padding:10px;border-radius:10px;border:1px solid var(--md-default-fg-color--lightest)}
 [data-md-color-scheme="slate"] .md-typeset img[src$=".svg"]{filter:brightness(.9)}
+/* header links back to the rest of the site (added by shell.js) */
+.aa-links{display:none;gap:1.4rem;margin:0 1rem 0 auto;align-items:center;font-size:.8rem}
+.aa-links a{color:var(--md-default-fg-color);text-decoration:none;border-bottom:2px solid transparent;padding:.2rem 0}
+.aa-links a:hover{border-color:var(--md-accent-fg-color)}
+@media (min-width:60em){.aa-links{display:flex}}
