@@ -1,17 +1,24 @@
-PY ?= .venv/bin/python
+ifeq ($(OS),Windows_NT)
+VENV_BIN := .venv/Scripts
+BOOT ?= py -3
+else
+VENV_BIN := .venv/bin
+BOOT ?= python3
+endif
+PY ?= $(VENV_BIN)/python
 .PHONY: install lint type test cov reproduce docs clean sim public real paper
 install:
-	uv venv --python 3.12 .venv && uv pip install -e ".[dev,plots,docs]"
+	$(BOOT) -m venv .venv && $(PY) -m pip install --upgrade pip && $(PY) -m pip install -e ".[dev,plots,docs]"
 lint:
-	.venv/bin/ruff format --check src tests scripts && .venv/bin/ruff check src tests scripts
+	$(VENV_BIN)/ruff format --check src tests scripts web && $(VENV_BIN)/ruff check src tests scripts web
 type:
-	.venv/bin/mypy src
+	$(VENV_BIN)/mypy src
 test:
-	.venv/bin/pytest
+	$(VENV_BIN)/pytest
 cov:
-	.venv/bin/pytest --cov=agentaudit --cov-report=term-missing --cov-fail-under=90
+	$(VENV_BIN)/pytest --cov=agentaudit --cov-report=term-missing --cov-fail-under=90
 docs:
-	.venv/bin/mkdocs build --strict
+	$(VENV_BIN)/mkdocs build --strict
 
 # ---- reproduction of every number in the paper -------------------------------------------------
 sim:
