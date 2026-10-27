@@ -27,9 +27,11 @@ sim:
 	$(PY) scripts/sim_design.py
 	$(PY) scripts/sim_sequential.py
 	$(PY) scripts/sim_ranking.py
+	$(PY) scripts/sim_extra.py asym && $(PY) scripts/sim_extra.py alloc && $(PY) scripts/sim_extra.py seqm
+	$(PY) scripts/sim_extra.py rankpw && $(PY) scripts/sim_extra.py covrob
 
 public:
-	$(PY) scripts/fetch_swebench.py && $(PY) scripts/reanalyze_swebench.py
+	$(PY) scripts/fetch_swebench.py && $(PY) scripts/fetch_swebench_meta.py && $(PY) scripts/reanalyze_swebench.py
 	$(PY) scripts/fetch_taubench.py && $(PY) scripts/reanalyze_taubench.py
 
 # Local-model runs are long (hours) and need Ollama; they are resumable. See docs/reproducing.md.
@@ -40,6 +42,7 @@ real:
 
 paper:
 	$(PY) scripts/make_paper_assets.py
+	$(PY) scripts/make_traceability.py
 	cd latex && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex && cp main.pdf ../paper/agentaudit-paper.pdf
 
 # Everything that needs no model: simulations, public re-analysis, figures, paper.

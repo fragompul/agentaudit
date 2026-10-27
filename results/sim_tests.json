@@ -543,7 +543,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 30,
    "runs": 1,
    "interaction_sd": 0.5,
@@ -573,7 +573,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 30,
    "runs": 5,
    "interaction_sd": 0.5,
@@ -603,7 +603,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 30,
    "runs": 10,
    "interaction_sd": 0.5,
@@ -633,7 +633,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 100,
    "runs": 1,
    "interaction_sd": 0.5,
@@ -663,7 +663,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 100,
    "runs": 5,
    "interaction_sd": 0.5,
@@ -693,7 +693,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 100,
    "runs": 10,
    "interaction_sd": 0.5,
@@ -723,7 +723,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 300,
    "runs": 1,
    "interaction_sd": 0.5,
@@ -753,7 +753,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 300,
    "runs": 5,
    "interaction_sd": 0.5,
@@ -783,7 +783,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.06854510360269284,
+   "true_diff": 0.06854510360269295,
    "tasks": 300,
    "runs": 10,
    "interaction_sd": 0.5,
@@ -812,5 +812,5 @@
    }
   }
  ],
- "seconds": 223.4
+ "seconds": 1153.8
 }

@@ -15,4 +15,4 @@ OLLAMA_NUM_PARALLEL=4 ollama serve &
 python scripts/run_real.py --models qwen2.5-3b llama3.2-3b --runs 10 --workers 4
 ```
 
-Seeds are fixed everywhere; `configs/models.json` lists the exact model tags. Raw trajectories are published as release assets, not in git.
+Seeds are fixed everywhere; `configs/models.json` lists the exact model tags. Raw trajectories and record/replay caches of the local-model run are **not** in git and are not currently published; only the aggregate `results/real_main.json` is stored, so the local-model numbers cannot be recomputed from raw runs. See `EXPERIMENTS_AND_REPRODUCIBILITY.md` in the repository root for what was reproduced, what was only partially verified and what was not rerun.

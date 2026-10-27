@@ -223,6 +223,7 @@ def sim_sequential() -> None:
     axes[1].set_xticks(x, [f"{r['true_diff'] * 100:.1f}" for r in d])
     axes[1].set_xlabel("true score difference (points)")
     axes[1].set_ylabel("median tasks used when stopped")
+    fig.subplots_adjust(wspace=0.4)
     save(fig, "sequential.pdf")
     macro("seqNullPeek", pct(d[0]["decision_rate"]["peek"]))
     macro("seqNullSeq", pct(d[0]["decision_rate"]["seq"]))
@@ -278,7 +279,7 @@ def swebench() -> None:
     axes[0].bar(
         x + 0.2, [v["frac_distinguishable_holm"] for v in g], 0.4, color=BLUE, label="Holm-adjusted"
     )
-    axes[0].set_xticks(x, labs)
+    axes[0].set_xticks(x, labs, rotation=45, ha="right")
     axes[0].set_xlabel("score gap between two agents (points)")
     axes[0].set_ylabel("fraction of pairs distinguishable")
     axes[0].legend(frameon=False, fontsize=7, loc="upper left")
@@ -350,6 +351,14 @@ def taubench() -> None:
             f"tau{dom.capitalize()}Need",
             str(d[dom]["tasks_needed_for_80pct_power_at_observed_gap"]),
         )
+        nb = d[dom]["tasks_needed_bootstrap_interval"]
+        macro(f"tau{dom.capitalize()}NeedLo", f"{nb['p2.5']:.0f}")
+        macro(f"tau{dom.capitalize()}NeedHi", f"{nb['p97.5']:,.0f}".replace(",", "\\,"))
+        macro(f"tau{dom.capitalize()}PHolm", f"{d['holm_p_permutation_two_domains'][dom]:.3f}")
+        macro(
+            f"tau{dom.capitalize()}PTaskMc",
+            f"{d[dom]['task_level_comparison']['p_task_mcnemar']:.2f}",
+        )
         v = d[dom]["analysis"]["variance"]["shares"]
         macro(f"tau{dom.capitalize()}RunShare", pct(v["run"], 0))
         macro(f"tau{dom.capitalize()}TaskShare", pct(v["task"], 0))
@@ -387,6 +396,10 @@ def main() -> None:
     sim_ranking()
     swebench()
     taubench()
+    from extra_assets import sim_extra, swebench_robustness
+
+    swebench_robustness(macro, GEN)
+    sim_extra(macro, save)
     if (R / "real_main.json").exists():
         from make_real_assets import real_assets
 
