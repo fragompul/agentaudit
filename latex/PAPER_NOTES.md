@@ -4,7 +4,7 @@
 
 ```bash
 python scripts/make_paper_assets.py     # figures, tables and macros from results/ (no number is typed by hand)
-cd latex && tectonic main.tex           # or: ./build.sh
+cd latex && latexmk -pdf main.tex           # or: tectonic main.tex, or ./build.sh (copies the PDF to paper/)
 ```
 
 Template: the **official TMLR style** (`tmlr.sty`, `tmlr.bst`, from https://github.com/JmlrOrg/tmlr-style-file),
