@@ -23,6 +23,11 @@
   --md-footer-bg-color:#ebe4d5;
   --md-footer-fg-color:#17140f;
   --md-footer-fg-color--light:#5a5346;
+  --md-footer-fg-color--lighter:#5a5346;
+  --md-code-hl-keyword-color:#8a3f9e;--md-code-hl-string-color:#1f6b45;--md-code-hl-number-color:#b92d17;
+  --md-code-hl-function-color:#2740d9;--md-code-hl-constant-color:#2740d9;--md-code-hl-special-color:#b92d17;
+  --md-code-hl-name-color:#17140f;--md-code-hl-variable-color:#17140f;--md-code-hl-generic-color:#17140f;
+  --md-code-hl-operator-color:#5a5346;--md-code-hl-punctuation-color:#5a5346;--md-code-hl-comment-color:#5a5346;
 }
 [data-md-color-scheme="slate"]{
   --md-hue:35;
@@ -39,6 +44,11 @@
   --md-code-fg-color:#f1ebdf;
   --md-footer-bg-color:#1b1814;
   --md-footer-fg-color:#f1ebdf;
+  --md-footer-fg-color--lighter:#a79f90;
+  --md-code-hl-keyword-color:#c58bd9;--md-code-hl-string-color:#4fc58a;--md-code-hl-number-color:#ff8a72;
+  --md-code-hl-function-color:#8d9bff;--md-code-hl-constant-color:#8d9bff;--md-code-hl-special-color:#ff8a72;
+  --md-code-hl-name-color:#f1ebdf;--md-code-hl-variable-color:#f1ebdf;--md-code-hl-generic-color:#f1ebdf;
+  --md-code-hl-operator-color:#a79f90;--md-code-hl-punctuation-color:#a79f90;--md-code-hl-comment-color:#a79f90;
 }
 .md-header{box-shadow:none;border-bottom:1px solid var(--md-default-fg-color--lightest)}
 .md-header__title{font-family:"Fraunces",Georgia,serif;font-weight:600;letter-spacing:-.01em}
