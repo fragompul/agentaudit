@@ -7,6 +7,9 @@ docs_dir: docs
 strict: true
 theme:
   name: material
+  font: false
+  logo: assets/mark.svg
+  favicon: assets/mark.svg
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -16,7 +19,7 @@ theme:
       scheme: slate
       primary: indigo
       toggle: {icon: material/weather-sunny, name: Light mode}
-  features: [navigation.sections, content.code.copy, search.highlight]
+  features: [navigation.sections, navigation.top, content.code.copy, search.highlight]
 markdown_extensions:
   - admonition
   - tables
@@ -24,10 +27,13 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.arithmatex: {generic: true}
+extra_css:
+  - stylesheets/extra.css
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
 nav:
   - Home: index.md
+  - Playground: https://fragompul.github.io/agentaudit/playground/
   - Quickstart: quickstart.md
   - Mathematics: math.md
   - Benchmark: benchmark.md

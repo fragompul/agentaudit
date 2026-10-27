@@ -1,0 +1,55 @@
+/* AgentAudit identity for MkDocs Material. Fonts live in the site root (../../fonts) once deployed. */
+@font-face{font-family:"Fraunces";src:url("../../fonts/fraunces-latin-opsz-normal.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Fraunces";src:url("../../fonts/fraunces-latin-opsz-italic.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("../../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("../../fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+
+:root{
+  --md-text-font:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --md-code-font:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+[data-md-color-scheme="default"]{
+  --md-default-bg-color:#f4efe6;
+  --md-default-fg-color:#17140f;
+  --md-default-fg-color--light:#5a5346;
+  --md-default-fg-color--lighter:#8d8470;
+  --md-default-fg-color--lightest:#d9cfbc;
+  --md-primary-fg-color:#f4efe6;
+  --md-primary-bg-color:#17140f;
+  --md-accent-fg-color:#b92d17;
+  --md-typeset-a-color:#b92d17;
+  --md-code-bg-color:#ebe4d5;
+  --md-code-fg-color:#17140f;
+  --md-footer-bg-color:#ebe4d5;
+  --md-footer-fg-color:#17140f;
+  --md-footer-fg-color--light:#5a5346;
+}
+[data-md-color-scheme="slate"]{
+  --md-hue:35;
+  --md-default-bg-color:#12100d;
+  --md-default-fg-color:#f1ebdf;
+  --md-default-fg-color--light:#a79f90;
+  --md-default-fg-color--lighter:#6b6459;
+  --md-default-fg-color--lightest:#332d25;
+  --md-primary-fg-color:#12100d;
+  --md-primary-bg-color:#f1ebdf;
+  --md-accent-fg-color:#ff8a72;
+  --md-typeset-a-color:#ff8a72;
+  --md-code-bg-color:#1b1814;
+  --md-code-fg-color:#f1ebdf;
+  --md-footer-bg-color:#1b1814;
+  --md-footer-fg-color:#f1ebdf;
+}
+.md-header{box-shadow:none;border-bottom:1px solid var(--md-default-fg-color--lightest)}
+.md-header__title{font-family:"Fraunces",Georgia,serif;font-weight:600;letter-spacing:-.01em}
+.md-typeset h1,.md-typeset h2,.md-typeset h3{font-family:"Fraunces",Georgia,serif;font-weight:560;letter-spacing:-.015em;color:var(--md-default-fg-color)}
+.md-typeset h1{font-size:2.4em;line-height:1.08}
+.md-typeset h2{border-top:2px solid var(--md-default-fg-color);padding-top:.6em;margin-top:2.2em}
+.md-typeset table:not([class]){border:0;border-radius:0;font-size:.82rem}
+.md-typeset table:not([class]) th{background:none;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--md-default-fg-color--light);border-bottom:2px solid var(--md-default-fg-color)}
+.md-typeset table:not([class]) td{border-top:0;border-bottom:1px solid var(--md-default-fg-color--lightest)}
+.md-typeset code{border-radius:5px}
+.md-typeset .admonition,.md-typeset details{border-radius:10px}
+.md-nav__item--section>.md-nav__link{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+::selection{background:#f6d365;color:#17140f}
+.md-typeset img{border-radius:8px}
