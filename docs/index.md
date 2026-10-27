@@ -12,7 +12,7 @@ It is three things:
 3. an **empirical study** that quantifies the problem with simulations, local models and re-analysis of public
    results. See [Results](results.md).
 
-Try it in the browser: the [playground](https://fragompul.github.io/agentaudit/) runs this exact library through Pyodide.
+Try it in the browser: the [playground](https://fragompul.github.io/agentaudit/playground/) runs this exact library through Pyodide.
 
 ```python
 from agentaudit.analysis import analyze
