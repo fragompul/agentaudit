@@ -3,58 +3,197 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AgentAudit playground</title>
-<meta name="description" content="Upload agent trajectories and see confidence intervals, variance decomposition, ranking uncertainty and a power planner. Runs the real Python library in your browser.">
-<link rel="stylesheet" href="css/style.css">
+<title>AgentAudit: how much of an agent leaderboard is signal?</title>
+<meta name="description" content="A statistics toolkit, an offline benchmark and an empirical study of repeated-run LLM agent evaluation. Confidence intervals, variance decomposition, ranking uncertainty and power planning. Zero cost, runs in your browser.">
+<meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12100d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AgentAudit: how much of an agent leaderboard is signal?">
+<meta property="og:description" content="Adjacent leaderboard positions on SWE-bench Verified: 0 of 128 are statistically distinguishable. A toolkit, a benchmark and a study.">
+<meta property="og:image" content="https://fragompul.github.io/agentaudit/assets/og.png">
+<meta property="og:url" content="https://fragompul.github.io/agentaudit/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="css/charts.css">
+<script>try{var t=localStorage.getItem("aa-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preload" href="fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-<header>
-  <h1>AgentAudit <span>playground</span></h1>
-  <p>Statistically rigorous agent evaluation, running the <b>real Python library</b> in your browser (Pyodide). Nothing is uploaded anywhere.</p>
-  <nav><a href="docs/">Docs</a> · <a href="https://github.com/fragompul/agentaudit">GitHub</a></nav>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/mark.svg" alt="" width="28" height="28">agent<b>audit</b></a>
+    <nav aria-label="Primary">
+      <a class="hide-s" href="#evidence">Evidence</a>
+      <a class="hide-s" href="#toolkit">Toolkit</a>
+      <a href="playground/">Playground</a>
+      <a href="docs/">Docs</a>
+      <a class="hide-s" href="https://github.com/fragompul/agentaudit">GitHub</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Toggle colour theme"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
 </header>
-<main>
-  <section id="input">
-    <h2>1. Load trajectories</h2>
-    <p class="mut">JSONL, one attempt per line: <code>{"model","task_id","run","seed","success"}</code> (extra fields allowed).</p>
-    <div class="row">
-      <label>Example
-        <select id="example">
-          <option value="taubench_retail">tau-bench retail: gpt-4o vs claude-3.5-sonnet (public, 4 trials)</option>
-          <option value="taubench_airline">tau-bench airline: gpt-4o vs claude-3.5-sonnet (public, 4 trials)</option>
-          <option value="synthetic">Synthetic: four agents of known skill</option>
-        </select>
-      </label>
-      <button id="load-example" type="button">Load example</button>
-      <label class="file">…or upload <input id="file" type="file" accept=".jsonl,.json,.txt"></label>
+
+<main id="main">
+<section class="hero wrap">
+  <p class="eyebrow">Statistics for agent evaluation</p>
+  <h1>How much of a leaderboard is <em>signal</em>?</h1>
+  <p class="lede">Agent leaderboards report one number per system, from one run. <strong>AgentAudit</strong> is the toolkit, the benchmark and the empirical study that tell you how much of that number you can trust, including the parts of our own hypothesis the data did not support.</p>
+  <div class="cta">
+    <a class="btn primary" href="playground/">Open the playground <span aria-hidden="true">→</span></a>
+    <a class="btn" href="#demo">Rerun a benchmark</a>
+    <a class="btn" href="https://github.com/fragompul/agentaudit">View source</a>
+  </div>
+  <ul class="facts" aria-label="Project facts">
+    <li><b>157</b> tests</li><li><b>97%</b> coverage</li><li><b>mypy</b> strict</li><li><b>NumPy + SciPy</b> only</li><li><b>€0</b> spent</li>
+  </ul>
+</section>
+
+<section id="demo" class="wrap block" aria-labelledby="demo-h">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Try it</p>
+      <h2 id="demo-h">Same agents. Same benchmark. <em>Run it again.</em></h2>
+      <p class="muted">Six agents whose true success rates differ by just one point each. Every press of the button re-runs the whole benchmark once, exactly as a leaderboard would. Watch who comes first.</p>
+      <div class="controls">
+        <button class="btn primary" id="rerun" type="button">Run the benchmark again</button>
+        <label class="switch"><input type="checkbox" id="show-ci"><span>Show 95% intervals</span></label>
+        <label class="switch"><input type="checkbox" id="show-truth"><span>Reveal true skill</span></label>
+      </div>
+      <p class="tally" id="tally" aria-live="polite"></p>
     </div>
-    <textarea id="data" rows="6" spellcheck="false" placeholder="paste JSONL here"></textarea>
-    <div class="row">
-      <label>Level <select id="level"><option>0.95</option><option>0.90</option><option>0.99</option></select></label>
-      <label>Bootstrap <select id="nboot"><option>1000</option><option selected>1500</option><option>4000</option></select></label>
-      <button id="analyze" type="button" disabled>Analyze</button>
-      <span id="status" class="mut">Loading Python…</span>
+    <figure class="board" id="board" aria-label="Simulated leaderboard">
+      <div class="board-rows" id="board-rows"></div>
+      <figcaption class="muted">100 tasks, one run per agent per press. True skills: 55, 56, 57, 58, 59 and 60 %.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="evidence" class="wrap block" aria-labelledby="ev-h">
+  <p class="eyebrow">The evidence</p>
+  <h2 id="ev-h">Four numbers worth <em>remembering</em></h2>
+  <div class="stats" id="stats"></div>
+
+  <div class="chart-grid">
+    <figure class="chart" data-chart="swe-rank">
+      <h3>Where could the top ten truly rank?</h3>
+      <p class="muted">SWE-bench Verified, <span data-bind="swe-agents"></span> public submissions. Bars are 95% bootstrap intervals on the leaderboard rank.</p>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart" data-chart="swe-gap">
+      <h3>Distinguishable only when the gap is large</h3>
+      <p class="muted">Share of agent pairs a paired test can tell apart, by score gap: raw p &lt; 0.05 vs Holm-adjusted over <span data-bind="swe-pairs"></span> pairs.</p>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart wide" data-chart="coverage">
+      <h3>More runs made the interval <em>more wrong</em></h3>
+      <p class="muted">Simulated coverage of a nominal 95% interval for an agent's mean score. Treating all runs of a task as one binomial sample shrinks the interval but not the error.</p>
+      <div class="chips" role="group" aria-label="Number of tasks"></div>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart" data-chart="peeking">
+      <h3>Peeking at the result</h3>
+      <p class="muted">False-positive rate when two identical agents are compared and the experiment may stop early.</p>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart" data-chart="variance">
+      <h3>Where the variance lives</h3>
+      <p class="muted">Local open-weight models on AgentAudit-Bench: crossed agent × task × run decomposition.</p>
+      <div class="plot"></div>
+    </figure>
+    <figure class="chart wide" data-chart="local">
+      <h3>Seven local models, 120 tasks, 10 runs each</h3>
+      <p class="muted">Score with 95% interval. Run on one laptop, at zero cost.</p>
+      <div class="plot"></div>
+    </figure>
+  </div>
+</section>
+
+<section id="toolkit" class="wrap block" aria-labelledby="tk-h">
+  <p class="eyebrow">The toolkit</p>
+  <h2 id="tk-h">One library. <em>Eight</em> ways to doubt a number.</h2>
+  <div class="cards">
+    <article><span class="tag">metrics</span><h3>Unbiased reliability</h3><p>pass@k and pass^k estimators, bias-corrected per task.</p></article>
+    <article><span class="tag">intervals</span><h3>Honest uncertainty</h3><p>Wilson, Clopper-Pearson, beta-binomial, task, run and two-stage bootstrap, BCa.</p></article>
+    <article><span class="tag">variance</span><h3>Crossed decomposition</h3><p>Agent × task × run ANOVA with a generalizability coefficient.</p></article>
+    <article><span class="tag">comparison</span><h3>Paired, exact tests</h3><p>Sign-flip permutation, cluster bootstrap, McNemar, Holm and BH.</p></article>
+    <article><span class="tag">ranking</span><h3>Rank distributions</h3><p>P(top-k), pairwise P(i &gt; j), split-half Kendall τ.</p></article>
+    <article><span class="tag">planning</span><h3>Power and cost</h3><p>Minimum detectable effect, cost-optimal runs per task, tasks vs repeats.</p></article>
+    <article><span class="tag">sequential</span><h3>Stop early, safely</h3><p>Anytime-valid betting confidence sequences with equivalence margins.</p></article>
+    <article><span class="tag">failures</span><h3>Where agents break</h3><p>Deterministic taxonomy and failing-step localisation. Tokens, never money.</p></article>
+  </div>
+  <div class="code" role="group" aria-label="Quickstart">
+    <button class="copy" type="button" data-copy="pip install agentaudit&#10;agentaudit demo&#10;agentaudit analyze trajectories.jsonl --html report.html&#10;agentaudit power --task-var 0.10 --run-var 0.15 --delta 0.05 --cost-task 10">Copy</button>
+<pre><code><span class="c"># numpy + scipy only</span>
+pip install agentaudit
+agentaudit demo
+agentaudit analyze trajectories.jsonl --html report.html
+agentaudit power --task-var 0.10 --run-var 0.15 --delta 0.05 --cost-task 10</code></pre>
+  </div>
+</section>
+
+<section id="bench" class="wrap block" aria-labelledby="b-h">
+  <div class="split">
+    <div>
+      <p class="eyebrow">AgentAudit-Bench</p>
+      <h2 id="b-h">A benchmark that <em>audits itself</em></h2>
+      <p>Six simulated worlds, tasks generated from a seed with controllable horizon, distractors and tool failure rate. Success is decided by the <strong>final state of the world</strong>, never by what the agent says.</p>
+      <p class="muted">Every task is audited: an oracle solves it, a do-nothing agent does not, and generation is deterministic.</p>
     </div>
-  </section>
-  <section id="output" hidden>
-    <h2>2. Report</h2>
-    <iframe id="report" title="AgentAudit report"></iframe>
-  </section>
-  <section id="power">
-    <h2>3. Power planner</h2>
-    <p class="mut">How many tasks and runs per task do you need to detect a difference? Variances are filled in from your data after analysis.</p>
-    <div class="grid">
-      <label>Target difference<input id="p-delta" type="number" step="0.01" value="0.05"></label>
-      <label>Task-level variance s<sub>t</sub><input id="p-tv" type="number" step="0.01" value="0.10"></label>
-      <label>Run variance s<sub>e</sub><input id="p-rv" type="number" step="0.01" value="0.15"></label>
-      <label>Cost of a new task<input id="p-ct" type="number" step="1" value="0"></label>
-      <label>Cost of one run<input id="p-cr" type="number" step="1" value="1"></label>
-      <label>Power<input id="p-pw" type="number" step="0.05" value="0.8"></label>
+    <ul class="envs" aria-label="Environments">
+      <li><b>fs</b> virtual file system</li><li><b>sql</b> SQLite database</li><li><b>crm</b> REST API</li><li><b>booking</b> room reservations</li><li><b>forms</b> web forms</li><li><b>tabular</b> data and calculator</li>
+    </ul>
+  </div>
+</section>
+
+<section id="playground" class="wrap block play" aria-labelledby="p-h">
+  <div class="play-card">
+    <div>
+      <p class="eyebrow">Playground</p>
+      <h2 id="p-h">Audit your own agents <em>in the browser</em></h2>
+      <p>Drop in a JSONL file of trajectories and get intervals, rank uncertainty and a power plan. The exact Python library runs through WebAssembly. <strong>Nothing leaves your machine.</strong></p>
+      <a class="btn primary" href="playground/">Launch playground <span aria-hidden="true">→</span></a>
     </div>
-    <div id="power-out"></div>
-  </section>
+    <div class="stamp" aria-hidden="true"><span>audited</span><b>€0</b><span>spent</span></div>
+  </div>
+</section>
+
+<section id="limits" class="wrap block" aria-labelledby="l-h">
+  <p class="eyebrow">Honesty</p>
+  <h2 id="l-h">What this does <em>not</em> show</h2>
+  <ul class="limits">
+    <li>The real-model study uses 1B to 7B quantised local models on one laptop. Absolute scores do not transfer to frontier agents; generality rests on the simulations and the public re-analysis.</li>
+    <li>The environments are simulated and cleaner than real software tasks.</li>
+    <li>Tasks are treated as i.i.d. draws from the generator's population; intervals refer to that population.</li>
+    <li>The SWE-bench re-analysis assumes every public submission was evaluated on all 500 Verified instances.</li>
+  </ul>
+  <p><a href="docs/limitations/">Full limitations</a> · <a href="https://github.com/fragompul/agentaudit/tree/main/latex">The paper</a></p>
+</section>
+
+<section id="cite" class="wrap block" aria-labelledby="c-h">
+  <p class="eyebrow">Cite</p>
+  <h2 id="c-h">If it helps your work</h2>
+  <div class="code">
+    <button class="copy" type="button" data-copy="@software{agentaudit2026,&#10;  author = {G{\'o}mez Pulido, Francisco Javier},&#10;  title  = {AgentAudit: statistically rigorous evaluation of LLM agents},&#10;  year   = {2026},&#10;  url    = {https://github.com/fragompul/agentaudit}&#10;}">Copy</button>
+<pre><code>@software{agentaudit2026,
+  author = {G{\'o}mez Pulido, Francisco Javier},
+  title  = {AgentAudit: statistically rigorous evaluation of LLM agents},
+  year   = {2026},
+  url    = {https://github.com/fragompul/agentaudit}
+}</code></pre>
+  </div>
+</section>
 </main>
-<footer>MIT licensed · <a href="https://github.com/fragompul/agentaudit">fragompul/agentaudit</a></footer>
-<script type="module" src="js/app.js"></script>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div><strong>agentaudit</strong><br>MIT licensed. Built by <a href="https://github.com/fragompul">Fran Gómez Pulido</a>.</div>
+    <div><a href="playground/">Playground</a> · <a href="docs/">Docs</a> · <a href="docs/math/">Math</a> · <a href="https://github.com/fragompul/agentaudit">GitHub</a></div>
+  </div>
+</footer>
+<script type="module" src="js/landing.js"></script>
 </body>
 </html>
