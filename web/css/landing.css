@@ -103,3 +103,13 @@
 .row .tk{top:calc(50% - 12px);height:24px;width:2px;margin-left:-1px;background:var(--ink);opacity:0;transition:opacity .25s}
 .row .dt{top:calc(50% - 7px);width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--c);transition:left .55s cubic-bezier(.2,.8,.2,1)}
 .hero h1{isolation:isolate}
+
+/* hero art: a field of intervals, none of which clearly beats the others */
+.hero{position:relative}
+.hero-art{display:none;position:absolute;right:clamp(16px,4vw,32px);top:clamp(70px,8vw,120px);width:min(26%,290px)}
+@media (min-width:1040px){.hero-art{display:block}}
+.hero-art i{position:relative;display:block;height:52px;animation:drift 7s ease-in-out infinite alternate;animation-delay:var(--d)}
+.hero-art i::before{content:"";position:absolute;left:var(--a);width:var(--w);top:24px;height:6px;border-radius:3px;background:var(--c);opacity:.5}
+.hero-art i::after{content:"";position:absolute;left:var(--p);top:17px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:var(--c);box-shadow:0 0 0 4px var(--paper)}
+@keyframes drift{from{transform:translateX(-10px)}to{transform:translateX(10px)}}
+.chart.wide[data-chart=coverage] .plot svg{max-width:720px}
