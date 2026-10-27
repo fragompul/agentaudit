@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../css/tokens.css">
+<style>
+html,body{margin:0;width:1200px;height:630px;background:#f4efe6;color:#17140f;overflow:hidden;font-family:"Instrument Sans",sans-serif}
+.card{position:relative;width:1200px;height:630px;box-sizing:border-box;padding:64px 72px;display:flex;flex-direction:column;justify-content:space-between;background:
+ radial-gradient(900px 500px at 105% -10%,rgba(229,67,42,.14),transparent 60%),#f4efe6}
+.brand{display:flex;align-items:center;gap:16px;font:600 34px "Fraunces",serif;letter-spacing:-.02em}
+.brand img{width:52px;height:52px}
+.brand i{font-weight:400;color:#b92d17}
+h1{font:560 92px/1.02 "Fraunces",serif;letter-spacing:-.02em;word-spacing:.06em;margin:0;max-width:760px;font-variation-settings:"opsz" 144}
+h1 em{color:#b92d17;background:linear-gradient(transparent 78%,#f6d365 78% 93%,transparent 93%)}
+.foot{display:flex;justify-content:space-between;font:500 24px "JetBrains Mono",monospace;color:#5a5346}
+.chart{position:absolute;right:72px;top:150px;width:300px}
+.r{position:relative;height:44px}
+.r i{position:absolute;top:19px;height:7px;border-radius:4px;opacity:.55}
+.r b{position:absolute;top:12px;width:20px;height:20px;border-radius:50%;margin-left:-10px;box-shadow:0 0 0 4px #f4efe6}
+</style></head>
+<body><div class="card">
+<div class="brand"><img src="mark.svg" alt=""><span>agent<i>audit</i></span></div>
+<h1>How much of a leaderboard is <em>signal</em>?</h1>
+<div class="chart" id="chart"></div>
+<div class="foot"><span>0 / 128 adjacent places distinguishable</span><span>fragompul.github.io/agentaudit</span></div>
+</div>
+<script>
+const rows=[[1,5],[1,6],[1,7],[2,10],[2,12],[2,13],[3,13],[3,15]],cols=["#e5432a","#2740d9","#1f7a4d","#8a3f9e","#c98a14","#0e7c86","#e5432a","#2740d9"];
+document.getElementById("chart").innerHTML=rows.map(([a,b],i)=>`<div class="r"><i style="left:${(a-1)/15*100}%;width:${(b-a)/15*100}%;background:${cols[i]}"></i><b style="left:${i/15*100}%;background:${cols[i]}"></b></div>`).join("");
+</script></body></html>
