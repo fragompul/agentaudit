@@ -40,7 +40,7 @@ real:
 
 paper:
 	$(PY) scripts/make_paper_assets.py
-	cd latex && tectonic main.tex
+	cd latex && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex && cp main.pdf ../paper/agentaudit-paper.pdf
 
 # Everything that needs no model: simulations, public re-analysis, figures, paper.
 reproduce: sim public paper
