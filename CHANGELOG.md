@@ -2,7 +2,7 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
-## [Unreleased]
+## [0.2.0] - 2026-10-27
 
 ### Changed
 - New website: editorial landing page with an interactive leaderboard and charts generated from `results/`,
@@ -10,6 +10,7 @@ All notable changes are documented here ([Keep a Changelog](https://keepachangel
   MkDocs theme. Fonts are served locally (no Google Fonts).
 - HTML report uses the paper and ink palette.
 - Makefile works on Windows; GitHub Actions bumped to current majors.
+- Playground starts Python on first interaction, so the page stays light; contrast and layout-shift fixes.
 
 ## [0.1.0] - 2026-10-23
 
