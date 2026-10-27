@@ -1,11 +1,11 @@
 <div align="center">
 
-<img src="docs/assets/banner.svg" alt="AgentAudit: how much of an agent leaderboard is signal?" width="100%">
+<img src="web/assets/og.png" alt="AgentAudit: how much of an agent leaderboard is signal?" width="100%">
 
 <br>
 
 [![CI](https://github.com/fragompul/agentaudit/actions/workflows/ci.yml/badge.svg)](https://github.com/fragompul/agentaudit/actions/workflows/ci.yml)
-[![Playground](https://img.shields.io/badge/playground-runs%20in%20your%20browser-2a78d6?logo=webassembly&logoColor=white)](https://fragompul.github.io/agentaudit/)
+[![Playground](https://img.shields.io/badge/playground-runs%20in%20your%20browser-2a78d6?logo=webassembly&logoColor=white)](https://fragompul.github.io/agentaudit/playground/)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-526cfe)](https://fragompul.github.io/agentaudit/docs/)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-3776ab?logo=python&logoColor=white)](https://www.python.org/)
 [![Types: mypy strict](https://img.shields.io/badge/types-mypy%20strict-2dd4ef)](https://mypy-lang.org/)
@@ -13,7 +13,7 @@
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/license-MIT-ffb020)](LICENSE)
 
-**[Playground](https://fragompul.github.io/agentaudit/)** · **[Docs](https://fragompul.github.io/agentaudit/docs/)** · **[Math](docs/math.md)** · **[Results](docs/results.md)** · **[Paper](latex/)** · **[Changelog](CHANGELOG.md)**
+**[Website](https://fragompul.github.io/agentaudit/)** · **[Playground](https://fragompul.github.io/agentaudit/playground/)** · **[Docs](https://fragompul.github.io/agentaudit/docs/)** · **[Math](docs/math.md)** · **[Results](docs/results.md)** · **[Paper](latex/)** · **[Changelog](CHANGELOG.md)**
 
 </div>
 
@@ -78,7 +78,7 @@ report = analyze(to_resultset(read_jsonl("trajectories.jsonl")))
 print(report["fraction_indistinguishable"], report["variance"]["shares"])
 ```
 
-Or drop a JSONL file into the [browser playground](https://fragompul.github.io/agentaudit/), which runs this exact library through Pyodide.
+Or drop a JSONL file into the [browser playground](https://fragompul.github.io/agentaudit/playground/), which runs this exact library through Pyodide.
 
 ## What is inside
 
