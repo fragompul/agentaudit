@@ -21,3 +21,7 @@ latex/*.out
 latex/*.bbl
 latex/*.blg
 .DS_Store
+latex/main.pdf
+latex/*.fls
+latex/*.fdb_latexmk
+latex/*.xdv
