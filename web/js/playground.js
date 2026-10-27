@@ -29,12 +29,20 @@ async function boot() {
   py.unpackArchive(zip, "zip");
   py.runPython(await (await fetch("../bridge.py")).text());
   status("Python ready. Running locally.", "ready");
-  refreshButton();
 }
 
 const refreshButton = () => {
-  $("analyze").disabled = !py || !$("data").value.trim();
+  $("analyze").disabled = !$("data").value.trim();
 };
+
+// Python (about 10 MB) only starts on the first interaction, so the page itself stays light.
+let booting = null;
+function ensurePython() {
+  booting ??= boot()
+    .then(renderPower)
+    .catch((e) => status(`Failed to start: ${e.message}`, "err"));
+  return booting;
+}
 
 function describe(text) {
   const rows = text.split("\n").filter((l) => l.trim());
@@ -102,8 +110,10 @@ function fitFrame() {
 async function analyze() {
   const text = $("data").value.trim();
   if (!text) return status("Load or paste some trajectories first.", "err");
-  status("Analyzing…");
   $("analyze").disabled = true;
+  await ensurePython();
+  if (!py) return refreshButton();
+  status("Analyzing…");
   await new Promise((r) => setTimeout(r, 30));
   const res = JSON.parse(py.globals.get("run_analysis")(text, $("level").value, $("nboot").value));
   refreshButton();
@@ -149,4 +159,5 @@ drop.addEventListener("drop", (e) => readFile(e.dataTransfer.files[0]));
 document.querySelectorAll("[data-example]").forEach((b) => b.addEventListener("click", () => loadExample(b.dataset.example)));
 for (const id of ["p-delta", "p-tv", "p-rv", "p-ct", "p-cr", "p-pw"]) $(id).addEventListener("input", renderPower);
 loadExample("taubench_retail");
-boot().then(renderPower).catch((e) => status(`Failed to start: ${e.message}`, "err"));
+for (const ev of ["pointerdown", "keydown", "touchstart", "focusin"]) addEventListener(ev, ensurePython, { once: true, passive: true });
+refreshButton();
