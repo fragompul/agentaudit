@@ -87,9 +87,9 @@ def _profile_figure(d: dict[str, Any], fig_dir: Path) -> None:
             label=name,
         )
         axes[1].plot(p["mean_latency_s"], scores[name], "o", color=c, ms=4)
-    axes[0].set_xlabel("mean tokens per attempt (thousands)")
+    axes[0].set_xlabel("mean tokens per run (thousands)")
     axes[0].set_ylabel("success rate")
-    axes[1].set_xlabel("mean wall-clock per attempt (s, 4 parallel)")
+    axes[1].set_xlabel("mean wall-clock per run (s, 4 parallel)")
     axes[0].legend(frameon=False, fontsize=6)
     _save(fig, fig_dir, "real_profile.pdf")
 
@@ -204,6 +204,13 @@ def real_assets(macros: dict[str, str], fig_dir: Path, gen_dir: Path) -> None:
     macros["realFloorNoAction"] = _pct(
         max(v.get("no_action", 0) / (d["n_tasks"] * d["n_runs"]) for v in fails.values()), 0
     )
+    n_runs_total = (
+        d["n_models"] * d["n_tasks"] * d["n_runs"] if "n_models" in d else d["n_trajectories"]
+    )
+    macros["realBackendErr"] = str(sum(v.get("backend_error", 0) for v in fails.values()))
+    macros["realBackendErrShare"] = _pct(
+        sum(v.get("backend_error", 0) for v in fails.values()) / n_runs_total
+    )
     macros["realMaxStepLimit"] = _pct(max(p["frac_step_limit"] for p in d["profile"].values()), 0)
     macros["realMaxStepLimitModel"] = _tex(
         max(d["profile"].items(), key=lambda kv: kv[1]["frac_step_limit"])[0]
@@ -259,22 +266,22 @@ def real_assets(macros: dict[str, str], fig_dir: Path, gen_dir: Path) -> None:
         "\\renewcommand{\\REALPROTOCOL}{We evaluate "
         + f"{len(models)} open-weight models served by Ollama on a single laptop (Apple M5, 16\\,GB) "
         + f"on the {d['n_tasks']}-task core subset of \\textsc{{AgentAudit-Bench}}, "
-        + f"{d['n_runs']} independent runs per task ({n_att:,} attempts), temperature 0.7, "
+        + f"{d['n_runs']} independent runs per task ({n_att:,} runs), temperature 0.7, "
         + "with the text tool protocol of Appendix~\\ref{app:prompts} so that every model is driven "
         + "identically."
         + "}\n"
         "\\renewcommand{\\REALABSTRACT}{On "
         + f"{len(models)} local models ({d['n_runs']} runs on {d['n_tasks']} tasks) run-to-run noise "
-        + f"accounts for {_pct(sh['run'], 0)} of score variance and a {pw['target_delta'] * 100:.0f}-point "
-        + f"difference would need about {pw['tasks_needed_at_current_runs']} tasks."
+        + f"accounts for {_pct(sh['run'], 0)} of the variance of single-run outcomes, and a plug-in estimate says a "
+        + f"{pw['target_delta'] * 100:.0f}-point difference would need about {pw['tasks_needed_at_current_runs']} tasks."
         + "}\n"
         "\\renewcommand{\\REALREFUTED}{On local models the ranking is not fragile: with gaps of tens of points all but "
-        + f"{macros['realNIndist']} of {macros['realNPairs']} pairs are separable and run noise does not reorder them, "
-        + "so the claim that leaderboard rankings are generally unreliable is supported only for close systems (SWE-bench) and not for "
-        + "widely spaced ones. We did not test the fixed-budget tasks-versus-runs result on real data, the real-data sequential "
-        + "analysis re-orders existing results rather than stopping a live run, and one model (q2) is a floor-effect control. "
-        + "Single hardware, single prompt protocol, small models: conclusions do not transfer to frontier agents."
-        + "}\n"
+        + f"{macros['realNIndist']} of {macros['realNPairs']} pairs are separable and the split-half rank correlation is high, "
+        + "so the claim that rankings are unreliable is supported only for close systems (SWE-bench simulations and re-analysis) "
+        + "and not for widely spaced ones. The fixed-budget tasks-versus-runs result was not tested on real data, the real-data sequential "
+        + "analysis re-orders existing results rather than stopping a live run, and one model (q2) never produced a parseable action, so "
+        + "its score measures protocol failure rather than capability. Single hardware, single prompt protocol, small quantised models, "
+        + "no fault injection and raw trajectories not retained: conclusions do not transfer to frontier agents.}\n"
         "\\renewcommand{\\REALFINDINGS}{(6) On local models, run noise is "
         + f"{_pct(sh['run'], 0)} of variance, the best model's pass$^{{10}}$ is "
         + f"{_pct(best['pass_hat_k']['10'][0])} against a one-run score of "

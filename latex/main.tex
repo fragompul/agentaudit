@@ -1,7 +1,7 @@
 \documentclass[10pt]{article}
 \usepackage[preprint]{tmlr}
 \input{math_commands.tex}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{verbatim}
@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-Agent leaderboards report one number per system from a single run. We ask how much of that number is signal. We introduce \textsc{AgentAudit}, a framework for statistically rigorous evaluation of LLM agents (unbiased pass@$k$ and pass$^k$, intervals that respect the tasks-by-runs structure, variance decomposition, paired tests with multiplicity control, ranking uncertainty, a power planner and anytime-valid sequential stopping) together with \textsc{AgentAudit-Bench}, an offline, deterministic, state-verified benchmark of 360 procedurally generated tool-use tasks with seeded fault injection. A simulation study with agents of known skill shows that the common shortcut of pooling all runs gives 95\% intervals that cover only \covWilsonTenRuns{} of the time with ten runs per task, and tests that pool runs reject a true null in \typeIPoolMc{} of simulations (nominal 5\%); task-level procedures stay near nominal. At a fixed attempt budget, more tasks beat more repeats. Re-analysing \sweNAgents{} public SWE-bench Verified submissions, \sweIndistHolm{} of agent pairs are statistically indistinguishable after multiplicity correction, and \emph{none} of the \sweAdjN{} adjacent leaderboard positions is distinguishable. On tau-bench, the gap between two frontier models is significant in retail but not in airline. \REALABSTRACT
+Agent leaderboards report one number per system, usually from one run per task. We ask how much of that number is signal, and how much of the usual statistical machinery survives when every task is attempted several times. We present \textsc{AgentAudit}, a typed and tested library (unbiased pass@$k$ and pass$^k$, task-level intervals, variance decomposition, paired tests with multiplicity control, ranking uncertainty, power planning, anytime-valid sequential comparison) and \textsc{AgentAudit-Bench}, an offline, deterministic, state-verified suite of 360 generated tool-use tasks. In simulations against known truth, pooling all runs gives 95\% intervals that cover only \covWilsonTenRuns{} of the time with ten runs per task, and run-level tests that reject a true null in \typeIPoolMc{} of simulations; task-level procedures stay close to nominal, although the task bootstrap is optimistic with 20 tasks and extreme prevalence (down to \covrobBootSmallMin{}). Whether tasks or repeats are better at a fixed budget depends on the agent-by-task interaction: they are equivalent when it is small and tasks are better when it is large. Re-analysing \sweNAgents{} public SWE-bench Verified submissions, \sweIndistHolm{} of agent pairs are not distinguishable after Holm correction, and only \sweAllAdjHolm{} adjacent leaderboard positions are separated (\sweSingleAdjHolm{} among entries that declare a single attempt); full coverage of the 500 instances could be verified for only \sweNCovered{} entries. On tau-bench the gap between two frontier models is detected in retail but not in airline. \REALABSTRACT
 \end{abstract}
 
 \input{sections/intro}
@@ -38,6 +38,7 @@ Agent leaderboards report one number per system from a single run. We ask how mu
 \input{sections/protocol}
 \input{sections/results}
 \input{sections/discussion}
+\input{sections/limits}
 
 \bibliography{references}
 \bibliographystyle{tmlr}

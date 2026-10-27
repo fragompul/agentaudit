@@ -1,4 +1,4 @@
-"""Tests added by the scientific audit: exact unbiasedness, edge cases and cross-checks against references."""
+"""Tests added by the scientific audit: unbiasedness, edge cases, cross-checks."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ from agentaudit.variance import decompose_array
 
 @pytest.mark.parametrize("n", range(1, 9))
 def test_pass_estimators_exactly_unbiased(n: int) -> None:
-    """E over Binomial(n, p) of the estimators equals p^k and 1-(1-p)^k for every k <= n (exact sums)."""
+    """E over Binomial(n, p) of the estimators is p^k and 1-(1-p)^k for all k <= n."""
     for p in (0.0, 0.1, 0.5, 0.83, 1.0):
         pmf = np.array([comb(n, c) * p**c * (1 - p) ** (n - c) for c in range(n + 1)])
         c = np.arange(n + 1)
@@ -67,7 +67,10 @@ def test_sign_flip_exact_matches_full_enumeration() -> None:
     d = np.array([3.0, -1.0, 2.0, 0.5, -0.25, 1.5, 0.0, 4.0])
     nz = d[d != 0]
     obs = abs(nz.sum())
-    sums = [abs(sum(s * x for s, x in zip(signs, nz, strict=True))) for signs in product((-1, 1), repeat=nz.size)]
+    sums = [
+        abs(sum(s * x for s, x in zip(signs, nz, strict=True)))
+        for signs in product((-1, 1), repeat=nz.size)
+    ]
     assert sign_flip_permutation(d) == pytest.approx(np.mean(np.array(sums) >= obs - 1e-12))
 
 
@@ -82,7 +85,9 @@ def test_sign_flip_monte_carlo_agrees_with_exact() -> None:
 def test_sign_flip_is_exact_under_symmetric_null() -> None:
     """Rejection rate at 5% under a symmetric null is at most 5% (it is a valid test)."""
     rng = np.random.default_rng(2)
-    rej = sum(sign_flip_permutation(rng.standard_t(3, 12), exact_below=14) < 0.05 for _ in range(1500))
+    rej = sum(
+        sign_flip_permutation(rng.standard_t(3, 12), exact_below=14) < 0.05 for _ in range(1500)
+    )
     assert rej / 1500 <= 0.05 + 3 * np.sqrt(0.05 * 0.95 / 1500)
 
 
@@ -124,7 +129,9 @@ def test_variance_with_single_run_is_flagged_confounded() -> None:
 
 def test_truncation_keeps_raw_values() -> None:
     comps = decompose_array(np.random.default_rng(6).normal(size=(3, 6, 2)))
-    assert min(comps.raw) < 0 or comps.model >= 0  # components are reported truncated, raw is retained
+    assert (
+        min(comps.raw) < 0 or comps.model >= 0
+    )  # components are reported truncated, raw is retained
     assert all(v >= 0 for v in (comps.model, comps.task, comps.model_task, comps.run))
 
 
@@ -134,7 +141,9 @@ def test_confidence_sequence_validity_under_null() -> None:
     bad = 0
     reps = 300
     for _ in range(reps):
-        x = rng.binomial(1, 0.3, 200).astype(float) * 0.5 + rng.random(200) * 0.4 * (rng.random(200) < 0.5)
+        x = rng.binomial(1, 0.3, 200).astype(float) * 0.5 + rng.random(200) * 0.4 * (
+            rng.random(200) < 0.5
+        )
         mu = 0.3 * 0.5 + 0.5 * 0.2
         lo, hi = confidence_sequence(x, 0.05, grid_size=801)
         bad += bool(np.any(lo > mu) or np.any(hi < mu))

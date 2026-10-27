@@ -43,13 +43,19 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
             (BLUE, AQUA, ORANGE, GREY),
             strict=True,
         ):
-            pts = [(c["tasks"], c["reject_rate"][k]) for c in a if c["q_big_win"] == q and c["runs"] == 5]
+            pts = [
+                (c["tasks"], c["reject_rate"][k])
+                for c in a
+                if c["q_big_win"] == q and c["runs"] == 5
+            ]
             ax.plot(*zip(*pts, strict=True), "-o", ms=3, color=col, label=lab)
         ax.axhline(0.05, color="k", lw=0.8)
         ax.set_xscale("log")
+        ax.minorticks_off()
         ax.set_xticks([20, 50, 100, 300], ["20", "50", "100", "300"])
         sk = next(c for c in a if c["q_big_win"] == q)["skewness_of_delta"]
-        ax.set_title(f"skewness {sk:.1f}")
+        ax.set_title(f"skewness {abs(sk):.1f}")
+        ax.set_ylim(0, 0.10)
         ax.set_xlabel("tasks $T$")
     axes[0].set_ylabel("type-I error ($R=5$)")
     axes[0].legend(fontsize=6, frameon=False, loc="lower right")
@@ -73,6 +79,7 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
             )
         ax.axhline(1, color="k", lw=0.8)
         ax.set_xscale("log")
+        ax.minorticks_off()
         ax.set_xticks([1, 2, 5, 10, 20], ["1", "2", "5", "10", "20"])
         ax.set_title(f"task sd {st}")
         ax.set_xlabel("runs per task $R$")
@@ -113,7 +120,10 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
     macro("covrobBootSmallMin", _pct(min(c["coverage"]["bootstrap_tasks"] for c in small), 0))
     macro("covrobBootSmallMax", _pct(max(c["coverage"]["bootstrap_tasks"] for c in small), 0))
     macro("covrobBCaSmallMin", _pct(min(c["coverage"]["bootstrap_tasks_bca"] for c in small), 0))
-    macro("covrobRunsOnlyOne", _pct(max(c["coverage"]["bootstrap_runs_only"] for c in cv if c["runs"] == 1), 0))
+    macro(
+        "covrobRunsOnlyOne",
+        _pct(max(c["coverage"]["bootstrap_runs_only"] for c in cv if c["runs"] == 1), 0),
+    )
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.6), sharey=True)
     for ax, st in zip(axes, (0.3, 1.5), strict=True):
         for key, lab, col in (
@@ -129,10 +139,16 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
                     if c["sigma_task"] == st and c["runs"] == 10 and c["theta"] == th
                 ]
                 ax.plot(
-                    *zip(*pts, strict=True), ls="-", marker=mk, ms=3, color=col, label=lab if th == 0.3 else None
+                    *zip(*pts, strict=True),
+                    ls="-",
+                    marker=mk,
+                    ms=3,
+                    color=col,
+                    label=lab if th == 0.3 else None,
                 )
         ax.axhline(0.95, color="k", lw=0.8)
         ax.set_xscale("log")
+        ax.minorticks_off()
         ax.set_xticks([20, 50, 100], ["20", "50", "100"])
         ax.set_xlabel("tasks $T$ ($R=10$)")
         ax.set_title(f"task sd {st}; markers: low / mid / high prevalence", fontsize=7)
@@ -145,11 +161,17 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
     macro("seqmReps", str(sq[0]["reps"]))
     outside = [c for c in sq if c["true_diff"] > c["margin"] > 0]
     macro("seqmFalseEquivMax", _pct(max(c["rates"]["equivalent"] for c in outside)))
-    tie = next(c for c in sq if c["delta_theta"] == 0.0 and c["margin"] == 0.1 and c["min_tasks"] == 10)
+    tie = next(
+        c for c in sq if c["delta_theta"] == 0.0 and c["margin"] == 0.1 and c["min_tasks"] == 10
+    )
     macro("seqmEquivTrueTie", _pct(tie["rates"]["equivalent"], 0))
     macro("seqmEquivTrueTieTasks", f"{tie['median_tasks_when_decided']:.0f}")
-    macro("seqmZeroMarginEquiv", _pct(max(c["rates"]["equivalent"] for c in sq if c["margin"] == 0)))
-    t0 = next(c for c in sq if c["delta_theta"] == 0.0 and c["margin"] == 0.0 and c["min_tasks"] == 10)
+    macro(
+        "seqmZeroMarginEquiv", _pct(max(c["rates"]["equivalent"] for c in sq if c["margin"] == 0))
+    )
+    t0 = next(
+        c for c in sq if c["delta_theta"] == 0.0 and c["margin"] == 0.0 and c["min_tasks"] == 10
+    )
     macro("seqmUndecidedTie", _pct(t0["rates"]["undecided"], 0))
 
     # E6: pairwise Holm
@@ -163,7 +185,13 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
     large = next(c for c in rk if c["tasks"] == 500 and c["runs"] == 3)
     macro("rankpwCloseTrue", f"{100 * pair02(large)['true_abs_diff']:.1f}")
     macro("rankpwCloseRej", _pct(pair02(large)["holm_reject_rate"], 0))
-    macro("rankpwCloseRejSmall", _pct(pair02(next(c for c in rk if c["tasks"] == 50 and c["runs"] == 3))["holm_reject_rate"], 0))
+    macro(
+        "rankpwCloseRejSmall",
+        _pct(
+            pair02(next(c for c in rk if c["tasks"] == 50 and c["runs"] == 3))["holm_reject_rate"],
+            0,
+        ),
+    )
 
 
 def swebench_robustness(macro: Callable[[str, str], None], gen: Path) -> None:
@@ -199,4 +227,6 @@ def swebench_robustness(macro: Callable[[str, str], None], gen: Path) -> None:
         "\\begin{tabular}{lrrrr}\n\\toprule\n"
         "Subset & Entries & Pairs separable (\\%) & Adjacent, Holm & Adjacent, unadjusted \\\\\n\\midrule\n"
     )
-    (gen / "tab_swe_robust.tex").write_text(head + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n")
+    (gen / "tab_swe_robust.tex").write_text(
+        head + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n"
+    )

@@ -13,7 +13,7 @@ import numpy as np
 from scipy import stats
 
 from agentaudit.analysis import analyze
-from agentaudit.compare import compare, mcnemar_exact
+from agentaudit.compare import compare, holm, mcnemar_exact
 from agentaudit.ingest import taubench_resultset
 from agentaudit.power import DiffVariance, required_tasks
 
@@ -32,6 +32,24 @@ def pooled_tests(a: np.ndarray, b: np.ndarray) -> dict[str, float]:  # type: ign
             int(np.sum((a == 1) & (b == 0))), int(np.sum((b == 1) & (a == 0)))
         ),
     }
+
+
+def needed_interval(a: np.ndarray, b: np.ndarray, n_boot: int = 500) -> dict[str, float]:  # type: ignore[type-arg]
+    """Bootstrap (over tasks) distribution of 'tasks needed for 80% power at the observed gap'.
+
+    The pilot variance components and the observed gap are both estimated, so the plug-in figure is uncertain.
+    """
+    rng = np.random.default_rng(0)
+    vals = []
+    for _ in range(n_boot):
+        idx = rng.integers(0, a.shape[0], a.shape[0])
+        aa, bb = a[idx], b[idx]
+        diff = float(aa.mean() - bb.mean())
+        vals.append(
+            required_tasks(max(abs(diff), 0.01), aa.shape[1], DiffVariance.from_pilot(aa, bb))
+        )
+    q = np.quantile(vals, [0.025, 0.5, 0.975])
+    return {"p2.5": float(q[0]), "median": float(q[1]), "p97.5": float(q[2]), "n_boot": n_boot}
 
 
 def main() -> None:
@@ -66,6 +84,7 @@ def main() -> None:
             if cmp.diff
             else None,
             "pilot_diff_variance": {"task": dv.task, "run": dv.run},
+            "tasks_needed_bootstrap_interval": needed_interval(sonnet, gpt),
         }
         print(
             domain,
@@ -73,6 +92,14 @@ def main() -> None:
             f"p_perm={cmp.p_permutation:.4f} "
             f"pooled_z p={out[domain]['pooled_shortcut']['pooled_ztest_p']:.5f}",  # type: ignore[index]
         )
+    out["holm_p_permutation_two_domains"] = {  # type: ignore[assignment]
+        k: float(v)
+        for k, v in zip(
+            ("airline", "retail"),
+            holm([out[d]["task_level_comparison"]["p_permutation"] for d in ("airline", "retail")]),  # type: ignore[index]
+            strict=True,
+        )
+    }
     Path("results/reanalysis_taubench.json").write_text(json.dumps(out, indent=1))
 
 

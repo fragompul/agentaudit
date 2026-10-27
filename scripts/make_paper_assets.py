@@ -223,6 +223,7 @@ def sim_sequential() -> None:
     axes[1].set_xticks(x, [f"{r['true_diff'] * 100:.1f}" for r in d])
     axes[1].set_xlabel("true score difference (points)")
     axes[1].set_ylabel("median tasks used when stopped")
+    fig.subplots_adjust(wspace=0.4)
     save(fig, "sequential.pdf")
     macro("seqNullPeek", pct(d[0]["decision_rate"]["peek"]))
     macro("seqNullSeq", pct(d[0]["decision_rate"]["seq"]))
@@ -349,6 +350,14 @@ def taubench() -> None:
         macro(
             f"tau{dom.capitalize()}Need",
             str(d[dom]["tasks_needed_for_80pct_power_at_observed_gap"]),
+        )
+        nb = d[dom]["tasks_needed_bootstrap_interval"]
+        macro(f"tau{dom.capitalize()}NeedLo", f"{nb['p2.5']:.0f}")
+        macro(f"tau{dom.capitalize()}NeedHi", f"{nb['p97.5']:,.0f}".replace(",", "\\,"))
+        macro(f"tau{dom.capitalize()}PHolm", f"{d['holm_p_permutation_two_domains'][dom]:.3f}")
+        macro(
+            f"tau{dom.capitalize()}PTaskMc",
+            f"{d[dom]['task_level_comparison']['p_task_mcnemar']:.2f}",
         )
         v = d[dom]["analysis"]["variance"]["shares"]
         macro(f"tau{dom.capitalize()}RunShare", pct(v["run"], 0))

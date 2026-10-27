@@ -58,7 +58,9 @@ def _asym_cell(args: tuple[int, int, float, int]) -> dict[str, Any]:
     t, r, q, reps = args
     rej = dict.fromkeys(("sign_flip", "studentized_sign_flip", "paired_bootstrap", "paired_t"), 0)
     rng = np.random.default_rng([31, t, r, int(q * 100)])
-    up = 0.45 if q < 0.5 else 0.25  # symmetric control uses a smaller jump so u - up stays in [0, 1]
+    up = (
+        0.45 if q < 0.5 else 0.25
+    )  # symmetric control uses a smaller jump so u - up stays in [0, 1]
     down = up * q / (1 - q)  # E[delta] = q*up - (1-q)*down = 0
     for _ in range(reps):
         u = rng.uniform(0.3, 0.5, t)
@@ -72,13 +74,24 @@ def _asym_cell(args: tuple[int, int, float, int]) -> dict[str, Any]:
         rej["paired_t"] += _t_p(d, t)
     rates = {k: v / reps for k, v in rej.items()}
     skew = float(stats.skew(np.where(rng.random(200000) < q, up, -down)))
-    return {"tasks": t, "runs": r, "q_big_win": q, "reps": reps, "reject_rate": rates,
-            "mc_se_max": max(_mc_se(v, reps) for v in rates.values()), "skewness_of_delta": skew}
+    return {
+        "tasks": t,
+        "runs": r,
+        "q_big_win": q,
+        "reps": reps,
+        "reject_rate": rates,
+        "mc_se_max": max(_mc_se(v, reps) for v in rates.values()),
+        "skewness_of_delta": skew,
+    }
 
 
 def exp_asym() -> dict[str, Any]:
     cells = [(t, r, q, 1500) for t, r, q in product((20, 50, 100, 300), (1, 5), (0.5, 0.1, 0.03))]
-    return {"alpha": 0.05, "note": "q=0.5 is the symmetric control", "cells": _pmap(_asym_cell, cells)}
+    return {
+        "alpha": 0.05,
+        "note": "q=0.5 is the symmetric control",
+        "cells": _pmap(_asym_cell, cells),
+    }
 
 
 # ---------------------------------------------------------------- E2 allocation
@@ -99,18 +112,40 @@ def _alloc_cell(args: tuple[float, float, int]) -> dict[str, Any]:
             d = rs.scores[1].mean(axis=1) - rs.scores[0].mean(axis=1)
             diffs.append(d.mean())
             rej += _t_p(d, t)
-        rows.append({"runs": r, "tasks": t, "empirical_se": float(np.std(diffs)),
-                     "analytic_se": float(np.sqrt(dv.var_mean(t, r))), "power_sim": rej / reps,
-                     "power_analytic": power(delta, t, r, dv)})
-    capped = [{"runs": r, "power_analytic": power(delta, 120, r, dv)} for r in (1, 2, 5, 10, 20, 50)]
+        rows.append(
+            {
+                "runs": r,
+                "tasks": t,
+                "empirical_se": float(np.std(diffs)),
+                "analytic_se": float(np.sqrt(dv.var_mean(t, r))),
+                "power_sim": rej / reps,
+                "power_analytic": power(delta, t, r, dv),
+            }
+        )
+    capped = [
+        {"runs": r, "power_analytic": power(delta, 120, r, dv)} for r in (1, 2, 5, 10, 20, 50)
+    ]
     rstar = {str(c): optimal_runs(dv, cost_task=c, cost_run=1.0) for c in (0.0, 1.0, 10.0, 100.0)}
-    return {"sigma_task": s_task, "sigma_interaction": s_int, "true_diff": delta,
-            "s_t": dv.task, "s_e": dv.run, "budget": b, "fixed_budget": rows,
-            "task_pool_capped_at_120": capped, "optimal_runs_by_cost_ratio": rstar, "reps": reps}
+    return {
+        "sigma_task": s_task,
+        "sigma_interaction": s_int,
+        "true_diff": delta,
+        "s_t": dv.task,
+        "s_e": dv.run,
+        "budget": b,
+        "fixed_budget": rows,
+        "task_pool_capped_at_120": capped,
+        "optimal_runs_by_cost_ratio": rstar,
+        "reps": reps,
+    }
 
 
 def exp_alloc() -> dict[str, Any]:
-    return {"cells": _pmap(_alloc_cell, [(a, b, 1500) for a, b in product((0.5, 1.5, 2.5), (0.2, 0.6, 1.0))])}
+    return {
+        "cells": _pmap(
+            _alloc_cell, [(a, b, 1500) for a, b in product((0.5, 1.5, 2.5), (0.2, 0.6, 1.0))]
+        )
+    }
 
 
 # ---------------------------------------------------------------- E3 coverage robustness
@@ -126,20 +161,33 @@ def _cov_cell(args: tuple[float, float, int, int, int]) -> dict[str, Any]:
             "wilson_pooled": wilson(int(y.sum()), y.size),
             "bootstrap_tasks": bootstrap_ci(y, batch_success, n_boot=500, seed=i),
             "bootstrap_tasks_bca": bootstrap_ci(y, batch_success, n_boot=500, method="bca", seed=i),
-            "bootstrap_runs_only": bootstrap_ci(y, batch_success, n_boot=500, scheme="runs", seed=i),
-            "bootstrap_two_stage": bootstrap_ci(y, batch_success, n_boot=500, scheme="two-stage", seed=i),
+            "bootstrap_runs_only": bootstrap_ci(
+                y, batch_success, n_boot=500, scheme="runs", seed=i
+            ),
+            "bootstrap_two_stage": bootstrap_ci(
+                y, batch_success, n_boot=500, scheme="two-stage", seed=i
+            ),
             "beta_binomial_profile": beta_binomial_hierarchical(y.sum(axis=1), np.full(t, r)),
         }
         for k, iv in ivs.items():
             hit[k] = hit.get(k, 0) + iv.contains(truth)
-    return {"theta": theta, "true_mean": truth, "sigma_task": s_task, "tasks": t, "runs": r,
-            "reps": reps, "coverage": {k: v / reps for k, v in hit.items()},
-            "mc_se_at_95": _mc_se(0.95, reps)}
+    return {
+        "theta": theta,
+        "true_mean": truth,
+        "sigma_task": s_task,
+        "tasks": t,
+        "runs": r,
+        "reps": reps,
+        "coverage": {k: v / reps for k, v in hit.items()},
+        "mc_se_at_95": _mc_se(0.95, reps),
+    }
 
 
 def exp_covrob() -> dict[str, Any]:
-    cells = [(th, s, t, r, 1000) for th, s, t, r in
-             product((-2.5, 0.3, 2.5), (0.3, 1.5), (20, 50, 100), (1, 3, 10))]
+    cells = [
+        (th, s, t, r, 1000)
+        for th, s, t, r in product((-2.5, 0.3, 2.5), (0.3, 1.5), (20, 50, 100), (1, 3, 10))
+    ]
     return {"nominal": 0.95, "cells": _pmap(_cov_cell, cells)}
 
 
@@ -157,9 +205,15 @@ def _seq_cell(args: tuple[float, float, int, int]) -> dict[str, Any]:
         cnt[res.decision] += 1
         if res.decision != "undecided":
             used.append(res.n_used)
-    return {"delta_theta": dth, "true_diff": truth, "margin": margin, "min_tasks": min_tasks, "reps": reps,
-            "rates": {k: v / reps for k, v in cnt.items()},
-            "median_tasks_when_decided": float(np.median(used)) if used else None}
+    return {
+        "delta_theta": dth,
+        "true_diff": truth,
+        "margin": margin,
+        "min_tasks": min_tasks,
+        "reps": reps,
+        "rates": {k: v / reps for k, v in cnt.items()},
+        "median_tasks_when_decided": float(np.median(used)) if used else None,
+    }
 
 
 def exp_seqm() -> dict[str, Any]:
@@ -183,18 +237,32 @@ def _rank_cell(args: tuple[int, int, int]) -> dict[str, Any]:
         for a, b in pairs:
             x, y = rs.scores[a], rs.scores[b]
             if r == 1:
-                ps.append(mcnemar_exact(int(np.sum((x == 1) & (y == 0))), int(np.sum((y == 1) & (x == 0)))))
+                ps.append(
+                    mcnemar_exact(
+                        int(np.sum((x == 1) & (y == 0))), int(np.sum((y == 1) & (x == 0)))
+                    )
+                )
             else:
                 d = x.mean(axis=1) - y.mean(axis=1)
                 sd = d.std(ddof=1)
-                ps.append(1.0 if sd == 0 else float(2 * stats.t.sf(abs(d.mean()) / (sd / np.sqrt(t)), t - 1)))
+                ps.append(
+                    1.0
+                    if sd == 0
+                    else float(2 * stats.t.sf(abs(d.mean()) / (sd / np.sqrt(t)), t - 1))
+                )
         sig = holm(np.array(ps)) < 0.05
         rej += sig
         fw += bool(sig[0])  # pair (0, 1) has equal true skill
-    return {"tasks": t, "runs": r, "reps": reps,
-            "pairs": [{"i": i, "j": j, "true_abs_diff": float(g), "holm_reject_rate": float(x / reps)}
-                      for (i, j), g, x in zip(pairs, truth, rej, strict=True)],
-            "false_rejection_rate_equal_pair": fw / reps}
+    return {
+        "tasks": t,
+        "runs": r,
+        "reps": reps,
+        "pairs": [
+            {"i": i, "j": j, "true_abs_diff": float(g), "holm_reject_rate": float(x / reps)}
+            for (i, j), g, x in zip(pairs, truth, rej, strict=True)
+        ],
+        "false_rejection_rate_equal_pair": fw / reps,
+    }
 
 
 def exp_rankpw() -> dict[str, Any]:
@@ -202,7 +270,13 @@ def exp_rankpw() -> dict[str, Any]:
     return {"thetas": [0.0, 0.0, 0.15, 0.3, 0.6, 1.0], "cells": _pmap(_rank_cell, cells)}
 
 
-EXPS = {"asym": exp_asym, "alloc": exp_alloc, "covrob": exp_covrob, "seqm": exp_seqm, "rankpw": exp_rankpw}
+EXPS = {
+    "asym": exp_asym,
+    "alloc": exp_alloc,
+    "covrob": exp_covrob,
+    "seqm": exp_seqm,
+    "rankpw": exp_rankpw,
+}
 
 if __name__ == "__main__":
     name = sys.argv[1]

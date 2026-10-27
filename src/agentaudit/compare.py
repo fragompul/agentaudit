@@ -93,12 +93,12 @@ def sign_flip_permutation(
 ) -> float:
     """Paired permutation (sign-flip) test based on ``|sum(d)|``.
 
-    Exact (conditionally on ``|d|``) under the *strong* null that every ``d_t`` is symmetric about zero, which
-    holds when the two agents are exchangeable within each task. It is not exact for the weaker null
-    ``E[d] = 0`` with skewed ``d``; see :func:`studentized_sign_flip`. Zeros are dropped. Up to
-    ``exact_below`` non-zero differences all ``2^n`` sign patterns are enumerated; beyond that the
-    p-value is Monte Carlo, ``(1 + #{|S*| >= |S|}) / (n_perm + 1)`` with ``n_perm`` random sign patterns
-    drawn from ``default_rng(seed)``.
+    Exact (conditionally on ``|d|``) under the *strong* null that every ``d_t`` is symmetric about
+    zero, which holds when the two agents are exchangeable within each task. It is not exact for the
+    weaker null ``E[d] = 0`` with skewed ``d``; see :func:`studentized_sign_flip`. Zeros are
+    dropped. Up to ``exact_below`` non-zero differences all ``2^n`` sign patterns are enumerated;
+    beyond that the p-value is Monte Carlo, ``(1 + #{|S*| >= |S|}) / (n_perm + 1)`` with ``n_perm``
+    random sign patterns drawn from ``default_rng(seed)``.
     """
     d = np.asarray(diffs, dtype=np.float64)
     d = d[d != 0]
@@ -119,9 +119,10 @@ def sign_flip_permutation(
 def studentized_sign_flip(diffs: ArrayLike, *, n_perm: int = 10_000, seed: int = 0) -> float:
     """Sign-flip test of the paired *t* statistic (a reference method for the weak null).
 
-    The plain sign-flip test of ``sum(d)`` is exact only when each ``d_t`` is symmetric about zero. Flipping
-    signs of the studentised mean ``mean(d) / (sd(d) / sqrt(n))`` stays exact under symmetry and is
-    asymptotically valid for the weaker null ``E[d] = 0`` with skewed ``d`` (Janssen, 1997).
+    The plain sign-flip test of ``sum(d)`` is exact only when each ``d_t`` is symmetric about zero.
+    Flipping signs of the studentised mean ``mean(d) / (sd(d) / sqrt(n))`` stays exact under
+    symmetry and is asymptotically valid for the weaker null ``E[d] = 0`` with skewed ``d``
+    (Janssen, 1997).
     """
     d = np.asarray(diffs, dtype=np.float64)
     n = d.size
