@@ -1,0 +1,32 @@
+/* AgentAudit design tokens: warm paper, ink, vermilion. Editorial, but with an instrument's precision. */
+@font-face{font-family:"Fraunces";src:url("../fonts/fraunces-latin-opsz-normal.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Fraunces";src:url("../fonts/fraunces-latin-opsz-italic.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+@font-face{font-family:"Instrument Sans";src:url("../fonts/instrument-sans-latin-wght-normal.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("../fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url("../fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap}
+
+:root{
+  color-scheme:light dark;
+  --paper:#f4efe6; --paper-2:#ebe4d5; --card:#fbf8f2;
+  --ink:#17140f; --ink-2:#5a5346; --rule:#d9cfbc;
+  --accent:#e5432a; --accent-ink:#b92d17; --blue:#2740d9; --lemon:#f6d365;
+  --s1:#e5432a; --s2:#2740d9; --s3:#1f7a4d; --s4:#8a3f9e; --s5:#c98a14; --s6:#0e7c86; --s7:#6b6459;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --measure:68ch; --wide:1120px; --r:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#12100d; --paper-2:#1b1814; --card:#17140f;
+    --ink:#f1ebdf; --ink-2:#a79f90; --rule:#332d25;
+    --accent:#ff6a4d; --accent-ink:#ff8a72; --blue:#8d9bff; --lemon:#d9b13b;
+    --s1:#ff6a4d; --s2:#8d9bff; --s3:#4fc58a; --s4:#c58bd9; --s5:#e0a93a; --s6:#4fc0cb; --s7:#a79f90;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12100d; --paper-2:#1b1814; --card:#17140f;
+  --ink:#f1ebdf; --ink-2:#a79f90; --rule:#332d25;
+  --accent:#ff6a4d; --accent-ink:#ff8a72; --blue:#8d9bff; --lemon:#d9b13b;
+  --s1:#ff6a4d; --s2:#8d9bff; --s3:#4fc58a; --s4:#c58bd9; --s5:#e0a93a; --s6:#4fc0cb; --s7:#a79f90;
+}
