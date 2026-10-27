@@ -1,4 +1,541 @@
 {
+ "source": "github.com/swe-bench/experiments evaluation/verified (accessed via script)",
+ "inclusion": "entries with results/results.json and >= 50 resolved instances",
+ "coverage_audit": {
+  "n_entries_included": 129,
+  "coverage_verified": 110,
+  "coverage_unverifiable_no_public_logs": 17,
+  "coverage_incomplete": 2,
+  "attempts_1": 41,
+  "attempts_multiple": 80,
+  "attempts_unknown": 8
+ },
+ "subsets": {
+  "all": {
+   "n_agents": 129,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 8256,
+   "frac_distinguishable_raw": 0.8670058139534884,
+   "frac_distinguishable_holm": 0.716812015503876,
+   "frac_distinguishable_bh": 0.8636143410852714,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 570,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 837,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.36917562724014336
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 1252,
+     "frac_distinguishable_holm": 0.2595846645367412,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 2062,
+     "frac_distinguishable_holm": 0.9980601357904947,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 3535,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 128,
+    "frac_distinguishable_holm_within_adjacent": 0.0,
+    "frac_distinguishable_raw": 0.015625,
+    "n_distinguishable_holm_all_pairs": 0,
+    "n_distinguishable_raw": 2
+   },
+   "score_range": [
+    0.102,
+    0.792
+   ],
+   "top10": [
+    {
+     "name": "20251205_sonar-foundation-agent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 5.0,
+     "p_best": 0.335
+    },
+    {
+     "name": "20251215_livesweagent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 6.0,
+     "p_best": 0.331
+    },
+    {
+     "name": "20250928_trae_doubao_seed_code",
+     "score": 0.788,
+     "rank_lo": 1.0,
+     "rank_hi": 7.0,
+     "p_best": 0.2725
+    },
+    {
+     "name": "20251127_openhands_claude-opus-4-5",
+     "score": 0.776,
+     "rank_lo": 2.0,
+     "rank_hi": 10.0,
+     "p_best": 0.014
+    },
+    {
+     "name": "20251120_livesweagent_gemini-3-pro-preview",
+     "score": 0.774,
+     "rank_lo": 2.0,
+     "rank_hi": 12.0,
+     "p_best": 0.0215
+    },
+    {
+     "name": "20250804_epam-ai-run-claude-4-sonnet",
+     "score": 0.768,
+     "rank_lo": 2.0,
+     "rank_hi": 13.0,
+     "p_best": 0.0075
+    },
+    {
+     "name": "20250902_atlassian-rovo-dev",
+     "score": 0.768,
+     "rank_lo": 3.0,
+     "rank_hi": 13.0,
+     "p_best": 0.005
+    },
+    {
+     "name": "20250819_ACoder",
+     "score": 0.764,
+     "rank_lo": 2.9750000000000014,
+     "rank_hi": 15.0,
+     "p_best": 0.0125
+    },
+    {
+     "name": "20250901_warp",
+     "score": 0.756,
+     "rank_lo": 4.0,
+     "rank_hi": 18.0,
+     "p_best": 0.0005
+    },
+    {
+     "name": "20250612_trae",
+     "score": 0.752,
+     "rank_lo": 5.0,
+     "rank_hi": 19.0,
+     "p_best": 0.0
+    }
+   ],
+   "median_gap_needed": 0.23199999999999998,
+   "min_gap_distinguishable": 0.06800000000000006
+  },
+  "covered": {
+   "n_agents": 110,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 5995,
+   "frac_distinguishable_raw": 0.8670558798999166,
+   "frac_distinguishable_holm": 0.7174311926605504,
+   "frac_distinguishable_bh": 0.8627189324437031,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 415,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 617,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.38087520259319285
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 953,
+     "frac_distinguishable_holm": 0.3074501573976915,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 1561,
+     "frac_distinguishable_holm": 0.9987187700192185,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 2449,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 109,
+    "frac_distinguishable_holm_within_adjacent": 0.009174311926605505,
+    "frac_distinguishable_raw": 0.027522935779816515,
+    "n_distinguishable_holm_all_pairs": 1,
+    "n_distinguishable_raw": 3
+   },
+   "score_range": [
+    0.102,
+    0.792
+   ],
+   "top10": [
+    {
+     "name": "20251205_sonar-foundation-agent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 4.0,
+     "p_best": 0.4465
+    },
+    {
+     "name": "20251215_livesweagent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 5.0,
+     "p_best": 0.4425
+    },
+    {
+     "name": "20251127_openhands_claude-opus-4-5",
+     "score": 0.776,
+     "rank_lo": 2.0,
+     "rank_hi": 9.0,
+     "p_best": 0.024
+    },
+    {
+     "name": "20251120_livesweagent_gemini-3-pro-preview",
+     "score": 0.774,
+     "rank_lo": 1.0,
+     "rank_hi": 10.0,
+     "p_best": 0.034
+    },
+    {
+     "name": "20250804_epam-ai-run-claude-4-sonnet",
+     "score": 0.768,
+     "rank_lo": 2.0,
+     "rank_hi": 12.0,
+     "p_best": 0.017
+    },
+    {
+     "name": "20250902_atlassian-rovo-dev",
+     "score": 0.768,
+     "rank_lo": 2.0,
+     "rank_hi": 11.0,
+     "p_best": 0.017
+    },
+    {
+     "name": "20250819_ACoder",
+     "score": 0.764,
+     "rank_lo": 2.0,
+     "rank_hi": 13.0,
+     "p_best": 0.017
+    },
+    {
+     "name": "20250901_warp",
+     "score": 0.756,
+     "rank_lo": 3.0,
+     "rank_hi": 16.0,
+     "p_best": 0.001
+    },
+    {
+     "name": "20250612_trae",
+     "score": 0.752,
+     "rank_lo": 4.0,
+     "rank_hi": 17.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250731_harness_ai",
+     "score": 0.748,
+     "rank_lo": 6.0,
+     "rank_hi": 17.0,
+     "p_best": 0.0
+    }
+   ],
+   "median_gap_needed": 0.22199999999999998,
+   "min_gap_distinguishable": 0.06599999999999995
+  },
+  "single": {
+   "n_agents": 41,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 820,
+   "frac_distinguishable_raw": 0.824390243902439,
+   "frac_distinguishable_holm": 0.6926829268292682,
+   "frac_distinguishable_bh": 0.8170731707317073,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 100,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 116,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.6206896551724138
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 92,
+     "frac_distinguishable_holm": 0.6086956521739131,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 138,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 374,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 40,
+    "frac_distinguishable_holm_within_adjacent": 0.075,
+    "frac_distinguishable_raw": 0.15,
+    "n_distinguishable_holm_all_pairs": 3,
+    "n_distinguishable_raw": 6
+   },
+   "score_range": [
+    0.158,
+    0.792
+   ],
+   "top10": [
+    {
+     "name": "20251205_sonar-foundation-agent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 3.0,
+     "p_best": 0.473
+    },
+    {
+     "name": "20251215_livesweagent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 3.0,
+     "p_best": 0.4835
+    },
+    {
+     "name": "20251120_livesweagent_gemini-3-pro-preview",
+     "score": 0.774,
+     "rank_lo": 1.0,
+     "rank_hi": 5.0,
+     "p_best": 0.0415
+    },
+    {
+     "name": "20250731_harness_ai",
+     "score": 0.748,
+     "rank_lo": 4.0,
+     "rank_hi": 10.0,
+     "p_best": 0.0005
+    },
+    {
+     "name": "20251103_sonar-foundation-agent_claude-sonnet-4-5",
+     "score": 0.748,
+     "rank_lo": 3.0,
+     "rank_hi": 10.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250720_Lingxi-v1.5_claude-4-sonnet-20250514",
+     "score": 0.746,
+     "rank_lo": 4.0,
+     "rank_hi": 10.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250915_JoyCode",
+     "score": 0.746,
+     "rank_lo": 3.0,
+     "rank_hi": 11.0,
+     "p_best": 0.0015
+    },
+    {
+     "name": "20250603_Refact_Agent_claude-4-sonnet",
+     "score": 0.744,
+     "rank_lo": 4.0,
+     "rank_hi": 11.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250522_tools_claude-4-opus",
+     "score": 0.732,
+     "rank_lo": 4.0,
+     "rank_hi": 17.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250522_tools_claude-4-sonnet",
+     "score": 0.724,
+     "rank_lo": 7.0,
+     "rank_hi": 18.0,
+     "p_best": 0.0
+    }
+   ],
+   "median_gap_needed": 0.27699999999999997,
+   "min_gap_distinguishable": 0.06000000000000005
+  },
+  "covered+single": {
+   "n_agents": 37,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 666,
+   "frac_distinguishable_raw": 0.8288288288288288,
+   "frac_distinguishable_holm": 0.6846846846846847,
+   "frac_distinguishable_bh": 0.8198198198198198,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 76,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 104,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.6346153846153846
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 80,
+     "frac_distinguishable_holm": 0.625,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 119,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 287,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 36,
+    "frac_distinguishable_holm_within_adjacent": 0.05555555555555555,
+    "frac_distinguishable_raw": 0.1388888888888889,
+    "n_distinguishable_holm_all_pairs": 2,
+    "n_distinguishable_raw": 5
+   },
+   "score_range": [
+    0.232,
+    0.792
+   ],
+   "top10": [
+    {
+     "name": "20251205_sonar-foundation-agent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 3.0,
+     "p_best": 0.4805
+    },
+    {
+     "name": "20251215_livesweagent_claude-opus-4-5",
+     "score": 0.792,
+     "rank_lo": 1.0,
+     "rank_hi": 3.0,
+     "p_best": 0.475
+    },
+    {
+     "name": "20251120_livesweagent_gemini-3-pro-preview",
+     "score": 0.774,
+     "rank_lo": 1.0,
+     "rank_hi": 5.0,
+     "p_best": 0.0425
+    },
+    {
+     "name": "20250731_harness_ai",
+     "score": 0.748,
+     "rank_lo": 4.0,
+     "rank_hi": 9.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20251103_sonar-foundation-agent_claude-sonnet-4-5",
+     "score": 0.748,
+     "rank_lo": 3.0,
+     "rank_hi": 10.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250720_Lingxi-v1.5_claude-4-sonnet-20250514",
+     "score": 0.746,
+     "rank_lo": 3.0,
+     "rank_hi": 10.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250915_JoyCode",
+     "score": 0.746,
+     "rank_lo": 3.0,
+     "rank_hi": 11.0,
+     "p_best": 0.0015
+    },
+    {
+     "name": "20250603_Refact_Agent_claude-4-sonnet",
+     "score": 0.744,
+     "rank_lo": 4.0,
+     "rank_hi": 11.0,
+     "p_best": 0.0005
+    },
+    {
+     "name": "20250522_tools_claude-4-opus",
+     "score": 0.732,
+     "rank_lo": 4.0,
+     "rank_hi": 15.0,
+     "p_best": 0.0
+    },
+    {
+     "name": "20250522_tools_claude-4-sonnet",
+     "score": 0.724,
+     "rank_lo": 7.0,
+     "rank_hi": 17.0,
+     "p_best": 0.0
+    }
+   ],
+   "median_gap_needed": 0.256,
+   "min_gap_distinguishable": 0.05799999999999994
+  }
+ },
  "n_agents": 129,
  "n_tasks": 500,
  "alpha": 0.05,
@@ -46,7 +583,9 @@
  "adjacent_pairs": {
   "n": 128,
   "frac_distinguishable_holm_within_adjacent": 0.0,
-  "frac_distinguishable_raw": 0.015625
+  "frac_distinguishable_raw": 0.015625,
+  "n_distinguishable_holm_all_pairs": 0,
+  "n_distinguishable_raw": 2
  },
  "score_range": [
   0.102,
@@ -125,7 +664,5 @@
   }
  ],
  "median_gap_needed": 0.23199999999999998,
- "min_gap_distinguishable": 0.06800000000000006,
- "source": "github.com/swe-bench/experiments evaluation/verified (accessed via script)",
- "inclusion": "submissions with >= 50 resolved instances"
+ "min_gap_distinguishable": 0.06800000000000006
 }

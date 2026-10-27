@@ -36,7 +36,7 @@
   },
   {
    "delta_theta": 0.4,
-   "true_diff": 0.07481649190388417,
+   "true_diff": 0.07481649190388406,
    "reps": 600,
    "decision_rate": {
     "seq": 0.695,

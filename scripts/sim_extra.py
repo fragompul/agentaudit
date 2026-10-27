@@ -36,7 +36,7 @@ from agentaudit.sequential import sequential_compare
 from agentaudit.simulate import SyntheticPopulation
 from agentaudit.variance import decompose_array
 
-WORKERS = 14
+WORKERS = 6
 
 
 def _pmap(fn: Any, cells: list[Any]) -> list[Any]:
@@ -58,7 +58,7 @@ def _asym_cell(args: tuple[int, int, float, int]) -> dict[str, Any]:
     t, r, q, reps = args
     rej = dict.fromkeys(("sign_flip", "studentized_sign_flip", "paired_bootstrap", "paired_t"), 0)
     rng = np.random.default_rng([31, t, r, int(q * 100)])
-    up = 0.45
+    up = 0.45 if q < 0.5 else 0.25  # symmetric control uses a smaller jump so u - up stays in [0, 1]
     down = up * q / (1 - q)  # E[delta] = q*up - (1-q)*down = 0
     for _ in range(reps):
         u = rng.uniform(0.3, 0.5, t)

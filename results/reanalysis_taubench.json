@@ -515,8 +515,8 @@
    "prob_superiority": 0.6173913043478261
   },
   "pooled_shortcut": {
-   "pooled_ztest_p": 0.0011115921410886826,
-   "pooled_run_mcnemar_p": 4.91529969081168e-05
+   "pooled_ztest_p": 0.0011115921410886828,
+   "pooled_run_mcnemar_p": 4.915299690811684e-05
   },
   "tasks_needed_for_80pct_power_at_observed_gap": 95,
   "pilot_diff_variance": {

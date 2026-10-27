@@ -1,0 +1,752 @@
+{
+ "cells": [
+  {
+   "sigma_task": 0.5,
+   "sigma_interaction": 0.2,
+   "true_diff": 0.05826644598704922,
+   "s_t": 0.004594795089210237,
+   "s_e": 0.46517011494252875,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.01998211141354211,
+     "analytic_se": 0.019785619989269542,
+     "power_sim": 0.8313333333333334,
+     "power_analytic": 0.837089683854735
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.019193635583536026,
+     "analytic_se": 0.01988214662121416,
+     "power_sim": 0.83,
+     "power_analytic": 0.832959805419917
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.020168555436497225,
+     "analytic_se": 0.020168954905757593,
+     "power_sim": 0.8186666666666667,
+     "power_analytic": 0.8205147907259562
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.02087085749538319,
+     "analytic_se": 0.02063811332289992,
+     "power_sim": 0.808,
+     "power_analytic": 0.7996665077572761
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.021779918963617115,
+     "analytic_se": 0.021545804245968893,
+     "power_sim": 0.75,
+     "power_analytic": 0.7580662749783488
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.15201734580643692
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.2552065487115453
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.5264673611490684
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.7996665077572761
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.9666328828741164
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.9996752412439825
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 10,
+    "10.0": 32,
+    "100.0": 101
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 0.5,
+   "sigma_interaction": 0.6,
+   "true_diff": 0.054845391713361835,
+   "s_t": 0.03627936865289707,
+   "s_e": 0.43791685823754795,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.01932292257212648,
+     "analytic_se": 0.01987872034132741,
+     "power_sim": 0.7893333333333333,
+     "power_analytic": 0.7872250372343427
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.02045038768535896,
+     "analytic_se": 0.020625138293341255,
+     "power_sim": 0.7546666666666667,
+     "power_analytic": 0.7564502112627703
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.022610364299706275,
+     "analytic_se": 0.022717718883102995,
+     "power_sim": 0.682,
+     "power_analytic": 0.6716794266309922
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.0265245416932515,
+     "analytic_se": 0.025831352796658408,
+     "power_sim": 0.538,
+     "power_analytic": 0.5580994710561494
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.030648057679177203,
+     "analytic_se": 0.031138189726008604,
+     "power_sim": 0.3993333333333333,
+     "power_analytic": 0.4102120673533615
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.1392249799246824
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.21844158265432334
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.39500446495495256
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.5580994710561494
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.6952668614299873
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.8018200937089095
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 4,
+    "10.0": 11,
+    "100.0": 35
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 0.5,
+   "sigma_interaction": 1.0,
+   "true_diff": 0.0496785942093626,
+   "s_t": 0.08374975162005897,
+   "s_e": 0.39599463601532575,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.020082303677308896,
+     "analytic_se": 0.019994674033255805,
+     "power_sim": 0.7093333333333334,
+     "power_analytic": 0.699390948648045
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.021660006747089223,
+     "analytic_se": 0.021669758867590944,
+     "power_sim": 0.6413333333333333,
+     "power_analytic": 0.6288914226097532
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.02570517760210101,
+     "analytic_se": 0.026056723286508685,
+     "power_sim": 0.504,
+     "power_analytic": 0.4757080736629854
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.03141121597278413,
+     "analytic_se": 0.03206103751980893,
+     "power_sim": 0.3406666666666667,
+     "power_analytic": 0.3363963273506757
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.03980480864616767,
+     "analytic_se": 0.0415430466345503,
+     "power_sim": 0.21933333333333332,
+     "power_analytic": 0.21751008342753567
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.12196032181111582
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.1743031118667491
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.2672306438417809
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.3363963273506757
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.3889381056352366
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.4298202994959073
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 2,
+    "10.0": 7,
+    "100.0": 22
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 1.5,
+   "sigma_interaction": 0.2,
+   "true_diff": 0.04390210595325872,
+   "s_t": 0.0031569434852060057,
+   "s_e": 0.3518532567049809,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.01781441187270493,
+     "analytic_se": 0.0172000532990983,
+     "power_sim": 0.724,
+     "power_analytic": 0.7225524410968888
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.017470633208082585,
+     "analytic_se": 0.01727636014123039,
+     "power_sim": 0.7146666666666667,
+     "power_analytic": 0.7180763844934911
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.017924734307654327,
+     "analytic_se": 0.017503284790076096,
+     "power_sim": 0.7,
+     "power_analytic": 0.7047733053851637
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.017054680134970954,
+     "analytic_se": 0.017875091877550375,
+     "power_sim": 0.6993333333333334,
+     "power_analytic": 0.6830480422117571
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.018599742954217485,
+     "analytic_se": 0.018596418257492066,
+     "power_sim": 0.6126666666666667,
+     "power_analytic": 0.64143029261996
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.12604936850965462
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.2035233555462872
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.4205665186204509
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.6830480422117571
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.9117521940527551
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.997149725986795
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 11,
+    "10.0": 33,
+    "100.0": 106
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 1.5,
+   "sigma_interaction": 0.6,
+   "true_diff": 0.04251930588090724,
+   "s_t": 0.024593105534965465,
+   "s_e": 0.3411931034482759,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.017588798299408747,
+     "analytic_se": 0.017459147768988263,
+     "power_sim": 0.6753333333333333,
+     "power_analytic": 0.6820576154195985
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.017265303249473965,
+     "analytic_se": 0.018036521156582247,
+     "power_sim": 0.666,
+     "power_analytic": 0.653090394671174
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.019540538196904694,
+     "analytic_se": 0.019667202629485788,
+     "power_sim": 0.58,
+     "power_analytic": 0.5766508164987952
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.022106831774614633,
+     "analytic_se": 0.022119451447348525,
+     "power_sim": 0.4673333333333333,
+     "power_analytic": 0.47883039272741457
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.025305432217043008,
+     "analytic_se": 0.02634791601733088,
+     "power_sim": 0.3586666666666667,
+     "power_analytic": 0.3549725222743307
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.11906708537687433
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.1816315768923898
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.328929710649438
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.47883039272741457
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.6193701155343615
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.7410537648321239
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 4,
+    "10.0": 12,
+    "100.0": 37
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 1.5,
+   "sigma_interaction": 1.0,
+   "true_diff": 0.04012539140960025,
+   "s_t": 0.06019436066598615,
+   "s_e": 0.322116091954023,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.018216249664841876,
+     "analytic_se": 0.017849146866167235,
+     "power_sim": 0.6126666666666667,
+     "power_analytic": 0.6126748927006158
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.018742521891459852,
+     "analytic_se": 0.019202968808797842,
+     "power_sim": 0.5646666666666667,
+     "power_analytic": 0.550249598003346
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.02262850171387436,
+     "analytic_se": 0.022786836391579857,
+     "power_sim": 0.4246666666666667,
+     "power_analytic": 0.4184435833846671
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.02797335201845049,
+     "analytic_se": 0.027749770248506632,
+     "power_sim": 0.31333333333333335,
+     "power_analytic": 0.29990857977973545
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.03594806093776388,
+     "analytic_se": 0.03566047421251511,
+     "power_sim": 0.20866666666666667,
+     "power_analytic": 0.19790676586320277
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.10862398762764693
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.15274263796687276
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.23496958302290685
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.29990857977973545
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.3516099186566017
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.39334769771117173
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 2,
+    "10.0": 7,
+    "100.0": 23
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 2.5,
+   "sigma_interaction": 0.2,
+   "true_diff": 0.03265901126340398,
+   "s_t": 0.002196257177254063,
+   "s_e": 0.26324329501915705,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.014992685243226748,
+     "analytic_se": 0.014872781408678828,
+     "power_sim": 0.6006666666666667,
+     "power_analytic": 0.5925891368510898
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.01506991126773094,
+     "analytic_se": 0.014934183645071496,
+     "power_sim": 0.5973333333333334,
+     "power_analytic": 0.5884018036315535
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.014784158021174616,
+     "analytic_se": 0.015116893996051442,
+     "power_sim": 0.5766666666666667,
+     "power_analytic": 0.5760626255960333
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.015216208098238171,
+     "analytic_se": 0.015416600003235085,
+     "power_sim": 0.54,
+     "power_analytic": 0.556228463698186
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.01565200861760024,
+     "analytic_se": 0.015999178066498664,
+     "power_sim": 0.524,
+     "power_analytic": 0.5191964028754587
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.10587643784263749
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.16281878280686912
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.3285482933869413
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.556228463698186
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.8168672353629457
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.9841515381072592
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 11,
+    "10.0": 35,
+    "100.0": 109
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 2.5,
+   "sigma_interaction": 0.6,
+   "true_diff": 0.03209987337337927,
+   "s_t": 0.0168044051295089,
+   "s_e": 0.2597429118773947,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.014850118208366866,
+     "analytic_se": 0.015180780530188592,
+     "power_sim": 0.582,
+     "power_analytic": 0.5607647859095366
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.015772200217197285,
+     "analytic_se": 0.01563520925497994,
+     "power_sim": 0.538,
+     "power_analytic": 0.5358050143883492
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.017159420719955683,
+     "analytic_se": 0.016925447742106636,
+     "power_sim": 0.4826666666666667,
+     "power_analytic": 0.47174153278215275
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.019320644391203883,
+     "analytic_se": 0.01888091989223697,
+     "power_sim": 0.4066666666666667,
+     "power_analytic": 0.39234359544025976
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.021615650044628586,
+     "analytic_se": 0.022282859901494777,
+     "power_sim": 0.294,
+     "power_analytic": 0.29399540907676214
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.10172534531787313
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.14908915663460007
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.2649405973038586
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.39234359544025976
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.5242927152527672
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.6523463870814745
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 4,
+    "10.0": 12,
+    "100.0": 39
+   },
+   "reps": 1500
+  },
+  {
+   "sigma_task": 2.5,
+   "sigma_interaction": 1.0,
+   "true_diff": 0.031064632823845528,
+   "s_t": 0.04409989637243917,
+   "s_e": 0.2512306513409962,
+   "budget": 1200,
+   "fixed_budget": [
+    {
+     "runs": 1,
+     "tasks": 1200,
+     "empirical_se": 0.015291067139322202,
+     "analytic_se": 0.015687854848933175,
+     "power_sim": 0.5126666666666667,
+     "power_analytic": 0.507469133231102
+    },
+    {
+     "runs": 2,
+     "tasks": 600,
+     "empirical_se": 0.017031619278474772,
+     "analytic_se": 0.01681840371155644,
+     "power_sim": 0.442,
+     "power_analytic": 0.4539514554214266
+    },
+    {
+     "runs": 5,
+     "tasks": 240,
+     "empirical_se": 0.02000796349944346,
+     "analytic_se": 0.019826962559504502,
+     "power_sim": 0.344,
+     "power_analytic": 0.3449883438130892
+    },
+    {
+     "runs": 10,
+     "tasks": 120,
+     "empirical_se": 0.023647726765438568,
+     "analytic_se": 0.024017868609734917,
+     "power_sim": 0.2733333333333333,
+     "power_analytic": 0.24979639491476513
+    },
+    {
+     "runs": 20,
+     "tasks": 60,
+     "empirical_se": 0.03155972390309374,
+     "analytic_se": 0.030730394546628962,
+     "power_sim": 0.17466666666666666,
+     "power_analytic": 0.16871811156819594
+    }
+   ],
+   "task_pool_capped_at_120": [
+    {
+     "runs": 1,
+     "power_analytic": 0.09523893995294325
+    },
+    {
+     "runs": 2,
+     "power_analytic": 0.12974490991174367
+    },
+    {
+     "runs": 5,
+     "power_analytic": 0.19572827184920888
+    },
+    {
+     "runs": 10,
+     "power_analytic": 0.24979639491476513
+    },
+    {
+     "runs": 20,
+     "power_analytic": 0.2943095514641031
+    },
+    {
+     "runs": 50,
+     "power_analytic": 0.3313043937599563
+    }
+   ],
+   "optimal_runs_by_cost_ratio": {
+    "0.0": 1,
+    "1.0": 2,
+    "10.0": 8,
+    "100.0": 24
+   },
+   "reps": 1500
+  }
+ ],
+ "seconds": 11.1
+}
