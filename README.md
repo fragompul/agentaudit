@@ -13,7 +13,7 @@
 [![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/license-MIT-ffb020)](LICENSE)
 
-**[Website](https://fragompul.github.io/agentaudit/)** · **[Playground](https://fragompul.github.io/agentaudit/playground/)** · **[Docs](https://fragompul.github.io/agentaudit/docs/)** · **[Math](docs/math.md)** · **[Results](docs/results.md)** · **[Paper](latex/)** · **[Changelog](CHANGELOG.md)**
+**[Website](https://fragompul.github.io/agentaudit/)** · **[Playground](https://fragompul.github.io/agentaudit/playground/)** · **[Docs](https://fragompul.github.io/agentaudit/docs/)** · **[Math](docs/math.md)** · **[Results](docs/results.md)** · **[Paper (PDF)](paper/agentaudit-paper.pdf)** · **[Changelog](CHANGELOG.md)**
 
 </div>
 
