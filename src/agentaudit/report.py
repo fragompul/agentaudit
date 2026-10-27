@@ -51,7 +51,9 @@ def rank_heatmap_svg(ranking: dict[str, Any], size: int = 36) -> str:
     m = len(models)
     left = 150
     w, h = left + size * m + 10, size * m + 50
-    parts = [f'<svg viewBox="0 0 {w} {h}" role="img" aria-label="Rank probabilities">']
+    parts = [
+        f'<svg viewBox="0 0 {w} {h}" style="max-width:{int(w * 1.6)}px" role="img" aria-label="Rank probabilities">'
+    ]
     for j in range(m):
         parts.append(
             f'<text x="{left + size * j + size / 2}" y="16" font-size="11" text-anchor="middle" fill="currentColor">#{j + 1}</text>'
