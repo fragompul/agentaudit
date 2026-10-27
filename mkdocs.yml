@@ -31,15 +31,21 @@ extra_css:
   - stylesheets/extra.css
 extra_javascript:
   - javascripts/math.js
+  - javascripts/shell.js
 nav:
-  - Home: index.md
-  - Playground: https://fragompul.github.io/agentaudit/playground/
-  - Quickstart: quickstart.md
-  - Mathematics: math.md
-  - Benchmark: benchmark.md
-  - Extending: extending.md
-  - Architecture: architecture.md
-  - Reproducing: reproducing.md
-  - Results: results.md
-  - Limitations: limitations.md
-  - Paper (PDF): https://fragompul.github.io/agentaudit/paper/agentaudit-paper.pdf
+  - Overview: index.md
+  - Guide:
+      - Quickstart: quickstart.md
+      - Extending: extending.md
+      - Architecture: architecture.md
+      - Reproducing: reproducing.md
+  - Reference:
+      - Mathematics: math.md
+      - Benchmark: benchmark.md
+  - Study:
+      - Results: results.md
+      - Limitations: limitations.md
+  - Elsewhere:
+      - Website: https://fragompul.github.io/agentaudit/
+      - Playground: https://fragompul.github.io/agentaudit/playground/
+      - Paper (PDF): https://fragompul.github.io/agentaudit/paper/agentaudit-paper.pdf
