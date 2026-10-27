@@ -1,0 +1,27 @@
+/* Interval rows, bars and stacked bar used by the landing charts */
+.ir{display:grid;grid-template-columns:minmax(90px,38%) 1fr 54px;gap:12px;align-items:center;min-height:34px}
+.ir-l{font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ir-t{position:relative;height:26px}
+.ir-t .tick{position:absolute;top:0;bottom:0;width:1px;background:var(--rule)}
+.ir-bar{position:absolute;top:calc(50% - 3px);height:6px;border-radius:3px;opacity:.55}
+.ir-dot{position:absolute;top:calc(50% - 6px);width:12px;height:12px;margin-left:-6px;border-radius:50%;box-shadow:0 0 0 2px var(--card)}
+.ir-r{text-align:right;font-size:.82rem}
+.ir-axis{min-height:24px}
+.ir-axis .ir-t{height:18px}
+.ir-axis span{position:absolute;transform:translateX(-50%);font:.7rem var(--mono);color:var(--ink-2)}
+.mono{font-family:var(--mono)}
+.note{font-size:.88rem;color:var(--ink-2);border-top:1px dashed var(--rule);padding-top:12px;margin:14px 0 0}
+
+.br{display:grid;grid-template-columns:minmax(90px,34%) 1fr;gap:12px;align-items:center;margin-bottom:10px}
+.br-l{font-size:.85rem}
+.br-l small{display:block;color:var(--ink-2);font-size:.72rem}
+.br-t{display:grid;gap:4px}
+.bar{height:20px;border-radius:0 6px 6px 0;background:var(--ink-2);display:flex;align-items:center;min-width:3px;position:relative}
+.bar.raw{background:color-mix(in srgb,var(--ink-2) 45%,transparent)}
+.bar.holm{background:var(--accent)}
+.bar span{position:absolute;left:calc(100% + 8px);font:.72rem var(--mono);color:var(--ink);white-space:nowrap}
+.peek{position:relative;display:block;min-height:20px}
+.peek .nom{position:absolute;top:-4px;bottom:-4px;border-left:2px dashed var(--ink);z-index:1}
+.stack{display:flex;height:44px;border-radius:8px;overflow:hidden;gap:2px;margin:6px 0 14px}
+.stack div{display:grid;place-items:center;color:#fff;font:500 .75rem var(--mono);min-width:0}
+.stack span{padding:0 4px;overflow:hidden}
