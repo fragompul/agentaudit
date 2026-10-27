@@ -30,7 +30,8 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
 extra_javascript:
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
+  - path: https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js
+    async: true
 nav:
   - Home: index.md
   - Playground: https://fragompul.github.io/agentaudit/playground/
