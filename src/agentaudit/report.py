@@ -5,7 +5,7 @@ from __future__ import annotations
 import html
 from typing import Any
 
-PALETTE = ["#2a6fdb", "#e8590c", "#2f9e44", "#9c36b5", "#c92a2a", "#0b7285", "#862e9c", "#5c940d"]
+PALETTE = ["#e5432a", "#2740d9", "#1f7a4d", "#8a3f9e", "#c98a14", "#0e7c86", "#6b6459", "#b92d17"]
 
 
 def _at(d: dict[Any, Any], k: int) -> Any:
@@ -164,11 +164,15 @@ def to_markdown(a: dict[str, Any], title: str = "AgentAudit report") -> str:
 
 
 CSS = (
-    ":root{--bg:#fff;--fg:#1c1c1e;--mut:#6b6b70;--line:#e3e3e8}"
-    "@media(prefers-color-scheme:dark){:root{--bg:#141416;--fg:#ececf0;--mut:#9a9aa3;--line:#2c2c32}}"
+    ":root{--bg:#f4efe6;--fg:#17140f;--mut:#5a5346;--line:#d9cfbc;--acc:#b92d17}"
+    "@media(prefers-color-scheme:dark){:root{--bg:#12100d;--fg:#f1ebdf;--mut:#a79f90;--line:#332d25;--acc:#ff8a72}}"
     "body{background:var(--bg);color:var(--fg);font:15px/1.55 system-ui,sans-serif;max-width:860px;margin:2rem auto;padding:0 16px}"
-    "table{border-collapse:collapse;width:100%;margin:1rem 0}td,th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}"
-    "svg{width:100%;height:auto}h1,h2{line-height:1.2}p.mut{color:var(--mut)}"
+    "h1,h2,h3{font-family:Georgia,'Times New Roman',serif;font-weight:600;line-height:1.15;letter-spacing:-.01em}"
+    "h1{font-size:2rem}h2{font-size:1.4rem;margin-top:2.2rem;border-top:2px solid var(--fg);padding-top:.8rem}"
+    "table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem}"
+    "th{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}"
+    "td,th{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left}"
+    "svg{width:100%;height:auto}p.mut{color:var(--mut)}"
 )
 
 
