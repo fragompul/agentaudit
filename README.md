@@ -23,6 +23,20 @@
 
 The core depends only on NumPy and SciPy. Everything model-related uses the standard library and local, free, open-weight models. **Total cost of the project: 0 EUR** (no paid API was used or required).
 
+## Preview
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/screens/hero-dark.png">
+  <img src="docs/assets/screens/hero.png" alt="The AgentAudit website: how much of a leaderboard is signal?" width="100%">
+</picture>
+
+| | |
+| :--- | :--- |
+| [![Interactive leaderboard](docs/assets/screens/demo.png)](https://fragompul.github.io/agentaudit/#demo) | [![Browser playground](docs/assets/screens/playground.png)](https://fragompul.github.io/agentaudit/playground/) |
+| **Rerun the same benchmark** and watch the leader change, then reveal the intervals. | **Playground**: drop in a JSONL file, get the report. Python runs in your browser. |
+
+![Evidence charts](docs/assets/screens/evidence.png)
+
 ## Key results
 
 <!-- RESULTS:START -->
