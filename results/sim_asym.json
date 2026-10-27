@@ -1,0 +1,343 @@
+{
+ "alpha": 0.05,
+ "note": "q=0.5 is the symmetric control",
+ "cells": [
+  {
+   "tasks": 20,
+   "runs": 1,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.022,
+    "studentized_sign_flip": 0.02266666666666667,
+    "paired_bootstrap": 0.05,
+    "paired_t": 0.048666666666666664
+   },
+   "mc_se_max": 0.005627314338711377,
+   "skewness_of_delta": -0.00610002837282291
+  },
+  {
+   "tasks": 20,
+   "runs": 1,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.022,
+    "studentized_sign_flip": 0.02266666666666667,
+    "paired_bootstrap": 0.051333333333333335,
+    "paired_t": 0.04733333333333333
+   },
+   "mc_se_max": 0.005697848846843999,
+   "skewness_of_delta": 2.6658335832406617
+  },
+  {
+   "tasks": 20,
+   "runs": 1,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.018666666666666668,
+    "studentized_sign_flip": 0.018666666666666668,
+    "paired_bootstrap": 0.04133333333333333,
+    "paired_t": 0.03933333333333333
+   },
+   "mc_se_max": 0.005139707442315428,
+   "skewness_of_delta": 5.512393033837415
+  },
+  {
+   "tasks": 20,
+   "runs": 5,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.034,
+    "studentized_sign_flip": 0.03333333333333333,
+    "paired_bootstrap": 0.05533333333333333,
+    "paired_t": 0.046
+   },
+   "mc_se_max": 0.0059031943643847356,
+   "skewness_of_delta": 0.0003200000040960005
+  },
+  {
+   "tasks": 20,
+   "runs": 5,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.03933333333333333,
+    "studentized_sign_flip": 0.042,
+    "paired_bootstrap": 0.06666666666666667,
+    "paired_t": 0.058
+   },
+   "mc_se_max": 0.006440611887195306,
+   "skewness_of_delta": 2.65891059156501
+  },
+  {
+   "tasks": 20,
+   "runs": 5,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.034666666666666665,
+    "studentized_sign_flip": 0.03266666666666666,
+    "paired_bootstrap": 0.058666666666666666,
+    "paired_t": 0.05
+   },
+   "mc_se_max": 0.006067667805062551,
+   "skewness_of_delta": 5.4522762084932594
+  },
+  {
+   "tasks": 50,
+   "runs": 1,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.03666666666666667,
+    "studentized_sign_flip": 0.036,
+    "paired_bootstrap": 0.051333333333333335,
+    "paired_t": 0.06
+   },
+   "mc_se_max": 0.006131883886702356,
+   "skewness_of_delta": -0.005680022906442429
+  },
+  {
+   "tasks": 50,
+   "runs": 1,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.022,
+    "studentized_sign_flip": 0.024666666666666667,
+    "paired_bootstrap": 0.037333333333333336,
+    "paired_t": 0.04466666666666667
+   },
+   "mc_se_max": 0.0053336388801364975,
+   "skewness_of_delta": 2.6709324691932848
+  },
+  {
+   "tasks": 50,
+   "runs": 1,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.030666666666666665,
+    "studentized_sign_flip": 0.028666666666666667,
+    "paired_bootstrap": 0.04133333333333333,
+    "paired_t": 0.04733333333333333
+   },
+   "mc_se_max": 0.00548287569856603,
+   "skewness_of_delta": 5.512393033837416
+  },
+  {
+   "tasks": 50,
+   "runs": 5,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.04066666666666666,
+    "studentized_sign_flip": 0.04066666666666666,
+    "paired_bootstrap": 0.05466666666666667,
+    "paired_t": 0.050666666666666665
+   },
+   "mc_se_max": 0.005869595228646363,
+   "skewness_of_delta": -0.001420000357911092
+  },
+  {
+   "tasks": 50,
+   "runs": 5,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.042,
+    "studentized_sign_flip": 0.03933333333333333,
+    "paired_bootstrap": 0.05266666666666667,
+    "paired_t": 0.048666666666666664
+   },
+   "mc_se_max": 0.005767315313551525,
+   "skewness_of_delta": 2.6631525979715778
+  },
+  {
+   "tasks": 50,
+   "runs": 5,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.038,
+    "studentized_sign_flip": 0.03866666666666667,
+    "paired_bootstrap": 0.05466666666666667,
+    "paired_t": 0.05266666666666667
+   },
+   "mc_se_max": 0.005869595228646363,
+   "skewness_of_delta": 5.484353277838206
+  },
+  {
+   "tasks": 100,
+   "runs": 1,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.037333333333333336,
+    "studentized_sign_flip": 0.037333333333333336,
+    "paired_bootstrap": 0.04733333333333333,
+    "paired_t": 0.05266666666666667
+   },
+   "mc_se_max": 0.005767315313551525,
+   "skewness_of_delta": 0.0015200004389762602
+  },
+  {
+   "tasks": 100,
+   "runs": 1,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.042666666666666665,
+    "studentized_sign_flip": 0.04466666666666667,
+    "paired_bootstrap": 0.06266666666666666,
+    "paired_t": 0.06666666666666667
+   },
+   "mc_se_max": 0.006440611887195306,
+   "skewness_of_delta": 2.6630602424690317
+  },
+  {
+   "tasks": 100,
+   "runs": 1,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.03133333333333333,
+    "studentized_sign_flip": 0.03266666666666666,
+    "paired_bootstrap": 0.04466666666666667,
+    "paired_t": 0.04733333333333333
+   },
+   "mc_se_max": 0.00548287569856603,
+   "skewness_of_delta": 5.489831257049213
+  },
+  {
+   "tasks": 100,
+   "runs": 5,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.048666666666666664,
+    "studentized_sign_flip": 0.04933333333333333,
+    "paired_bootstrap": 0.054,
+    "paired_t": 0.056666666666666664
+   },
+   "mc_se_max": 0.005969676459996558,
+   "skewness_of_delta": 0.006320031554732517
+  },
+  {
+   "tasks": 100,
+   "runs": 5,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.03866666666666667,
+    "studentized_sign_flip": 0.042,
+    "paired_bootstrap": 0.04666666666666667,
+    "paired_t": 0.048666666666666664
+   },
+   "mc_se_max": 0.005555671109909358,
+   "skewness_of_delta": 2.6723263283249263
+  },
+  {
+   "tasks": 100,
+   "runs": 5,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.035333333333333335,
+    "studentized_sign_flip": 0.038,
+    "paired_bootstrap": 0.043333333333333335,
+    "paired_t": 0.043333333333333335
+   },
+   "mc_se_max": 0.005257093972627562,
+   "skewness_of_delta": 5.575338508387471
+  },
+  {
+   "tasks": 300,
+   "runs": 1,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.034666666666666665,
+    "studentized_sign_flip": 0.037333333333333336,
+    "paired_bootstrap": 0.042,
+    "paired_t": 0.04733333333333333
+   },
+   "mc_se_max": 0.00548287569856603,
+   "skewness_of_delta": 0.0058800254123487815
+  },
+  {
+   "tasks": 300,
+   "runs": 1,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.03666666666666667,
+    "studentized_sign_flip": 0.038,
+    "paired_bootstrap": 0.043333333333333335,
+    "paired_t": 0.048
+   },
+   "mc_se_max": 0.005519420259411309,
+   "skewness_of_delta": 2.667129706806022
+  },
+  {
+   "tasks": 300,
+   "runs": 1,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.04066666666666666,
+    "studentized_sign_flip": 0.038,
+    "paired_bootstrap": 0.04533333333333334,
+    "paired_t": 0.046
+   },
+   "mc_se_max": 0.0054088815849489625,
+   "skewness_of_delta": 5.52706369398502
+  },
+  {
+   "tasks": 300,
+   "runs": 5,
+   "q_big_win": 0.5,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.054,
+    "studentized_sign_flip": 0.050666666666666665,
+    "paired_bootstrap": 0.05266666666666667,
+    "paired_t": 0.05733333333333333
+   },
+   "mc_se_max": 0.006002567351959894,
+   "skewness_of_delta": -0.0021600012597130817
+  },
+  {
+   "tasks": 300,
+   "runs": 5,
+   "q_big_win": 0.1,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.04733333333333333,
+    "studentized_sign_flip": 0.048,
+    "paired_bootstrap": 0.05266666666666667,
+    "paired_t": 0.054
+   },
+   "mc_se_max": 0.005835751879578158,
+   "skewness_of_delta": 2.665093483943565
+  },
+  {
+   "tasks": 300,
+   "runs": 5,
+   "q_big_win": 0.03,
+   "reps": 1500,
+   "reject_rate": {
+    "sign_flip": 0.042,
+    "studentized_sign_flip": 0.04133333333333333,
+    "paired_bootstrap": 0.048666666666666664,
+    "paired_t": 0.043333333333333335
+   },
+   "mc_se_max": 0.005555671109909358,
+   "skewness_of_delta": 5.48485067786388
+  }
+ ],
+ "seconds": 89.6
+}
