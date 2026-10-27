@@ -1,7 +1,7 @@
 # Contributing
 
 ```bash
-make install        # uv venv + editable install with dev, plots and docs extras
+make install        # venv + editable install with dev, plots and docs extras
 make lint type test # ruff, mypy --strict, pytest (coverage gate: 90%)
 ```
 
