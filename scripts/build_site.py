@@ -6,6 +6,8 @@ import shutil
 import zipfile
 from pathlib import Path
 
+from make_site_data import write as write_site_data
+
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 
@@ -14,6 +16,7 @@ def main() -> None:
     if SITE.exists():
         shutil.rmtree(SITE)
     shutil.copytree(ROOT / "web", SITE, ignore=shutil.ignore_patterns("__pycache__"))
+    write_site_data(SITE / "data" / "results.json")
     (SITE / "py").mkdir()
     pkg = ROOT / "src" / "agentaudit"
     with zipfile.ZipFile(SITE / "py" / "agentaudit.zip", "w", zipfile.ZIP_DEFLATED) as zf:
