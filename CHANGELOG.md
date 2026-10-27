@@ -2,6 +2,15 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
+## [Unreleased]
+
+### Changed
+- New website: editorial landing page with an interactive leaderboard and charts generated from `results/`,
+  a redesigned browser playground (drop zone, KPI strip, downloadable report, power planner) and a matching
+  MkDocs theme. Fonts are served locally (no Google Fonts).
+- HTML report uses the paper and ink palette.
+- Makefile works on Windows; GitHub Actions bumped to current majors.
+
 ## [0.1.0] - 2026-10-23
 
 ### Added
