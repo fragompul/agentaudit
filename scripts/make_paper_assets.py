@@ -387,6 +387,10 @@ def main() -> None:
     sim_ranking()
     swebench()
     taubench()
+    from extra_assets import sim_extra, swebench_robustness
+
+    swebench_robustness(macro, GEN)
+    sim_extra(macro, save)
     if (R / "real_main.json").exists():
         from make_real_assets import real_assets
 
