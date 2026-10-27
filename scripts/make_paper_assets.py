@@ -279,7 +279,7 @@ def swebench() -> None:
     axes[0].bar(
         x + 0.2, [v["frac_distinguishable_holm"] for v in g], 0.4, color=BLUE, label="Holm-adjusted"
     )
-    axes[0].set_xticks(x, labs)
+    axes[0].set_xticks(x, labs, rotation=45, ha="right")
     axes[0].set_xlabel("score gap between two agents (points)")
     axes[0].set_ylabel("fraction of pairs distinguishable")
     axes[0].legend(frameon=False, fontsize=7, loc="upper left")

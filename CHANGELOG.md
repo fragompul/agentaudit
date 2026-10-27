@@ -2,6 +2,17 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
+## [Unreleased] - scientific revision
+
+### Added
+- Pre-specified experiments E1-E6 (`scripts/sim_extra.py`, `docs/experiments.md`), SWE-bench coverage/attempts audit,
+  `studentized_sign_flip`, `tests/test_audit.py`, `tests/test_manuscript.py`, `TRACEABILITY.md`,
+  `SCIENTIFIC_AUDIT.md`, `EXPERIMENTS_AND_REPRODUCIBILITY.md`, `REVISION_CHANGELOG.md`.
+
+### Changed
+- Paper rewritten with research questions and corrected claims (see `REVISION_CHANGELOG.md`).
+- `sign_flip_permutation` documentation states exactness only under symmetry.
+
 ## [0.2.0] - 2026-10-27
 
 ### Changed
