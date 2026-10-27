@@ -33,6 +33,8 @@ def run_analysis(text, level=0.95, n_boot=1500, title="AgentAudit report"):
                 "n_runs": a["n_runs"],
                 "n_tasks": a["n_tasks"],
                 "n_models": a["n_models"],
+                "fraction_indistinguishable": a.get("fraction_indistinguishable"),
+                "shares": a.get("variance", {}).get("shares"),
             }
         )
     except Exception as exc:  # surface any problem to the UI instead of a Python traceback
