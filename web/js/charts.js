@@ -87,9 +87,9 @@ function variance(el, d) {
     ["Run noise", s.run, "var(--accent)"],
   ];
   el.querySelector(".plot").innerHTML = `<div class="stack" role="img" aria-label="${parts.map(([l, v]) => `${l} ${pct(v)}`).join(", ")}">${parts
-    .map(([, v, c]) => `<div style="flex:${v};background:${c}"><span>${pct(v)}</span></div>`)
+    .map(([, v, c]) => `<div style="flex:${v};background:${c}"></div>`)
     .join("")}</div>
-    <div class="legend">${parts.map(([l, , c]) => `<span><i style="background:${c}"></i>${l}</span>`).join("")}</div>`;
+    <div class="legend">${parts.map(([l, v, c]) => `<span><i style="background:${c}"></i>${l} <b>${pct(v)}</b></span>`).join("")}</div>`;
   el.insertAdjacentHTML("beforeend", `<p class="note">Only about a quarter is the thing a leaderboard claims to measure.</p>`);
 }
 

@@ -59,6 +59,7 @@
 .chip{appearance:none;font:500 .8rem var(--mono);background:transparent;color:var(--ink);border:1px solid var(--rule);padding:.4em .85em;border-radius:999px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.8rem;color:var(--ink-2);margin-top:6px}
+.legend b{color:var(--ink);font:500 .78rem var(--mono)}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 
 /* toolkit */
