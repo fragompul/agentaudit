@@ -91,7 +91,15 @@ def paired_bootstrap(
 def sign_flip_permutation(
     diffs: ArrayLike, *, n_perm: int = 20_000, seed: int = 0, exact_below: int = 14
 ) -> float:
-    """Paired permutation (sign-flip) test of ``mean(d) = 0``; exact for small samples."""
+    """Paired permutation (sign-flip) test based on ``|sum(d)|``.
+
+    Exact (conditionally on ``|d|``) under the *strong* null that every ``d_t`` is symmetric about zero, which
+    holds when the two agents are exchangeable within each task. It is not exact for the weaker null
+    ``E[d] = 0`` with skewed ``d``; see :func:`studentized_sign_flip`. Zeros are dropped. Up to
+    ``exact_below`` non-zero differences all ``2^n`` sign patterns are enumerated; beyond that the
+    p-value is Monte Carlo, ``(1 + #{|S*| >= |S|}) / (n_perm + 1)`` with ``n_perm`` random sign patterns
+    drawn from ``default_rng(seed)``.
+    """
     d = np.asarray(diffs, dtype=np.float64)
     d = d[d != 0]
     n = d.size
@@ -106,6 +114,32 @@ def sign_flip_permutation(
     signs = rng.integers(0, 2, size=(n_perm, n)) * 2 - 1
     sums = np.abs((signs * d).sum(axis=1))
     return float((1 + np.sum(sums >= obs - 1e-12)) / (n_perm + 1))
+
+
+def studentized_sign_flip(diffs: ArrayLike, *, n_perm: int = 10_000, seed: int = 0) -> float:
+    """Sign-flip test of the paired *t* statistic (a reference method for the weak null).
+
+    The plain sign-flip test of ``sum(d)`` is exact only when each ``d_t`` is symmetric about zero. Flipping
+    signs of the studentised mean ``mean(d) / (sd(d) / sqrt(n))`` stays exact under symmetry and is
+    asymptotically valid for the weaker null ``E[d] = 0`` with skewed ``d`` (Janssen, 1997).
+    """
+    d = np.asarray(diffs, dtype=np.float64)
+    n = d.size
+    if n < 2:
+        return 1.0
+
+    def tstat(x: FloatArray) -> FloatArray:
+        sd = x.std(axis=-1, ddof=1)
+        with np.errstate(divide="ignore", invalid="ignore"):
+            t = x.mean(axis=-1) / (sd / np.sqrt(n))
+        out: FloatArray = np.where(sd > 1e-12, t, 0.0)
+        return out
+
+    obs = abs(float(tstat(d)))
+    rng = np.random.default_rng(seed)
+    signs = rng.integers(0, 2, size=(n_perm, n)) * 2 - 1
+    t_perm = np.abs(tstat(signs * d))
+    return float((1 + np.sum(t_perm >= obs - 1e-12)) / (n_perm + 1))
 
 
 def prob_superiority(diffs: ArrayLike) -> float:

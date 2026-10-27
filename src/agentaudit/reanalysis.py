@@ -65,6 +65,10 @@ def reanalyze_single_run(
     adj = [(int(order[i]), int(order[i + 1])) for i in range(m - 1)]
     adj_p = np.array([p[a, b] for a, b in adj])
     adj_holm = holm(adj_p) if len(adj_p) else adj_p
+    # Holm over *all* pairs, then read off the adjacent ones: the adjacent family is chosen after
+    # seeing the scores, so only this version has a family fixed before looking at the data.
+    pos = {(int(i), int(j)): k for k, (i, j) in enumerate(zip(iu[0], iu[1], strict=True))}
+    adj_all = np.array([holm_p[pos[(min(a, b), max(a, b))]] for a, b in adj])
     rng = np.random.default_rng(seed)
     idx = rng.integers(0, t, size=(n_boot, t))
     boot = x[:, idx].mean(axis=2).T  # (B, M)
@@ -84,6 +88,8 @@ def reanalyze_single_run(
             "n": len(adj),
             "frac_distinguishable_holm_within_adjacent": float(np.mean(adj_holm < alpha)),
             "frac_distinguishable_raw": float(np.mean(adj_p < alpha)),
+            "n_distinguishable_holm_all_pairs": int(np.sum(adj_all < alpha)),
+            "n_distinguishable_raw": int(np.sum(adj_p < alpha)),
         },
         "score_range": [float(np.min(score)), float(np.max(score))],
         "top10": [
