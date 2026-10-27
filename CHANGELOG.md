@@ -2,7 +2,7 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
-## [Unreleased] - scientific revision
+## [0.3.0] - 2026-10-27
 
 ### Added
 - Pre-specified experiments E1-E6 (`scripts/sim_extra.py`, `docs/experiments.md`), SWE-bench coverage/attempts audit,
