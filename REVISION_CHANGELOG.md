@@ -17,7 +17,7 @@ are numbered as in `SCIENTIFIC_AUDIT.md`.
 | tau-bench tasks-needed figures (787 / 95) | Reported with bootstrap intervals (59-11 215 / 38-591); task-level McNemar (p = 0.16) reported next to the sign-flip result (p = 0.0025; Holm 0.005) | 12 |
 | q2 model is a degenerate control | Kept, but its score is labelled protocol failure (1200/1200 `no_action`); backend errors (49, 0.6 %) reported | 13 |
 | Unverifiable statements (Ollama 0.40.8 defect, hardware) | Marked as unverified author observations | 16 |
-| "coverage above 90 %, mypy --strict" | 96.8 % measured; mypy has 4 stub-related errors | 17 |
+| "coverage above 90 %, mypy --strict" | 96.8 % measured; mypy passes in CI (4 stub errors only with local Python 3.14 stubs) | 17 |
 
 ## Added
 
@@ -57,7 +57,7 @@ all original simulation results (re-run, identical).
 ## Not done
 
 - No re-run of the local-model experiment (no raw data, no Ollama here).
-- No fix of the four mypy stub errors; no run of Docker, mkdocs or the CI matrix.
+- The four local-only mypy stub errors (Python 3.14) were not changed; Docker, mkdocs and the CI matrix were run by GitHub Actions on the pull request, not locally.
 - No new real-agent data (for example other tau-bench models or HAL runs); no analysis with task dependence
   (clustered tasks) in the simulations.
 - The GitHub release `v0.2.0` still carries the old PDF; releases, preprints and submissions were not touched.

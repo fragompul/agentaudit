@@ -49,11 +49,11 @@ stated in the paper). No result was selected, dropped or re-run for being unfavo
 | Unit, property and regression tests | `PYTHONPATH=src python -m pytest -q` | 185 passed (157 original, 21 in `tests/test_audit.py`, 7 in `tests/test_manuscript.py`) |
 | Coverage | `python -m pytest --cov=agentaudit` | 96.8 % (gate 90 %) |
 | Lint and format | `python -m ruff check src tests scripts web && python -m ruff format --check src tests scripts web` | clean |
-| Types | `PYTHONPATH=src python -m mypy --python-version 3.14 src` | **4 errors** (stub typing: `results.py:89`, `forms.py:158`, `intervals.py:93`, `intervals.py:163`); with the repository setting `python_version = "3.11"` mypy cannot parse the installed NumPy stubs. Not changed. |
+| Types | `PYTHONPATH=src python -m mypy --python-version 3.14 src` | CI (`mypy src`, Python 3.11 config): **passes**. Local Python 3.14 with the newest numpy stubs: **4 errors** (stub typing: `results.py:89`, `forms.py:158`, `intervals.py:93`, `intervals.py:163`); with the repository setting `python_version = "3.11"` mypy cannot parse the installed NumPy stubs. Not changed. |
 | Manuscript consistency | `tests/test_manuscript.py` | macros match results; every macro used in the text is defined; the SWE-bench sensitivity table is part of the paper; `hidelinks` present |
 | Original simulations vs stored | re-run and compare | 872 values, 0 differences |
 | Paper build | `python scripts/make_paper_assets.py && python scripts/make_traceability.py && cd latex && latexmk -pdf main.tex` | 20 pages, no undefined references or citations |
-| Not run | Docker build, mkdocs build, web bundle check, GitHub Actions matrix (Python 3.11-3.13) | N |
+| CI on the pull request (GitHub Actions) | `gh pr checks` | all jobs pass: tests on Python 3.11, 3.12 and 3.13, lint-and-types, docs, site, docker (not run locally) |
 
 ## 3. Reproducing everything that needs no model
 
