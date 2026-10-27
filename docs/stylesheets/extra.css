@@ -65,3 +65,6 @@
 .md-nav__item--section>.md-nav__link{font-family:"JetBrains Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
 ::selection{background:#f6d365;color:#17140f}
 .md-typeset img{border-radius:8px}
+/* figures are white-background SVGs: give them a tidy card in both themes */
+.md-typeset img[src$=".svg"]{background:#fff;padding:10px;border-radius:10px;border:1px solid var(--md-default-fg-color--lightest)}
+[data-md-color-scheme="slate"] .md-typeset img[src$=".svg"]{filter:brightness(.9)}
