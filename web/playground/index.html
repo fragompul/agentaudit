@@ -11,6 +11,8 @@
 <meta property="og:title" content="AgentAudit playground">
 <meta property="og:description" content="Audit your agents in the browser. The exact Python library, via WebAssembly. Nothing leaves your machine.">
 <meta property="og:image" content="https://fragompul.github.io/agentaudit/assets/og.png">
+<link rel="preload" href="../fonts/fraunces-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/fraunces-latin-opsz-italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/tokens.css">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/playground.css">
@@ -36,7 +38,7 @@
     <p class="eyebrow">Playground</p>
     <h1>Audit your agents, <em>right here</em></h1>
     <p class="lede">The real Python library runs in your browser through WebAssembly. Your data never leaves this tab.</p>
-    <p class="engine" id="engine" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="status">Starting Python…</span></p>
+    <p class="engine" id="engine" role="status" aria-live="polite"><span class="dot" aria-hidden="true"></span><span id="status">Python starts on your first click or keypress (about 10 MB, cached afterwards).</span></p>
   </section>
 
   <section class="step" aria-labelledby="s1">
@@ -97,7 +99,7 @@
         <label>Cost of one run<input id="p-cr" type="number" step="1" value="1"></label>
         <label>Power<input id="p-pw" type="number" step="0.05" value="0.8"></label>
       </div>
-      <div id="power-out" aria-live="polite"></div>
+      <div id="power-out" aria-live="polite"><p class="muted power-note">The planner appears as soon as Python has started.</p></div>
     </div>
   </section>
 </main>
