@@ -322,7 +322,7 @@ def taubench() -> None:
                 "-o",
                 color=col,
                 ms=4,
-                label=f"{m['model']} pass^k",
+                label=f"{m['model']} pass$^k$",
             )
             ax.plot(
                 ks,
@@ -336,7 +336,7 @@ def taubench() -> None:
         ax.set_xlabel("$k$")
         ax.set_xticks(range(1, d[dom]["n_runs"] + 1))
     axes[0].set_ylabel("probability")
-    axes[1].legend(fontsize=6, frameon=False, loc="center right")
+    axes[1].legend(fontsize=6, frameon=False, loc="lower left")
     save(fig, "taubench.pdf")
     for dom in ("airline", "retail"):
         c = d[dom]["task_level_comparison"]

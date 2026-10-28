@@ -50,3 +50,20 @@ Margins 0.03 and 0.06 reach equivalence essentially never within 300 tasks in ei
 ## Readiness
 
 **Conditionally ready** — see `FINAL_CHANGELOG.md`.
+
+---
+
+# Closure pass (A2, 2026-10-28)
+
+* **GitHub:** `origin/review/final-audit` existed at `1539dfe` (verified with `git ls-remote`), `origin/main` at `ed87206`, no pull request for the branch. The user's "GitHub does not appear updated" was because no PR had been opened; the branch itself was pushed. A PR is opened in this pass (see `PR_SUMMARY.md`).
+* **S0 contradiction resolved by execution:** S0 (coverage, type-I, design, ranking) rerun; all 1 136 numeric fields bit-identical to the committed results (details in `FINAL_REPRODUCIBILITY_REPORT.md`). Execution-evidence table and claim table: `CLAIM_AUDIT.md`. The earlier session's rerun rests on commit history only.
+* **BCa / two-stage / profile likelihood:** `tests/test_interval_audit.py` (11 tests): task rows intact under task resampling; two-stage variance equals task-bootstrap variance + within-task variance/(TR) (40 000 draws, 3%); runs-only variance equals W/(TR); BCa agrees with `scipy.stats.bootstrap` (±0.015) and handles all-0/all-1 and highly discrete samples; likelihood equals scipy `betabinom` up to the binomial coefficient; profile interval reduces to the binomial likelihood interval at one run per task and behaves at boundary data; wider under overdispersion. Not proved: validity of the profile interval for arbitrary task heterogeneity (one extra simulation, `audit_bbmix.py`: coverage 94.6% beta, 95.4% two-point mixture, 96.0% point mass, MC s.e. ≈ 1 pt). Manuscript qualified. Code finding: `bootstrap_ci(method="bca")` has no explicit guard for a single task (not changed).
+* **Sequential wording:** the 2.70% / 0.55% figures are described as simulation frequencies for the stated three-point-law scenarios with Clopper–Pearson limits; "conservative" is stated as an observation in these scenarios; validity rests on the argument in Section 3.7.
+* **tau-bench primary method:** retained; manuscript now states that the studentised sign-flip is not exact under the weak null (asymptotic, supported by E1 with T ∈ {20, 50, 100, 300}, rejection ≤ 5.1%) and that observed skewness is 0.11/0.29; the choice was made from estimand and design and written in the script before the comparison table, but not pre-registered externally.
+* **SWE-bench:** Table 7 denominators re-derived from `audit_swebench.py`; definitions of documented failure, absent log, unobserved outcome and verified coverage added; provenance explicitly *inferred*.
+* **Local model:** searched the repository, git history (all refs), tags, releases (wheel/sdist/PDF only), Actions artifacts (Pages only) and the local filesystem; no raw outcomes, cache, manifests or logs exist. Study kept as a limited case study; stated in the abstract.
+* **References:** all 39 entries looked up (arXiv API / Crossref / DOI); unverifiable against a record: Dror et al. 2018, Holm 1979, Kish, Cronbach et al., Brennan, Efron & Tibshirani (classical, left unchanged). No metadata was altered.
+* **Figure fix:** tau-bench figure legend no longer overlaps the curves.
+* **Not done:** E1–E3 and E6 not rerun; mypy/CI not run locally; the single-task BCa guard.
+
+Readiness: **Conditionally ready** (unchanged).

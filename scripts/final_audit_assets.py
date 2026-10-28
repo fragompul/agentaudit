@@ -321,3 +321,10 @@ def final_audit(macro: Callable[[str, str], None], gen: Path) -> None:
     macro("seqmFalseEquivUpper", _pct(up, 2))
     tie10 = next(c for c in eq if c["margin"] == 0.10 and c["delta"] == 0.0)
     macro("equivTieMTen", _pct(tie10["rates"]["equivalent"], 0))
+
+    macro("tauRetailSkew", f"{tb['retail']['task_diff_skewness']:.2f}")
+    macro("tauAirlineSkew", f"{tb['airline']['task_diff_skewness']:.2f}")
+
+    bb = {c["mixing"]: c for c in _load("audit_bbmix.json")["cells"]}
+    macro("bbTwoPointCov", _pct(bb["two_point"]["beta_binomial_profile_coverage"]))
+    macro("bbBetaCov", _pct(bb["beta"]["beta_binomial_profile_coverage"]))

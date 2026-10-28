@@ -32,3 +32,14 @@ Environment: Windows 11, Python 3.14.6, 16 logical cores, TeX Live 2025, no GPU,
 * `scripts/audit_equivalence.py 2000`, `scripts/audit_taubench.py`, `scripts/audit_swebench.py`, `scripts/sim_extra.py seqm` (2000 reps/cell), `scripts/sim_sequential.py`.
 * `python scripts/make_paper_assets.py`; `latexmk -pdf main.tex` from a clean aux state: 23 pages, no undefined references, no overfull boxes; PDF pages 10, 20–23 inspected as images.
 * CI (docs, site, Docker, Python matrix) was not run.
+
+## S0 rerun in the closure pass (2026-10-28)
+
+* Commit: `1539dfe` plus uncommitted wording edits (no change to simulation code). Python 3.14.6, NumPy/SciPy as installed, Windows 11.
+* Commands (from the repository root, one chain, log in `audit_logs/s0_rerun.log`):
+  `python scripts/sim_coverage.py --reps 2000 --n-boot 1000 --workers 12; python scripts/sim_tests.py --reps 2000 --workers 12; python scripts/sim_design.py; python scripts/sim_ranking.py`
+  (seeds fixed in the scripts; the `sim_coverage` step took 812 s).
+* Comparison: every numeric field in the regenerated `sim_coverage.json` (292), `sim_tests.json` (595), `sim_design.json` (133) and `sim_ranking.json` (116) compared with the committed file; maximum absolute difference **0.0** (bit-identical), excluding the wall-clock `seconds` field. No tolerance was needed. Regenerated files were then discarded (`git checkout`) so only the committed results remain.
+* Contradiction resolved: the manuscript's "re-run unchanged and reproduce exactly" was previously supported only by commit-history inference; it is now supported by this execution. The first audit report's "S0 not rerun" described that audit session only. E1, E2, E3, E6 were **not** rerun in this pass (stored results only); E5 and S4 were rerun in the first audit.
+* Beta-binomial coverage under non-beta mixing (`scripts/audit_bbmix.py`, 500 reps per scenario, 3 workers): profile interval 94.6% (beta), 95.4% (two-point mixture), 96.0% (point mass); task bootstrap 93.8%, 93.6%, 93.4% (MC s.e. about 1 point).
+* Reference lookups (`scripts/check_refs.py`): arXiv API for 16 arXiv entries and Crossref for 14 journal/proceedings entries matched author, title and year; Crossref returns the 2023 online date for Waudby-Smith and Ramdas (print year 2024 kept) and does not index Dror et al. (ACL 2018), Holm (1979) and the classical books (Kish, Cronbach, Brennan, Efron and Tibshirani), which were therefore not verified against a record. Card et al. (EMNLP 2020, DOI 10.18653/v1/2020.emnlp-main.745), Lakens (2017, DOI 10.1177/1948550617697177), Efron (1987, DOI 10.1080/01621459.1987.10478410) and Ramdas et al. (2023, DOI 10.1214/23-sts894) were confirmed by DOI.
