@@ -25,6 +25,35 @@ FloatArray = NDArray[np.float64]
 Decision = Literal["a_better", "b_better", "equivalent", "undecided"]
 
 
+def log_capital(
+    xs: FloatArray, alpha: float, *, grid_size: int = 2001, cap: float = 0.5
+) -> tuple[FloatArray, FloatArray]:
+    """Log of the hedged capital process ``K_t(m)`` on the interior of a grid of candidate means.
+
+    ``K_t(m) = (K+_t(m) + K-_t(m)) / 2`` with ``K+/-_t = prod_{i<=t} (1 +/- lam_i (x_i - m))`` and
+    ``lam_i = min(lam_plugin_i, cap / m)`` (resp. ``cap / (1 - m)``) predictable: it depends on
+    ``x_1..x_{i-1}`` only. With ``cap < 1`` every factor is at least ``1 - cap > 0``, so each of
+    ``K+`` and ``K-`` is a nonnegative martingale when ``E x = m`` and so is their average.
+    Returns ``(grid, log_k)`` where ``log_k[t, j]`` belongs to candidate ``grid[j + 1]``.
+    """
+    n = xs.size
+    t = np.arange(1, n + 1)
+    # predictable plug-in mean/variance estimates use data up to t-1 only
+    prev_mu_all = (0.5 + np.cumsum(xs)) / (t + 1)
+    sq = (xs - prev_mu_all) ** 2
+    sigma2_prev = (0.25 + np.concatenate([[0.0], np.cumsum(sq)[:-1]])) / t
+    lam = np.sqrt(2 * np.log(2 / alpha) / (sigma2_prev * t * np.log1p(t)))
+    grid = np.linspace(0.0, 1.0, grid_size)
+    m = grid[1:-1]
+    lam_p = np.minimum(lam[:, None], cap / m[None, :])
+    lam_m = np.minimum(lam[:, None], cap / (1 - m)[None, :])
+    inc = xs[:, None] - m[None, :]
+    log_kp = np.cumsum(np.log1p(lam_p * inc), axis=0)
+    log_km = np.cumsum(np.log1p(-lam_m * inc), axis=0)
+    log_k = np.logaddexp(log_kp, log_km) - np.log(2.0)  # hedged: average of both bets
+    return grid, log_k
+
+
 def confidence_sequence(
     x: ArrayLike, alpha: float = 0.05, *, grid_size: int = 2001, cap: float = 0.5
 ) -> tuple[FloatArray, FloatArray]:
@@ -32,6 +61,13 @@ def confidence_sequence(
 
     Returns arrays of length ``len(x)``; the bounds are intersected over time so they are
     monotone (lo non-decreasing, hi non-increasing).
+
+    Guarantee: for i.i.d. ``x`` with mean ``mu``, ``P(lo_t <= mu <= hi_t for all t) >= 1 - alpha``
+    up to the grid resolution (the hull of the retained grid points is padded by one grid cell;
+    the padding is a numerical safeguard, not a proof for off-grid means). The interval is the
+    hull of ``{m : K_s(m) < 1/alpha}`` intersected over ``s <= t`` and is therefore a superset
+    of the exact confidence sequence. If no grid point is retained at some time, the previous
+    bounds are kept.
     """
     xs = np.asarray(x, dtype=np.float64)
     if xs.ndim != 1 or xs.size == 0:
@@ -40,20 +76,8 @@ def confidence_sequence(
         raise ValueError("observations must lie in [0, 1]")
     if not 0 < alpha < 1:
         raise ValueError("alpha must be in (0, 1)")
+    grid, log_k = log_capital(xs, alpha, grid_size=grid_size, cap=cap)
     n = xs.size
-    t = np.arange(1, n + 1)
-    # predictable plug-in mean/variance estimates use data up to t-1 only
-    prev_mu_all = (0.5 + np.cumsum(xs)) / (t + 1)
-    sq = (xs - prev_mu_all) ** 2
-    sigma2_prev = (0.25 + np.concatenate([[0.0], np.cumsum(sq)[:-1]])) / t
-    lam = np.sqrt(2 * np.log(2 / alpha) / (sigma2_prev * t * np.log1p(t)))
-    m = np.linspace(0.0, 1.0, grid_size)[1:-1]
-    lam_p = np.minimum(lam[:, None], cap / m[None, :])
-    lam_m = np.minimum(lam[:, None], cap / (1 - m)[None, :])
-    inc = xs[:, None] - m[None, :]
-    log_kp = np.cumsum(np.log1p(lam_p * inc), axis=0)
-    log_km = np.cumsum(np.log1p(-lam_m * inc), axis=0)
-    log_k = np.logaddexp(log_kp, log_km) - np.log(2.0)  # hedged: average of both bets
     keep = log_k < np.log(1 / alpha)
     lo = np.empty(n)
     hi = np.empty(n)
@@ -61,8 +85,11 @@ def confidence_sequence(
     for i in range(n):
         idx = np.flatnonzero(keep[i])
         if idx.size:
-            cur_lo = max(cur_lo, float(m[idx[0]]))
-            cur_hi = min(cur_hi, float(m[idx[-1]]))
+            # The capital process is only evaluated on the grid. Pad the retained hull by one
+            # grid cell so that a candidate mean lying between two grid points is not excluded
+            # merely because its lower/upper neighbour was (grid error <= 1 / (grid_size - 1)).
+            cur_lo = max(cur_lo, float(grid[idx[0]]))
+            cur_hi = min(cur_hi, float(grid[idx[-1] + 2]))
         lo[i], hi[i] = cur_lo, max(cur_hi, cur_lo)
     return lo, hi
 
