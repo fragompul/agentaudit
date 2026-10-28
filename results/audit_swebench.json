@@ -1,0 +1,355 @@
+{
+ "n_entries": 129,
+ "n_instances": 500,
+ "entries_with_no_logs": 41,
+ "no_logs_counts_nonzero": [
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  3,
+  3,
+  3,
+  3,
+  3,
+  3,
+  3,
+  4,
+  4,
+  7,
+  7,
+  47,
+  90
+ ],
+ "entries_s3_cov_but_with_no_logs": [
+  "20240612_MASAI_gpt4o",
+  "20240620_sweagent_claude3.5sonnet",
+  "20240728_sweagent_gpt4o",
+  "20240820_epam-ai-run-gpt-4o",
+  "20240820_honeycomb",
+  "20240824_gru",
+  "20240918_lingma-agent_lingma-swe-gpt-72b",
+  "20240918_lingma-agent_lingma-swe-gpt-7b",
+  "20241002_lingma-agent_lingma-swe-gpt-72b",
+  "20241002_lingma-agent_lingma-swe-gpt-7b",
+  "20241022_tools_claude-3-5-haiku",
+  "20241022_tools_claude-3-5-sonnet-updated",
+  "20241029_OpenHands-CodeAct-2.1-sonnet-20241022",
+  "20241105_nfactorial",
+  "20241120_artemis_agent",
+  "20250110_learn_by_interact_claude3.5",
+  "20250203_openhands_4x_scaled",
+  "20250226_swerl_llama3_70b",
+  "20250228_epam-ai-run-claude-3-5-sonnet",
+  "20250415_openhands",
+  "20250520_openhands_devstral_small",
+  "20250524_openhands_claude_4_sonnet",
+  "20250616_Skywork-SWE-32B",
+  "20250616_Skywork-SWE-32B+TTS_Bo8",
+  "20250623_warp",
+  "20250716_openhands_kimi_k2",
+  "20250725_sweagent_devstral_small_2507",
+  "20250804_codesweep_sweagent_kimi_k2_instruct",
+  "20250901_warp",
+  "20250924_artemis_agent_v2",
+  "20251021_SalesforceAIResearch_SAGE_bash_only",
+  "20251103_SalesforceAIResearch_SAGE_OpenHands",
+  "20251110_frogboss-32b",
+  "20251110_frogmini-14b",
+  "20251120_livesweagent_gemini-3-pro-preview",
+  "20251215_livesweagent_claude-opus-4-5"
+ ],
+ "n_s3_cov": 110,
+ "subsets": {
+  "official": {
+   "n_agents": 129,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 8256,
+   "frac_distinguishable_raw": 0.8670058139534884,
+   "frac_distinguishable_holm": 0.716812015503876,
+   "frac_distinguishable_bh": 0.8636143410852714,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 570,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 837,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.36917562724014336
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 1252,
+     "frac_distinguishable_holm": 0.2595846645367412,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 2062,
+     "frac_distinguishable_holm": 0.9980601357904947,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 3535,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 128,
+    "frac_distinguishable_holm_within_adjacent": 0.0,
+    "frac_distinguishable_raw": 0.015625,
+    "n_distinguishable_holm_all_pairs": 0,
+    "n_distinguishable_raw": 2
+   },
+   "score_range": [
+    0.102,
+    0.792
+   ],
+   "median_gap_needed": 0.23199999999999998,
+   "min_gap_distinguishable": 0.06800000000000006
+  },
+  "complete_logs": {
+   "n_agents": 88,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 3828,
+   "frac_distinguishable_raw": 0.8620689655172413,
+   "frac_distinguishable_holm": 0.7233542319749217,
+   "frac_distinguishable_bh": 0.8581504702194357,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 283,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 414,
+     "frac_distinguishable_holm": 0.0024154589371980675,
+     "frac_distinguishable_raw": 0.4082125603864734
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 586,
+     "frac_distinguishable_holm": 0.38054607508532423,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 980,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 1565,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 87,
+    "frac_distinguishable_holm_within_adjacent": 0.011494252873563218,
+    "frac_distinguishable_raw": 0.011494252873563218,
+    "n_distinguishable_holm_all_pairs": 0,
+    "n_distinguishable_raw": 1
+   },
+   "score_range": [
+    0.158,
+    0.792
+   ],
+   "median_gap_needed": 0.22200000000000003,
+   "min_gap_distinguishable": 0.03200000000000003
+  },
+  "complete_logs+single": {
+   "n_agents": 27,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 351,
+   "frac_distinguishable_raw": 0.7407407407407407,
+   "frac_distinguishable_holm": 0.5925925925925926,
+   "frac_distinguishable_bh": 0.7207977207977208,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 64,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 73,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.6301369863013698
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 27,
+     "frac_distinguishable_holm": 0.7777777777777778,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 36,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 151,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 26,
+    "frac_distinguishable_holm_within_adjacent": 0.15384615384615385,
+    "frac_distinguishable_raw": 0.2692307692307692,
+    "n_distinguishable_holm_all_pairs": 4,
+    "n_distinguishable_raw": 7
+   },
+   "score_range": [
+    0.158,
+    0.792
+   ],
+   "median_gap_needed": 0.31599999999999995,
+   "min_gap_distinguishable": 0.05799999999999994
+  },
+  "s3_cov+complete_logs": {
+   "n_agents": 74,
+   "n_tasks": 500,
+   "alpha": 0.05,
+   "n_pairs": 2701,
+   "frac_distinguishable_raw": 0.8567197334320622,
+   "frac_distinguishable_holm": 0.7078859681599408,
+   "frac_distinguishable_bh": 0.8519067012217697,
+   "by_score_gap": [
+    {
+     "gap_lo": 0.0,
+     "gap_hi": 0.02,
+     "pairs": 206,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.0
+    },
+    {
+     "gap_lo": 0.02,
+     "gap_hi": 0.05,
+     "pairs": 314,
+     "frac_distinguishable_holm": 0.0,
+     "frac_distinguishable_raw": 0.42356687898089174
+    },
+    {
+     "gap_lo": 0.05,
+     "gap_hi": 0.1,
+     "pairs": 463,
+     "frac_distinguishable_holm": 0.4190064794816415,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.1,
+     "gap_hi": 0.2,
+     "pairs": 751,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    },
+    {
+     "gap_lo": 0.2,
+     "gap_hi": 1.0,
+     "pairs": 967,
+     "frac_distinguishable_holm": 1.0,
+     "frac_distinguishable_raw": 1.0
+    }
+   ],
+   "adjacent_pairs": {
+    "n": 73,
+    "frac_distinguishable_holm_within_adjacent": 0.0,
+    "frac_distinguishable_raw": 0.0136986301369863,
+    "n_distinguishable_holm_all_pairs": 0,
+    "n_distinguishable_raw": 1
+   },
+   "score_range": [
+    0.232,
+    0.792
+   ],
+   "median_gap_needed": 0.20199999999999996,
+   "min_gap_distinguishable": 0.06400000000000006
+  },
+  "official_all129": {
+   "n_pairs": 8256,
+   "n_distinguishable_holm": 5918,
+   "frac_distinguishable_holm": 0.716812015503876,
+   "n_distinguishable_raw": 7158
+  },
+  "pairwise_complete_all129": {
+   "n_pairs": 8256,
+   "n_distinguishable_holm": 5891,
+   "frac_distinguishable_holm": 0.7135416666666666,
+   "n_distinguishable_raw": 7141
+  },
+  "robust_bound_all129": {
+   "n_pairs": 8256,
+   "n_distinguishable_holm": 5846,
+   "frac_distinguishable_holm": 0.7080910852713178,
+   "n_distinguishable_raw": 7108
+  }
+ },
+ "pairs_with_unobserved_cells": 4428,
+ "inclusion_threshold": {
+  "files_with_results_json": 135,
+  "excluded_below_50_resolved": [
+   22,
+   2,
+   6,
+   7,
+   35,
+   14
+  ]
+ }
+}
