@@ -217,8 +217,8 @@ def _seq_cell(args: tuple[float, float, int, int]) -> dict[str, Any]:
 
 
 def exp_seqm() -> dict[str, Any]:
-    cells = [(d, m, 10, 500) for d, m in product((0.0, 0.1, 0.2, 0.4), (0.0, 0.03, 0.06, 0.10))]
-    cells += [(d, 0.0, 30, 500) for d in (0.0, 0.2)]
+    cells = [(d, m, 10, 2000) for d, m in product((0.0, 0.1, 0.2, 0.4), (0.0, 0.03, 0.06, 0.10))]
+    cells += [(d, 0.0, 30, 2000) for d in (0.0, 0.2)]
     return {"alpha": 0.05, "budget_tasks": 300, "runs": 3, "cells": _pmap(_seq_cell, cells)}
 
 

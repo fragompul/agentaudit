@@ -50,13 +50,9 @@ def cell(args: tuple[float, float, int]) -> dict:
         miss += bool(np.any((lo > delta + 1e-12) | (hi < delta - 1e-12)))
     inside = abs(delta) <= margin + 1e-12
     wrong = (
-        cnt["a_better"] + cnt["b_better"] + cnt["equivalent"]
-        if False
-        else (
-            (cnt["a_better"] if delta <= margin else 0)
-            + (cnt["b_better"] if delta >= -margin else 0)
-            + (cnt["equivalent"] if not inside else 0)
-        )
+        (cnt["a_better"] if delta <= margin else 0)
+        + (cnt["b_better"] if delta >= -margin else 0)
+        + (cnt["equivalent"] if not inside else 0)
     )
     return {
         "margin": margin,

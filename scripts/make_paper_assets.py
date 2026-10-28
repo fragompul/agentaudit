@@ -400,6 +400,9 @@ def main() -> None:
 
     swebench_robustness(macro, GEN)
     sim_extra(macro, save)
+    from final_audit_assets import final_audit
+
+    final_audit(macro, GEN)
     if (R / "real_main.json").exists():
         from make_real_assets import real_assets
 
