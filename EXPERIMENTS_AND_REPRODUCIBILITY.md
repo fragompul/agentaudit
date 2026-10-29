@@ -12,7 +12,7 @@ repository root with `PYTHONPATH=src` unless the package is installed (`pip inst
 | S0a | Interval coverage (RQ1) | `scripts/sim_coverage.py --reps 2000 --n-boot 1000 --workers 6` | `results/sim_coverage.json` | first version | R (identical) | minutes |
 | S0b | Type-I error of paired tests (RQ1) | `scripts/sim_tests.py --reps 2000 --workers 6` | `results/sim_tests.json` | first version | R (identical) | minutes |
 | S0c | Fixed-budget design (RQ2) | `scripts/sim_design.py` | `results/sim_design.json` | first version | R (identical) | < 1 min |
-| S0d | Sequential vs fixed vs peeking (RQ4) | `scripts/sim_sequential.py` | `results/sim_sequential.json` | first version | R (identical) | minutes |
+| S0d | Sequential vs fixed vs peeking (RQ4) | `scripts/sim_sequential.py` | `results/sim_sequential.json` | first version | R (identical) before the sequential grid fix; regenerated after it (values changed, see FINAL_CHANGELOG.md); current script reproduces the current file bit for bit (2026-10-29, `audit_logs/s4_rerun.log`) | minutes |
 | S0e | Ranking calibration | `scripts/sim_ranking.py` | `results/sim_ranking.json` | first version | R (identical) | minutes |
 | E1 | Weak null with skewed paired differences | `scripts/sim_extra.py asym` | `results/sim_asym.json` | `docs/experiments.md` | R (new) | 90 s |
 | E2 | Tasks vs repeats, interaction, cost ratio, capped pool | `scripts/sim_extra.py alloc` | `results/sim_alloc.json` | same | R (new) | 11 s |
