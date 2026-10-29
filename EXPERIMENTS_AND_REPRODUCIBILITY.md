@@ -2,6 +2,8 @@
 
 Verification levels used throughout: **R** = reproduced end to end in the revision session (re-run from the
 script, compared with the stored result or newly stored); **P** = partially verified; **N** = not rerun.
+**Scope note (final audit).** The levels in this file describe the first revision session. What was repeated in the final audit is stated in `FINAL_REPRODUCIBILITY_REPORT.md`: S0 coverage/type-I/design/ranking, S4, E5 and the equivalence study were rerun; E1, E2, E3 and E6 were not (their level R refers to the first revision only, and E5 was subsequently regenerated with 2000 replications after the sequential grid correction).
+
 Environment: Windows 11, Python 3.14, NumPy/SciPy as installed, TeX Live 2025. Commands are run from the
 repository root with `PYTHONPATH=src` unless the package is installed (`pip install -e ".[dev,plots]"`).
 

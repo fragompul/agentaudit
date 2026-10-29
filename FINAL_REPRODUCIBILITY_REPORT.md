@@ -6,7 +6,7 @@ Environment: Windows 11, Python 3.14.6, 16 logical cores, TeX Live 2025, no GPU,
 
 | Component | 1. Raw outcomes from recorded trajectories | 2. Statistics from raw outcomes | 3. Aggregates → numbers | 4. Aggregates → figures/tables | 5. Independent rerun of the data generation |
 |---|---|---|---|---|---|
-| Simulations S0, E1–E3, E5, E6, S4 | n/a (synthetic, seeded) | Seeded scripts regenerate every cell. **Rerun in this audit: E5, S4** (after the sequential fix). Others not rerun; stored files unchanged. | yes | yes | n/a |
+| Simulations S0, E1–E3, E5, E6, S4 | n/a (synthetic, seeded) | Seeded scripts regenerate every cell. **Rerun in the audit:** S0 coverage/type-I/design/ranking (bit-identical to first version, 2026-10-28); S4 and E5 (after the sequential fix; S4 again on 2026-10-29, identical to current file); equivalence study. **Not rerun:** E1, E2, E3, E6 (stored results of the first revision). | yes | yes | n/a |
 | Audit A equivalence (new) | n/a | `scripts/audit_equivalence.py 2000` (~25 min, 12 workers) | yes | yes | n/a |
 | tau-bench | Public trajectories downloadable (`scripts/fetch_taubench.py`); present in `data/raw/taubench` | **Recomputed in this audit** with `scripts/audit_taubench.py`; all headline values reproduced | yes | yes | not applicable (public data) |
 | SWE-bench Verified | Public result files (`fetch_swebench*.py`); present in `data/raw/swebench_*` | **Recomputed** with `scripts/audit_swebench.py` and `reanalyze_swebench.py`; 129 entries / 8 256 pairs / 71.7% Holm / 0 of 128 adjacent Holm reproduced | yes | yes | not applicable |
@@ -31,7 +31,8 @@ Environment: Windows 11, Python 3.14.6, 16 logical cores, TeX Live 2025, no GPU,
 * `ruff check`/`ruff format --check` clean on `src tests scripts`. `mypy --strict` could not run locally (numpy stub syntax requires Python ≥ 3.12 semantics; same limitation noted in the paper); not run.
 * `scripts/audit_equivalence.py 2000`, `scripts/audit_taubench.py`, `scripts/audit_swebench.py`, `scripts/sim_extra.py seqm` (2000 reps/cell), `scripts/sim_sequential.py`.
 * `python scripts/make_paper_assets.py`; `latexmk -pdf main.tex` from a clean aux state: 23 pages, no undefined references, no overfull boxes; PDF pages 10, 20–23 inspected as images.
-* CI (docs, site, Docker, Python matrix) was not run.
+* CI: not run locally. On 2026-10-29 GitHub Actions ran on PR #19 for commit `f47573a` (run 40861310937): docker, docs, lint-and-types, site pass; the `test (3.11/3.12/3.13)` jobs and the overall conclusion `success` per `gh run list`. The final-pass commit is checked after push (see PR).
+* `mypy --strict src` locally (Python 3.14): fails before checking with `numpy/__init__.pyi:737: error: Type statement is only supported in Python 3.12 and greater [syntax]`; not claimed to pass locally.
 
 ## S0 rerun in the closure pass (2026-10-28)
 

@@ -17,7 +17,7 @@ Previous values are kept in git history (`main`, commit `ed87206`); nothing was 
 | Studentised sign-flip validity | "asymptotically valid (Janssen 1997)" | by analogy with Janssen's two-sample theory, supported by E1 | B3 |
 | Interval recommendation | task-level intervals for R>1 or T≥50 | conditional on the simulated grid; task bootstrap mildly optimistic (91.6–95.5%) there | D2 |
 | Real-data ablation | agreement with full-data ranking as accuracy | internal stability relative to the full sample | G1 |
-| Reproducibility | "every number can be regenerated" | aggregates, simulations and public re-analyses regenerate; local-model run cannot be repeated or recomputed from raw outcomes | F1 |
+| Reproducibility | "every number can be regenerated" | figures/tables regenerate from stored aggregates; S0 (4 components), S4, E5, equivalence repeated, E1-E3/E6 not repeated, public re-analyses recomputed independently by audit scripts; local-model run cannot be repeated or recomputed from raw outcomes | F1 |
 | Related work | CS listed as the method used | CS is WSR (2024) unchanged; contribution is the equivalence rule, audit and simulation | L1 |
 
 Unchanged headline results (S0 coverage, type-I, design and ranking values are bit-identical to the first version; S4 is not, see above): 129 entries, 8 256 pairs, 71.7% separable after Holm, 0 of 128 adjacent positions after Holm (2 unadjusted); tau-bench retail 10.2 points [3.9, 16.5]; coverage 68.3% and run-level McNemar 17.9% (now with MC s.e. 1.0 and 0.9 points); all other S0/E1–E3/E6 simulation values (not rerun).
