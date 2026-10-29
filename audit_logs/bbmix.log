@@ -1,0 +1,3 @@
+{'mixing': 'beta', 'reps': 500, 'beta_binomial_profile_coverage': 0.946, 'beta_binomial_mc_se': 0.010107818755794947, 'task_bootstrap_coverage': 0.938, 'task_bootstrap_mc_se': 0.010784804124322337}
+{'mixing': 'two_point', 'reps': 500, 'beta_binomial_profile_coverage': 0.954, 'beta_binomial_mc_se': 0.009368457717255283, 'task_bootstrap_coverage': 0.936, 'task_bootstrap_mc_se': 0.01094568408095172}
+{'mixing': 'point_mass', 'reps': 500, 'beta_binomial_profile_coverage': 0.96, 'beta_binomial_mc_se': 0.008763560920082661, 'task_bootstrap_coverage': 0.934, 'task_bootstrap_mc_se': 0.01110351295761841}

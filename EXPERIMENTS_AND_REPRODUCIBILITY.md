@@ -2,6 +2,8 @@
 
 Verification levels used throughout: **R** = reproduced end to end in the revision session (re-run from the
 script, compared with the stored result or newly stored); **P** = partially verified; **N** = not rerun.
+**Scope note (final audit).** The levels in this file describe the first revision session. What was repeated in the final audit is stated in `FINAL_REPRODUCIBILITY_REPORT.md`: S0 coverage/type-I/design/ranking, S4, E5 and the equivalence study were rerun; E1, E2, E3 and E6 were not (their level R refers to the first revision only, and E5 was subsequently regenerated with 2000 replications after the sequential grid correction).
+
 Environment: Windows 11, Python 3.14, NumPy/SciPy as installed, TeX Live 2025. Commands are run from the
 repository root with `PYTHONPATH=src` unless the package is installed (`pip install -e ".[dev,plots]"`).
 
@@ -12,7 +14,7 @@ repository root with `PYTHONPATH=src` unless the package is installed (`pip inst
 | S0a | Interval coverage (RQ1) | `scripts/sim_coverage.py --reps 2000 --n-boot 1000 --workers 6` | `results/sim_coverage.json` | first version | R (identical) | minutes |
 | S0b | Type-I error of paired tests (RQ1) | `scripts/sim_tests.py --reps 2000 --workers 6` | `results/sim_tests.json` | first version | R (identical) | minutes |
 | S0c | Fixed-budget design (RQ2) | `scripts/sim_design.py` | `results/sim_design.json` | first version | R (identical) | < 1 min |
-| S0d | Sequential vs fixed vs peeking (RQ4) | `scripts/sim_sequential.py` | `results/sim_sequential.json` | first version | R (identical) | minutes |
+| S0d | Sequential vs fixed vs peeking (RQ4) | `scripts/sim_sequential.py` | `results/sim_sequential.json` | first version | R (identical) before the sequential grid fix; regenerated after it (values changed, see FINAL_CHANGELOG.md); current script reproduces the current file bit for bit (2026-10-29, `audit_logs/s4_rerun.log`) | minutes |
 | S0e | Ranking calibration | `scripts/sim_ranking.py` | `results/sim_ranking.json` | first version | R (identical) | minutes |
 | E1 | Weak null with skewed paired differences | `scripts/sim_extra.py asym` | `results/sim_asym.json` | `docs/experiments.md` | R (new) | 90 s |
 | E2 | Tasks vs repeats, interaction, cost ratio, capped pool | `scripts/sim_extra.py alloc` | `results/sim_alloc.json` | same | R (new) | 11 s |

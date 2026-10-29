@@ -1,0 +1,20 @@
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{1.8cm}rr>{\raggedright\arraybackslash}p{2.7cm}}
+\toprule
+Method & Estimand / null & Type & Retail $p$ (Holm) & Airline $p$ (Holm) & Limitation \\
+\midrule
+Task bootstrap (20k) & mean-score difference; $H_0$: bootstrap re-centred & simulation & 0.002 (0.004) & 0.512 (0.512) & interval is percentile; needs enough tasks \\
+Studentised sign-flip (primary) & mean-score difference; $E[d]=0$ & permutation, MC (100k) & 0.002 (0.005) & 0.545 (0.545) & asymptotic for skewed $d$; one-sample theory not proved \\
+Plain sign-flip & symmetric $d_t$ about 0 & permutation, MC (100k) & 0.002 (0.005) & 0.549 (0.549) & exact only under symmetry \\
+Paired $t$ on task means & mean-score difference; $E[d]=0$ & asymptotic & 0.002 (0.004) & 0.483 (0.483) & normal approximation, 115/50 tasks \\
+Wilcoxon signed-rank & symmetric $d_t$; zeros dropped & asymptotic & 0.004 (0.008) & 0.449 (0.449) & drops tasks with $d_t=0$; different null \\
+Within-task label permutation & identical outcome law per task & permutation, MC (100k) & $2.0\times10^{-5}$ ($4.0\times10^{-5}$) & 0.449 (0.449) & sharp null, stronger than equal means \\
+GEE, identity link, task clusters & mean-score difference & asymptotic (sandwich) & 0.002 (0.003) & 0.475 (0.475) & equals task-level mean test in large samples \\
+GEE, logit link, task clusters & marginal odds ratio & asymptotic (sandwich) & 0.002 (0.004) & 0.475 (0.475) & different scale (odds ratio) \\
+Logistic, task fixed effects & task-conditional odds ratio & asymptotic, cluster-robust & 0.004 (0.009) & 0.506 (0.506) & different estimand; many nuisance parameters \\
+McNemar, majority (2/4 = fail) & difference of majority-success rates & exact binomial & 0.163 (0.326) & 0.267 (0.326) & arbitrary tie rule; run information lost \\
+McNemar, majority, ties dropped & same, on non-tied tasks & exact binomial & 0.096 (0.141) & 0.070 (0.141) & changes the task population \\
+McNemar, pass$^4$ & difference of all-4-succeed rates & exact binomial & 0.003 (0.007) & 1.000 (1.000) & reliability estimand \\
+McNemar, pass@4 & difference of any-of-4 rates & exact binomial & 0.115 (0.231) & 1.000 (1.000) & ceiling-type estimand \\
+Pooled $z$ (runs independent) & two proportions, runs as units & asymptotic & 0.001 (0.002) & 0.480 (0.480) & invalid: ignores clustering and pairing \\
+\bottomrule
+\end{tabular}
