@@ -7,6 +7,6 @@ authors:
     given-names: "Francisco Javier"
 repository-code: "https://github.com/fragompul/agentaudit"
 license: MIT
-version: 0.3.1
+version: 0.3.2
 date-released: 2026-10-29
 keywords: [llm-agents, evaluation, statistics, benchmark, reproducibility]

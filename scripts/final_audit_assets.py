@@ -140,10 +140,10 @@ def final_audit(macro: Callable[[str, str], None], gen: Path) -> None:
         cells = [f"{_p(p)} ({_p(float(a))})" for p, a in zip(ps, adj, strict=True)]
         rows.append(f"{label} & {est} & {nature} & {cells[0]} & {cells[1]} & {lim} \\\\")
     head = (
-        "\\begin{tabular}{>{\\raggedright\\arraybackslash}p{2.3cm}"
-        ">{\\raggedright\\arraybackslash}p{3.1cm}>{\\raggedright\\arraybackslash}p{1.8cm}"
-        "rr>{\\raggedright\\arraybackslash}p{2.7cm}}\n\\toprule\n"
-        "Method & Estimand / null & Type & Retail $p$ (Holm) & Airline $p$ (Holm) "
+        "\\begin{tabular}{>{\\raggedright\\arraybackslash}p{2.35cm}"
+        ">{\\raggedright\\arraybackslash}p{3.0cm}>{\\raggedright\\arraybackslash}p{1.7cm}"
+        "rr>{\\raggedright\\arraybackslash}p{2.6cm}}\n\\toprule\n"
+        "Method & Estimand / null & Type & Retail $p$ & Airline $p$ "
         "& Limitation \\\\\n\\midrule\n"
     )
     (gen / "tab_tau_sensitivity.tex").write_text(
