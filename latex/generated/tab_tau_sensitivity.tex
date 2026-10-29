@@ -1,6 +1,6 @@
-\begin{tabular}{>{\raggedright\arraybackslash}p{2.3cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{1.8cm}rr>{\raggedright\arraybackslash}p{2.7cm}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{2.35cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{1.7cm}rr>{\raggedright\arraybackslash}p{2.6cm}}
 \toprule
-Method & Estimand / null & Type & Retail $p$ (Holm) & Airline $p$ (Holm) & Limitation \\
+Method & Estimand / null & Type & Retail $p$ & Airline $p$ & Limitation \\
 \midrule
 Task bootstrap (20k) & mean-score difference; $H_0$: bootstrap re-centred & simulation & 0.002 (0.004) & 0.512 (0.512) & interval is percentile; needs enough tasks \\
 Studentised sign-flip (primary) & mean-score difference; $E[d]=0$ & permutation, MC (100k) & 0.002 (0.005) & 0.545 (0.545) & asymptotic for skewed $d$; one-sample theory not proved \\

@@ -14,8 +14,28 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 R = Path("results")
-BLUE, ORANGE, AQUA, GREY = "#2a78d6", "#eb6834", "#1baf7a", "#6b6b70"
-CYCLE = [BLUE, ORANGE, AQUA, "#8a5cd0", "#c9a227", GREY, "#d0467a"]
+from paper_style import (  # noqa: E402
+    AMBER,
+    CORAL,
+    INDIGO,
+    SLATE,
+    TEAL,
+    VIOLET,
+    WIDTH,
+    apply,
+    tag,
+)
+
+apply()
+INK_ = "#1c2233"
+BLUE, ORANGE, AQUA = INDIGO, CORAL, TEAL
+SHARE = ["#2b3a8f", "#5b6fd6", "#b9c1f2", "#1c2233"]  # one hue, so shares are not read as models
+CYCLE = [INDIGO, CORAL, TEAL, VIOLET, AMBER, SLATE, "#d0467a"]
+
+
+def _colors(models: list[str]) -> dict[str, str]:
+    """Stable colour per model across all local-model figures (alphabetical order)."""
+    return {m: CYCLE[i % len(CYCLE)] for i, m in enumerate(sorted(models))}
 
 
 def _pct(x: float, d: int = 1) -> str:
@@ -27,8 +47,8 @@ def _tex(s: str) -> str:
 
 
 def _save(fig: plt.Figure, fig_dir: Path, name: str) -> None:
-    fig.savefig(fig_dir / name, bbox_inches="tight")
-    fig.savefig(Path("docs/assets") / name.replace(".pdf", ".svg"), bbox_inches="tight")
+    fig.savefig(fig_dir / name)
+    fig.savefig(Path("docs/assets") / name.replace(".pdf", ".svg"))
     plt.close(fig)
 
 
@@ -36,16 +56,20 @@ def _main_figure(d: dict[str, Any], fig_dir: Path) -> None:
     a = d["analysis"]
     models = sorted(a["models"], key=lambda m: m["score"])
     fig, axes = plt.subplots(
-        1, 3, figsize=(7.4, 2.7), gridspec_kw={"width_ratios": [1.25, 1, 0.8], "wspace": 0.55}
+        1, 3, figsize=(WIDTH, 2.7), gridspec_kw={"width_ratios": [1.3, 1, 0.75]}
     )
+    col = _colors([m["model"] for m in models])
     y = np.arange(len(models))
-    axes[0].hlines(y, [m["lo"] for m in models], [m["hi"] for m in models], color=BLUE, lw=3)
-    axes[0].plot([m["score"] for m in models], y, "o", color=ORANGE, ms=4)
-    axes[0].set_yticks(y, [m["model"] for m in models], fontsize=7)
+    for yi, m in zip(y, models, strict=True):
+        axes[0].hlines(yi, m["lo"], m["hi"], color=col[m["model"]], lw=3, alpha=0.8)
+        axes[0].plot(m["score"], yi, "o", color=col[m["model"]], ms=4.5, zorder=3)
+    axes[0].set_yticks(y, [m["model"] for m in models])
+    axes[0].grid(axis="x")
+    axes[0].grid(axis="y", visible=False)
     axes[0].set_xlabel("success rate (95% task-bootstrap CI)")
     ks = sorted(int(k) for k in models[0]["pass_hat_k"])
-    for i, m in enumerate(sorted(models, key=lambda m: -m["score"])):
-        axes[1].plot(ks, [m["pass_hat_k"][str(k)][0] for k in ks], "-o", ms=3, color=CYCLE[i % 7])
+    for m in sorted(models, key=lambda m: -m["score"]):
+        axes[1].plot(ks, [m["pass_hat_k"][str(k)][0] for k in ks], "-o", color=col[m["model"]])
     axes[1].set_xscale("log")
     axes[1].set_xticks(ks, [str(k) for k in ks])
     axes[1].set_xlabel("k")
@@ -59,38 +83,51 @@ def _main_figure(d: dict[str, Any], fig_dir: Path) -> None:
     ]
     left = 0.0
     for i, (k, lab) in enumerate(keys):
-        axes[2].barh([0], [sh[k]], left=left, color=CYCLE[i], height=0.5, label=lab)
+        axes[2].barh(
+            [0],
+            [sh[k]],
+            left=left,
+            color=SHARE[i],
+            height=0.5,
+            label=lab,
+            edgecolor="white",
+            lw=0.8,
+        )
         left += sh[k]
     axes[2].set_yticks([])
+    axes[2].set_ylim(-1.2, 1.2)
     axes[2].set_xlim(0, 1)
+    axes[2].set_xticks([0, 0.5, 1], ["0", "0.5", "1"])
     axes[2].set_xlabel("share of variance")
-    axes[2].legend(
-        frameon=False, fontsize=6, loc="upper center", bbox_to_anchor=(0.5, -0.3), ncol=2
-    )
+    fig.legend(*axes[2].get_legend_handles_labels(), loc="outside lower center", ncol=4)
     axes[2].grid(False)
+    tag(axes)
     _save(fig, fig_dir, "real_main.pdf")
 
 
 def _profile_figure(d: dict[str, Any], fig_dir: Path) -> None:
     prof, scores = d["profile"], {m["model"]: m["score"] for m in d["analysis"]["models"]}
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.7), gridspec_kw={"wspace": 0.35})
-    for i, (name, p) in enumerate(sorted(prof.items())):
-        c = CYCLE[i % 7]
+    fig, axes = plt.subplots(1, 2, figsize=(WIDTH, 2.7))
+    col = _colors(list(prof))
+    for name, p in sorted(prof.items()):
+        c = col[name]
         axes[0].errorbar(
             p["mean_tokens"] / 1000,
             scores[name],
             yerr=[[scores[name] - p["score_ci"][0]], [p["score_ci"][1] - scores[name]]],
             fmt="o",
             color=c,
-            ms=4,
+            ms=4.5,
             capsize=2,
+            elinewidth=1.1,
             label=name,
         )
-        axes[1].plot(p["mean_latency_s"], scores[name], "o", color=c, ms=4)
+        axes[1].plot(p["mean_latency_s"], scores[name], "o", color=c, ms=4.5)
     axes[0].set_xlabel("mean tokens per run (thousands)")
     axes[0].set_ylabel("success rate")
     axes[1].set_xlabel("mean wall-clock per run (s, 4 parallel)")
-    axes[0].legend(frameon=False, fontsize=6)
+    axes[0].legend(loc="upper right")
+    tag(axes)
     _save(fig, fig_dir, "real_profile.pdf")
 
 
@@ -98,24 +135,25 @@ def _ablation_figure(ab: dict[str, Any], fig_dir: Path) -> None:
     grid = ab["subdesign"]
     runs = sorted({g["runs"] for g in grid})
     sel = [r for r in (1, 3, runs[-1]) if r in runs]
-    fig, axes = plt.subplots(1, 3, figsize=(7.4, 2.5), gridspec_kw={"wspace": 0.45})
+    fig, axes = plt.subplots(1, 3, figsize=(WIDTH, 2.5))
     for i, r in enumerate(sel):
         rows = sorted((g for g in grid if g["runs"] == r), key=lambda g: g["tasks"])
         t = [g["tasks"] for g in rows]
-        axes[0].plot(t, [g["tau_mean"] for g in rows], "-o", ms=3, color=CYCLE[i], label=f"R={r}")
-        axes[1].plot(t, [g["frac_pairs_distinguishable"] for g in rows], "-o", ms=3, color=CYCLE[i])
+        axes[0].plot(t, [g["tau_mean"] for g in rows], "-o", color=CYCLE[i], label=f"R={r}")
+        axes[1].plot(t, [g["frac_pairs_distinguishable"] for g in rows], "-o", color=CYCLE[i])
         ag = [g["sign_agreement_on_full_significant"] for g in rows]
         if all(v is not None for v in ag):
-            axes[2].plot(t, ag, "-o", ms=3, color=CYCLE[i])
-    axes[1].axhline(ab["full"]["frac_pairs_distinguishable"], color=GREY, ls="--", lw=1)
+            axes[2].plot(t, ag, "-o", color=CYCLE[i])
+    axes[1].axhline(ab["full"]["frac_pairs_distinguishable"], color=INK_, ls=(0, (4, 3)), lw=0.8)
     for ax, lab in zip(
         axes,
         ["Kendall τ with full-data ranking", "fraction of pairs separated", "sign agreement"],
         strict=True,
     ):
         ax.set_xlabel("tasks sampled")
-        ax.set_ylabel(lab, fontsize=7)
-    axes[0].legend(frameon=False, fontsize=7)
+        ax.set_ylabel(lab)
+    axes[0].legend(loc="lower right")
+    tag(axes)
     _save(fig, fig_dir, "real_ablation.pdf")
 
 

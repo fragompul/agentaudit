@@ -14,7 +14,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 R = Path("results")
-BLUE, ORANGE, AQUA, GREY = "#2a78d6", "#eb6834", "#1baf7a", "#6b6b70"
+from paper_style import (  # noqa: E402
+    AMBER,
+    CORAL,
+    INDIGO,
+    METHOD,
+    TEAL,
+    VIOLET,
+    WIDTH,
+    refline,
+    tag,
+)
 
 
 def _load(name: str) -> Any:
@@ -35,12 +45,12 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
     for k, nm in zip(meths, ("SF", "SSF", "Boot", "T"), strict=True):
         macro(f"asymMax{nm}", _pct(max(c["reject_rate"][k] for c in a)))
         macro(f"asymMean{nm}", _pct(float(np.mean([c["reject_rate"][k] for c in a]))))
-    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.4), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(WIDTH, 2.4), sharey=True)
     for ax, q in zip(axes, (0.5, 0.1, 0.03), strict=True):
         for k, lab, col in zip(
             meths,
             ("Sign-flip", "Studentised sign-flip", "Paired bootstrap", "Paired $t$"),
-            (BLUE, AQUA, ORANGE, GREY),
+            (VIOLET, TEAL, INDIGO, AMBER),
             strict=True,
         ):
             pts = [
@@ -48,8 +58,8 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
                 for c in a
                 if c["q_big_win"] == q and c["runs"] == 5
             ]
-            ax.plot(*zip(*pts, strict=True), "-o", ms=3, color=col, label=lab)
-        ax.axhline(0.05, color="k", lw=0.8)
+            ax.plot(*zip(*pts, strict=True), "-o", color=col, label=lab)
+        refline(ax, 0.05)
         ax.set_xscale("log")
         ax.minorticks_off()
         ax.set_xticks([20, 50, 100, 300], ["20", "50", "100", "300"])
@@ -58,14 +68,15 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
         ax.set_ylim(0, 0.10)
         ax.set_xlabel("tasks $T$")
     axes[0].set_ylabel("type-I error ($R=5$)")
-    axes[0].legend(fontsize=6, frameon=False, loc="lower right")
+    axes[0].legend(loc="lower right")
+    tag(axes)
     save(fig, "asymmetric_null.pdf")
 
     # E2: allocation
     al = _load("sim_alloc.json")["cells"]
-    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.4), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(WIDTH, 2.4), sharey=True)
     for ax, st in zip(axes, (0.5, 1.5, 2.5), strict=True):
-        for si, col in zip((0.2, 0.6, 1.0), (AQUA, BLUE, ORANGE), strict=True):
+        for si, col in zip((0.2, 0.6, 1.0), (TEAL, INDIGO, CORAL), strict=True):
             c = next(x for x in al if x["sigma_task"] == st and x["sigma_interaction"] == si)
             fb = c["fixed_budget"]
             base = fb[0]["empirical_se"]
@@ -73,18 +84,18 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
                 [r["runs"] for r in fb],
                 [r["empirical_se"] / base for r in fb],
                 "-o",
-                ms=3,
                 color=col,
                 label=f"interaction sd {si}",
             )
-        ax.axhline(1, color="k", lw=0.8)
+        refline(ax, 1)
         ax.set_xscale("log")
         ax.minorticks_off()
         ax.set_xticks([1, 2, 5, 10, 20], ["1", "2", "5", "10", "20"])
         ax.set_title(f"task sd {st}")
         ax.set_xlabel("runs per task $R$")
     axes[0].set_ylabel("SE relative to $R=1$")
-    axes[0].legend(fontsize=6, frameon=False)
+    axes[0].legend(loc="upper left")
+    tag(axes)
     save(fig, "allocation.pdf")
 
     def ratio(c: dict[str, Any]) -> float:
@@ -124,13 +135,13 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
         "covrobRunsOnlyOne",
         _pct(max(c["coverage"]["bootstrap_runs_only"] for c in cv if c["runs"] == 1), 0),
     )
-    fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.6), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(WIDTH, 2.7), sharey=True)
     for ax, st in zip(axes, (0.3, 1.5), strict=True):
         for key, lab, col in (
-            ("wilson_pooled", "Pooled Wilson", ORANGE),
-            ("bootstrap_tasks", "Task bootstrap", BLUE),
-            ("bootstrap_tasks_bca", "Task BCa", GREY),
-            ("beta_binomial_profile", "Beta-binomial", AQUA),
+            ("wilson_pooled", "Pooled Wilson", METHOD["wilson_pooled"]),
+            ("bootstrap_tasks", "Task bootstrap", METHOD["bootstrap_tasks"]),
+            ("bootstrap_tasks_bca", "Task BCa", METHOD["bootstrap_tasks_bca"]),
+            ("beta_binomial_profile", "Beta-binomial", METHOD["beta_binomial_profile"]),
         ):
             for th, mk in zip((-2.5, 0.3, 2.5), ("v", "o", "^"), strict=True):
                 pts = [
@@ -142,18 +153,20 @@ def sim_extra(macro: Callable[[str, str], None], save: Callable[[plt.Figure, str
                     *zip(*pts, strict=True),
                     ls="-",
                     marker=mk,
-                    ms=3,
+                    ms=3.2,
+                    lw=1.2,
                     color=col,
                     label=lab if th == 0.3 else None,
                 )
-        ax.axhline(0.95, color="k", lw=0.8)
+        refline(ax, 0.95)
         ax.set_xscale("log")
         ax.minorticks_off()
         ax.set_xticks([20, 50, 100], ["20", "50", "100"])
         ax.set_xlabel("tasks $T$ ($R=10$)")
-        ax.set_title(f"task sd {st}; markers: low / mid / high prevalence", fontsize=7)
+        ax.set_title(f"task sd {st}; markers: low / mid / high prevalence")
     axes[0].set_ylabel("coverage of 95% interval")
-    axes[0].legend(fontsize=6, frameon=False, loc="lower right")
+    axes[0].legend(loc="lower right", ncol=2)
+    tag(axes)
     save(fig, "coverage_robustness.pdf")
 
     # E5: sequential margins
@@ -211,7 +224,7 @@ def swebench_robustness(macro: Callable[[str, str], None], gen: Path) -> None:
         "single": "One attempt declared",
         "covered+single": "Both",
     }
-    for key, tag in tags.items():
+    for key, tg in tags.items():
         s = d["subsets"][key]
         ad = s["adjacent_pairs"]
         adj = f"{ad['n_distinguishable_holm_all_pairs']}/{ad['n']}"
@@ -219,10 +232,10 @@ def swebench_robustness(macro: Callable[[str, str], None], gen: Path) -> None:
         rows.append(
             f"{labels[key]} & {s['n_agents']} & {100 * s['frac_distinguishable_holm']:.1f} & {adj} & {raw} \\\\"
         )
-        macro(f"swe{tag}N", str(s["n_agents"]))
-        macro(f"swe{tag}FracHolm", _pct(s["frac_distinguishable_holm"]))
-        macro(f"swe{tag}AdjHolm", adj)
-        macro(f"swe{tag}AdjRaw", raw)
+        macro(f"swe{tg}N", str(s["n_agents"]))
+        macro(f"swe{tg}FracHolm", _pct(s["frac_distinguishable_holm"]))
+        macro(f"swe{tg}AdjHolm", adj)
+        macro(f"swe{tg}AdjRaw", raw)
     head = (
         "\\begin{tabular}{lrrrr}\n\\toprule\n"
         "Subset & Entries & Pairs separable (\\%) & Adjacent, Holm & Adjacent, unadjusted \\\\\n\\midrule\n"

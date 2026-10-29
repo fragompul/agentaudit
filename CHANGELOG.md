@@ -2,6 +2,13 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
+## [0.3.2] - 2026-10-29
+
+### Changed
+- Visual polish of the paper (no change to content or results): one figure style (`scripts/paper_style.py`: text-width
+  figures, 8/7 pt type, one colour per method or agent across all figures, hairline grids, shared legends), consistent
+  table typography and float placement, appendix tables kept with their sections.
+
 ## [0.3.1] - 2026-10-29
 
 ### Fixed

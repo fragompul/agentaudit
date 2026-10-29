@@ -22,43 +22,43 @@ With Ollama 0.40.8 (macOS, Apple silicon), the native \texttt{/api/chat} tool-ca
 {\small\verbatiminput{generated/tools_prompt.txt}}
 
 \section{Full coverage table}\label{app:tables}
-\begin{table}[h]
-\centering\small
+\begin{table}[H]
+\centering\footnotesize
 \caption{Coverage (\%) of nominal 95\% intervals for the benchmark score; wilson, CP: pooled binomial intervals; the rest respect the task structure. $T$: tasks, $R$: runs per task.}
 \input{generated/tab_coverage.tex}
 \end{table}
 \section{Local-model results}\label{app:real}
-\begin{table}[h]
-\centering\scriptsize
+\begin{table}[H]
+\centering\footnotesize
 \caption{Local models, \realNTasks{} tasks $\times$ \realNRuns{} runs. Score, pass$^3$, pass$^{10}$ in \%; steps: mean agent turns; step-limit: share of runs ending at the step budget; right columns: success rate (\%) per task family.}
 \input{generated/tab_appendix_real.tex}
 \end{table}
 
 \section{Final audit tables}\label{app:audit}
 \paragraph{Monte Carlo precision.}\label{app:mcse} Every simulated proportion is a Monte Carlo estimate. Table~\ref{tab:mcse} gives the number of replications per cell and the worst-case standard error ($p=\tfrac12$); the standard error at a reported value $\hat p$ is $\sqrt{\hat p(1-\hat p)/\text{reps}}$, so coverage figures should not be read beyond about one decimal and differences of one or two points between methods are within simulation noise in the 400--1000-replication experiments.
-\begin{table}[h]
-\centering\small
+\begin{table}[H]
+\centering\footnotesize
 \caption{Replications per simulation cell and worst-case Monte Carlo standard error.}\label{tab:mcse}
 \input{generated/tab_mcse.tex}
 \end{table}
 
 \paragraph{Sequential equivalence.}\label{app:equiv} Table~\ref{tab:equiv} shows decision rates of the sequential procedure of Section~\ref{sec:method} on a three-point law for the per-task difference, \equivReps{} replications per row and at most 300 tasks, with Clopper--Pearson intervals for the rate of wrong decisions. ``Wrong decision'' counts $a$ better when $\Delta\le\varepsilon$, $b$ better when $\Delta\ge-\varepsilon$ and equivalent when $|\Delta|>\varepsilon$; ``CS miss'' is the rate at which the sequence excludes the true $\Delta$ at some task. The largest observed wrong-decision rate is \equivWrongMax{} (95\% upper limit \equivWrongMaxUpper); the largest rate of false equivalence, with a true difference outside the band, is \equivFalseEquivMax{} (upper limit \equivFalseEquivMaxUpper). These are finite-sample frequencies under one family of laws, consistent with the bound $\alpha=5\%$ but not a proof of it, and they are not themselves guarantees.
-\begin{table}[h]
-\centering\scriptsize
+\begin{table}[!tbp]
+\centering\footnotesize
 \caption{Sequential decisions by margin and true difference (all in percentage points of score, rates in \%).}\label{tab:equiv}
-\resizebox{\linewidth}{!}{\input{generated/tab_equiv.tex}}
+\input{generated/tab_equiv.tex}
 \end{table}
 
 \paragraph{$\tau$-bench sensitivity.}\label{app:taubench} Table~\ref{tab:tau} applies every procedure to the same trajectories. All mean-score procedures use the 115 retail and 50 airline tasks with four trials; each cell gives the raw $p$-value and, in parentheses, the Holm-adjusted value over the two domains; the smallest attainable Monte Carlo permutation $p$-value is $1/100{,}001$. Estimates: retail gap \tauRetailDiff{} points (task bootstrap \tauRetailCI), airline gap \tauAirlineDiff{} points \tauAirlineCI{}; the GEE intervals and odds ratios are in \texttt{results/audit\_taubench.json}. The odds-ratio and majority rows estimate other quantities than the mean-score difference.
-\begin{table}[h]
-\centering\scriptsize
+\begin{table}[!tbp]
+\centering\footnotesize
 \caption{Sensitivity of the $\tau$-bench retail and airline inference to the analysis choice (gpt-4o versus Claude 3.5 Sonnet; raw $p$-values, two-sided).}\label{tab:tau}
-\resizebox{\linewidth}{!}{\input{generated/tab_tau_sensitivity.tex}}
+\input{generated/tab_tau_sensitivity.tex}
 \end{table}
 
 \paragraph{SWE-bench Verified and missing logs.}\label{app:swemissing} Table~\ref{tab:swemissing} separates \texttt{no\_generation} (failure) from \texttt{no\_logs} (unobserved). ``Least favourable filling'' scores the missing cells of the lower-ranked entry of each pair as resolved and those of the higher-ranked entry as unresolved, then applies Holm over all pairs; it is a bound for each pair separately, not a joint scenario.
-\begin{table}[h]
-\centering\scriptsize
+\begin{table}[!tbp]
+\centering\footnotesize
 \caption{SWE-bench Verified: distinguishability under alternative treatments of unobserved instances.}\label{tab:swemissing}
 \input{generated/tab_swe_missing.tex}
 \end{table}

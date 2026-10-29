@@ -4,6 +4,8 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{url}
 \usepackage{array}
+\usepackage{float}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=5pt]{caption}
 \usepackage{booktabs}
 \usepackage{verbatim}
 \usepackage{graphicx}
@@ -11,6 +13,15 @@
 \usepackage{microtype}
 \usepackage{xcolor}
 \input{generated/macros.tex}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\setlength{\textfloatsep}{14pt plus 2pt minus 2pt}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setcounter{topnumber}{3}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
 \newcommand{\REALABSTRACT}{}
 \newcommand{\REALINTRO}{an evaluation of local models}
 \newcommand{\REALFINDINGS}{}
