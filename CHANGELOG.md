@@ -2,6 +2,24 @@
 
 All notable changes are documented here ([Keep a Changelog](https://keepachangelog.com/en/1.1.0/), [SemVer](https://semver.org/)).
 
+## [0.3.1] - 2026-10-29
+
+### Fixed
+- `agentaudit.sequential`: the confidence-sequence hull is widened by one grid cell (the guarantee off the grid is
+  numerical, not exact); `log_capital` is exposed.
+
+### Added
+- Final scientific audit (PR #19): `FINAL_SCIENTIFIC_AUDIT.md`, `FINAL_REPRODUCIBILITY_REPORT.md`, `FINAL_CHANGELOG.md`,
+  `FINAL_TRACEABILITY.md`, `CLAIM_AUDIT.md`; audit scripts (`audit_equivalence.py`, `audit_taubench.py`,
+  `audit_swebench.py`, `audit_bbmix.py`, `check_refs.py`) and tests for the betting capital process, variance
+  components, allocation rule and BCa / two-stage / beta-binomial intervals.
+
+### Changed
+- Paper (24 pages): explicit sequential decision rule and error bound, tau-bench sensitivity table, SWE-bench
+  missing-log analysis, Monte Carlo error reporting, precise reproducibility statement (S0 four components rerun
+  bit for bit; E5, S4 regenerated after the fix; E1-E3, E6 not rerun; local-model raw data unavailable).
+- E5 rerun with 2000 replications; S4 regenerated after the grid fix.
+
 ## [0.3.0] - 2026-10-27
 
 ### Added
